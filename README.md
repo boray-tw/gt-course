@@ -71,3 +71,40 @@ The handouts should be present by 4 ~ 10 days after the class, based on Ray's wo
     1. [TeXstudio](https://www.texstudio.org/)
     1. [TeXworks](https://tug.org/texworks/)
     </details>
+
+### Compilation of TeX Files
+
+<div id="docker-handout"></div>
+
+1.  With Docker, you could compile the main handout `src/handouts/main.tex` in a Docker container.
+
+    ```bash
+    # Linux
+    cd src/build-handouts
+    ./build-handouts.sh
+    ```
+
+    ```bat
+    rem Windows, in Command Prompt (CMD)
+    cd src\build-handouts
+    .\build-handouts-windows.bat
+    ```
+
+1.  Without using Docker, you can also compile the main handout in `src/handouts`. Note that you may need to run `pdflatex` command three or more times to have correct referencing.
+
+    ```bash
+    # with files clustering in the working directory
+    pdflatex main.tex
+
+    # put all compiled files in build/
+    # ..\..\build in Windows
+    mkdir ../../build
+    pdflatex -output-directory="../../build" -file-line-error main.tex
+
+    # see only error messages in Linux
+    # exit code 1 means no error
+    pdflatex -output-directory="../../build" \
+        -file-line-error \
+        main.tex 2>&1 | \
+        grep '^!.*' -A200 --color=always
+    ```
