@@ -1,0 +1,474 @@
+\documentclass[../src/handouts/main.tex]{subfiles}
+% note that the CWD (.) above is the output directory of pdflatex
+% (<repo-root-dir>/build)
+
+% path that contains required images
+\graphicspath{ {../src/handouts/figures/} }
+
+\begin{document}
+
+\section{Introduction and Mathematical Background}
+
+The content in this section is primarily referenced from the appendixes A and B in the textbook: "Mathematical Thinking: Problem-Solving and Proofs, 2nd edition, John P. D'Angelo \& Douglas B. West, ISBN-10: 0-13-014412-6, 2000.
+
+This section is meant to provide useful background for learning graph theory.
+
+\subsection{Sets}
+
+\begin{definition}{}{intro-set-def}
+  (A.1. Definition in text)
+  The objects in a set are its \textbf{elements} or \textbf{members}.
+  When $x$ is an element of $A$, we write $x \in A$ and say "$x$ \textbf{belongs to} $A$".
+  When $x$ is not in $A$, we write $x \notin A$.
+  If every element of a set $B$ belongs to $A$, then $B$ is a \textbf{subset} of $A$, and $A$ \textbf{contains} B; we write $B \subseteq A$ or $A \supseteq B$.
+\end{definition}
+
+\begin{definition}{}{intro-set-equal}
+  (A.3. Definition in text)
+  Sets $A$ and $B$ are \textbf{equal}, written $A = B$, if they have the same elements. The \textbf{empty set}, written $\emptyset$ or $\lbrace \rbrace$ (but not 0), is the unique set with no elements. A \textbf{proper subset} of a set $A$ is a subset that is not $A$ itself.
+\end{definition}
+
+In \cref{def:intro-set-equal}, notice that there is a special case, in ordered sets, if the orders of the sets $A$ are $B$ not identical, they are not equal. However, in unordered sets, it doesn't matter.
+
+As a result, you need to compare the numbers, elements and orders (in ordered sets) to make sure the two sets are equal.
+
+As for the equal sign, $\equiv$ means logical identity. It differs from $=$.
+
+In \cref{def:intro-set-equal}, we say that zero (0) is not an empty set ($\emptyset$), but in formal proofs, especially in graphs, we need to consider all possible cases, including zero edges, zero vertices. Otherwise, the proofs are only examples.
+
+A subset of a set $A$ can be $A$ itself or an empty set. A proper subset of a set $A$ cannot be $A$ itself, but can be an empty set. (This is likely in the exams.)
+
+\begin{remark}{Equality of sets}{intro-equal-sets}
+  (A.4. Remark in text)
+  To prove that $A = B$, we prove that every element of $A$ is in $B$ and that every element of $B$ is in $A$; in other words, $A \subseteq B$ and $B \subseteq A$. It also suffices to turn the description of one set into the description of the other by operations that do not change membership.
+
+  This book proves many characterization theorems for classes of graphs. Such as theorem states that two sets are the same (e.g., the set of bipartite graphs is equal to the set of graphs without odd cycles -- Theorem 1.2.18).
+\end{remark}
+
+As \cref{rem:intro-equal-sets} states, to prove $A = B$, you need to prove both $A \subseteq B$ and $B \subseteq A$ like you do in proving "if and only if" (iff, $\iff$). With only one of the two sides, the answer will be scored half or less.
+
+If you have more than two equal statements, like in Linear Algebra you have 8 equal characteristics, you can use circular proofs. But in Linear Algebra it proves it by two circles with one equality between.
+
+In \cref{rem:intro-equal-sets}, in short, a bipartite graph is a graph with two disjoint and independent sets. An odd cycle is an odd-length cycle.
+
+\begin{remark}{Specifying a set}{intro-specifying-set}
+  (A.5 Remark in text)
+  Given a set $A$, we may want to specify a subset $S$ consisting of the elements of $A$ that satisfy a given condition. To do so, we write "$S = \{ x \in A:\ \text{condition}(x)\}$". We read this as "$S$ is the set of elements $x$ in $A$ such that $x$ satisfies 'condition'". For example, the expression $\{ n \in \N : n^2 \leq 25 \}$ is another way to name the set $\{ 1,\, 2,\, 3,\, 4,\, 5 \}$.
+\end{remark}
+
+\begin{definition}{}{intro-set-shorthand}
+  (A.6. Definition in text)
+  When $a,\, b \in \Z$, we write $\{a,\, \ldots,\, b\}$ to represent $\{ i \in \Z: a \leq i \leq b \}$.
+  When $n \in \N$, we write $[n]$ for $\{1,\, \ldots,\, n\}$; also $[0] = \emptyset$.
+  The set of \textbf{even numbers} is $\{ 2 k : k \in \Z \}$.
+  The set of \textbf{old numbers} is $\{ 2 k + 1 : k \in \Z \}$.
+  The \textbf{parity} of an integer states whether it is even or odd.
+\end{definition}
+
+In \cref{def:intro-set-shorthand}, $[n]$ is similar to $\mathbb{I}_n$ in some other textbooks. Note that the brackets in $[n]$ are not operators like ceiling or flooring. $[0]$ doesn't mean 0, and 0 doesn't mean $\emptyset$.
+
+\begin{definition}{}{intro-partition}
+  (A.7. Definition in text)
+  A \textbf{partition} of a set $A$ is a list $\clistj{A}{k}$ of subsets of $A$ such that each element of $A$ appears in exactly one subset in the list. (no overlapping)
+\end{definition}
+
+Continuing from \cref{def:intro-partition}, in a partition of $A$ into $\clistj{A}{k}$, the sets $\clistj{A}{k}$ in the list can be in one of the following names. They are all the same (except for \textbf{sets}) but used in different scenarios or generations.
+\begin{enumerate}
+  \item \textbf{Blocks} (In combinatorics; blocks has another definition in the graph theory, so this book prevents using this name.)
+  \item \textbf{Classes}
+  \item \textbf{Partite sets} (This is only for the sets in a partition of the vertex set of a graph into independent sets.)
+  \item \textbf{Independent sets}
+  \item \textbf{Sets} (It is not precise enough.)
+\end{enumerate}
+
+\begin{remark}{Conventions about universes}{intro-convensions-universes}
+  (A.8. Remark in text)
+  (Omitted content)
+  When we say only that a number is positive without specifying the number system containing it, we mean that it is a positive real number. Thus, "consider $x > 0$" means "let $x$ be a positive real number", but in "for $n \geq 2$, let $G$ be an $n$-vertex graph" our convention is that $n \in \N$.
+\end{remark}
+
+In \cref{rem:intro-convensions-universes}, $\N$ is a set of nonnegative integers.
+In graph, we usually speak of $n$ as the number of vertices, by context we know that $n$ is a natural number ($n \in \N$ in this text). In the other fields, $n$ may be complex numbers or all integers.
+
+\begin{definition}{}{intro-correspondence}
+  (A.9. Definition in text)
+  A set $A$ is \textbf{finite} if there is a one-to-one correspondence between $A$ and $[n]$ for some $n \in \N \cup \{0\}$. This $n$ is the \textbf{size} of $A$, written $\abs{A}$.
+\end{definition}
+
+In \cref{def:intro-correspondence}, note that 0 is not a set, but $\{ 0 \}$ is a set.
+
+"One-to-one" is ambiguous. it will be covered later, but in brief:
+\begin{enumerate}
+  \item \textbf{One-to-one correspondence} is a \textbf{bijective function}, means the mapping between two sets \textbf{must cover} all points.
+  \item \textbf{One-to-one function} is an \textbf{injective function}, which means the mapping between two sets \textbf{may not cover} all points.
+\end{enumerate}
+
+\begin{definition}{}{intro-set-operations}
+  (A.11. Definition in text)
+  Let $A$ and $B$ be sets.
+  Their \textbf{union} $A \cup B$ consists of all elements in $A$ or in $B$ (or both).
+  Their \textbf{intersection} $A \cap B$ consists of all elements in both $A$ and $B$.
+  Their \textbf{difference} $A - B$ consists of the elements of $A$ that are not in $B$.
+  Their \textbf{symmetric difference} $A \smalltriangleup B$ is the set of elements belonging to exactly one of $A$ or $B$.
+
+  The sets are \textbf{disjoint} if their intersection is the empty set $\emptyset$.
+  If a set $A$ is contained in some universe $U$ under discussion, then the \textbf{complement} $\bar A$ of $A$ is the set of elements of $U$ \textit{not} in $A$.
+
+  \centering
+  \centering
+  \begin{tikzpicture}[
+      yellow/.style = {circle, minimum size=4cm, fill=yellow!50!white},
+      green/.style = {circle, minimum size=4cm, fill=green!50!white},
+      circ/.style = {draw, very thick, circle, minimum size=4cm},
+      rect/.style = {draw, very thick, rectangle, minimum height=6cm, minimum width=9cm},
+      callout/.style = {rectangle, fill=yellow!50!white, anchor=west}
+    ]
+
+    \node[rect] at (0, 0) {};
+
+    \begin{scope}
+      % yellow A - B and B - A
+      \node[yellow] at (-1, 0) {}
+      node[yellow] at (1, 0) {};
+      % call-out
+      \node[callout] at (5, 0) {$\begin{aligned} & A \smalltriangleup B \\ &= (A - B) \cap (B - A) \end{aligned}$};
+      % green A and B
+      \clip (-1, 0) circle (2);
+      \node[green] at (1, 0){};
+    \end{scope}
+
+    \node[circ](A) at (-1, 0) {}
+    node[circ](B) at (1, 0) {};
+
+    \node at (-5, 0) {\textbf{U}}
+    node at (-1, 1.5) {\textbf{A}}
+    node at (1, 1.5) {\textbf{B}}
+    node at (0, 0) {$A \cap B$}
+    node at (-2, 0) {$\stackbelow{A - B}{A \cap \bar B}$}
+    node at (2, 0) {$\stackbelow{B - A}{B \cap \bar A}$}
+    node at (0, -2.5) {$\left( A \cap B \right)^c = \bar {\left( A \cap B \right)}$};
+  \end{tikzpicture}
+\end{definition}
+
+\begin{remark}{}{intro-set-element-number}
+  (A.13. Remark in text)
+  When $A$ and $B$ are sets, $A \smalltriangleup B = (A \cup B) - (A \cap B)$. The union starts with all elements in at least one of $A$ and $B$; we delete those in both.
+
+  When $A$ and $B$ are finite sets, $\abs{A \cup B} + \abs{A \cap B} = \abs{A} + \abs{B}$. Each element of the intersection is counted twice on both sides, each element of the symmetric difference is counted once on both sides, and no other elements are counted.
+\end{remark}
+
+\begin{remark}{}{intro-tuple-ordered-pair}
+  (A.14. Definition in text)
+  A list with entries in $A$ consists of elements of $A$ in a specified order, with repetition allowed. A \textbf{$k$-tuple} is a list with $k$ entries. We write $A^k$ for the set of $k$-tuples with entries in $A$. When $A=\{0,1\}, A^k$ is the set of \textbf{binary $k$-tuples}.
+
+  An \textbf{ordered pair} $(x, y)$ is a list with two entries. The \textbf{cartesian product} of sets $S$ and $T$, written $S \times T$, is the set $\{(x, y): x \in S, y \in T\}$.
+
+  Note that $A^2 = A \times A$ and $A^k = \left\{\left(x_1, \ldots, x_k\right): x_i \in A\right\}$. We read " $x_i$ " as " $x$ sub $i^{\prime}$. When $S = T = \Z$, the cartesian product $S \times T$ is the \textbf{integer lattice} (such a cartesian project covers all integer points on cartesian coordinates, like grids), the set of points in the plane with \textbf{integer coordinates}.
+\end{remark}
+
+For the k-tuple in \cref{rem:intro-tuple-ordered-pair}, for example, if $A = \{0, 1\}$ and $k = 2$, the cartesian product $A^2$ is $\{ (0,\, 0),\, (0,\, 1),\, (1,\, 0),\, (1,\, 1) \}$, where all entries are ordered pairs. For $k = 3$, there will be three numbers in each entry. Since $(0,\, 1)$ differs from $(1,\, 0)$, we call it ordered pairs.
+
+\subsection{Quantifiers and Proofs}
+
+In this part, we have no automatic tools, but our hands to write proofs.
+
+Roughly speaking, a mathematical statement is a statement that can be determined to be true or false.
+This requires correct mathematical grammar, and it requires that variables be "quantified".
+
+Precisely speaking, they are respectively called \textbf{proposition} and \textbf{proposition}, where predicate is so-called first-order logic.
+
+"It is rainy" is a \textbf{proposition}, for we can say this statement is true or false.
+
+The question "do you know my phone number" is not a proposition, but the answer (yes/no) to this question is a proposition.
+
+"Go out" is a imperative, rather than a proposition.
+
+A \textbf{predicate} is "\textbf{for all} $x$ in $S$, the sentence $P(x)$ is true" (for all students in this class, I know their phone number) or "\textbf{for some} $x$ in $S$, the sentence $P(x)$ is true". With a specific range (for all, for some, existing, some, etc.), if we can say it is true or false, this is a predicate.
+
+\begin{definition}{}{intro-quantifiers}
+  (A.15. Definition in text)
+  In the statement "For all $x$ in $S$, $P(x)$ is true", the variable $x$ is \textbf{universally quantified}. We write this as $(\forall x \in S) P(x)$ and say that $\forall$ is a \textbf{universal quantifier}.
+
+  In "For some $x$ in $S$, $P(x)$ is true", the variable $x$ is \textbf{existentially quantified}. We write this as $(\exists x \in S) P(x)$ and say that $\exists$ is an \textbf{existential quantifier}. The set of allowed values for a variable is its \textbf{universe}.
+
+  Note that in the following table, "helpers" may be absent.
+
+  \centering
+  \begin{tabular}{ll|ll}
+    Universal ($\forall$) & (Helpers) & Existential ($\exists$) & (Helpers) \\ \hline
+    for [all], for every  &           & for some                &           \\
+    if                    & then      & there exists            & such that \\
+    whenever, for, given  &           & at least one            & for which \\
+    every, any            & satisfies & some                    & satisfies \\
+    a, arbitrary          & must, is  & has a                   & such that \\
+    let                   & be        &                         &
+  \end{tabular}
+\end{definition}
+
+In the table in \cref{def:intro-quantifiers}, "a graph $\ldots$" and "an integer $\ldots$" without specification of ranges, it means "for all" and is a universal specifier. However, "has a graph $\ldots$" that comes with specification refers to "some" graphs, so "has a" is an existential specifier.
+
+\begin{remark}{}{intro-quantifier-order}
+  (A.17. Remark in text)
+  The meaning of a statement with more than one quantifier depends on their \textbf{order}. Compare these two sentences:
+
+  (1) "For every graph $G$, there exists $m \in \mathbb{N}$ such that every $v \in V(G)$ has degree at most $m$."
+
+  (2) "There exists $m \in \mathbb{N}$ such that for every graph $G$, every $v \in V(G)$ has degree at most $m$."
+
+  The first statement is \textbf{true}; the second is \textbf{false}.
+  Every (finite) graph has a maximum degree, but there is no maximum over all graphs.
+  We write the two sentences in logical notation as
+  $$
+    \begin{aligned}
+      (\forall G)(\exists m \in \mathbb{N})(\forall v \in V(G))\left(d_G(v) \leq m\right) \\
+      (\exists m \in \mathbb{N})(\forall G)(\forall v \in V(G))\left(d_G(v) \leq m\right)
+    \end{aligned}
+  $$
+\end{remark}
+
+\begin{remark}{Negation of quantified statements}{intro-negation}
+  (A.18. Remark in text)
+  The logical symbol for negation is $\neg$. If it is false that all $x \in S$ make $P(x)$ true, then there must be some $x \in S$ such that $P(x)$ is false. Similarly, negating an existentially quantified statement yields a universally quantified negation. In notation,
+
+  $$
+    \begin{aligned}
+      \neg[(\forall x \in S) P(x)] \text{ has the same meaning as } (\exists x \in S)(\neg P(x)). \\
+      \neg[(\exists x \in S) P(x)] \text{ has the same meaning as } (\forall x \in S)(\neg P(x)).
+    \end{aligned}
+  $$
+
+  The universe of quantification does not change when the statement is negated.
+  For example, the false statement in \cref{rem:intro-quantifier-order} was
+
+  $$
+    (\exists m \in \mathbb{N})(\forall G)(\forall v \in V(G))\left(d_G(v) \leq m\right) .
+  $$
+
+  Its negation (which is still false) is the same as
+
+  $$
+    (\forall m \in \mathbb{N})(\exists G)\left[\neg\left((\forall v \in V(G))\left(d_G(v) \leq m\right)\right)\right]
+  $$
+\end{remark}
+
+\begin{definition}{Logical connectives}{intro-logical-connectives}
+  (A.19. Definition in text)
+  In the following table, we define the operations named in the first column by the truth values specified in the last column.
+
+  \centering
+  \begin{tabular}{l|lll}
+    Name          & Symbol         & Meaning                & Condition for truth        \\ \hline
+    Negation      & $\neg P$       & not $P$                & $P$ false                  \\
+    Conjunction   & $P \wedge Q$   & $P$ and $Q$            & both true                  \\
+    Disjunction   & $P \vee Q$     & $P$ or $Q$             & at least one true          \\
+    Biconditional & $P \iff Q$     & $P$ if and only if $Q$ & same truth value           \\
+    Conditional   & $P \implies Q$ & $P$ implies $Q$        & $Q$ true whenever $P$ true
+  \end{tabular}
+\end{definition}
+
+In "conditional operator $P \implies Q$", if we cannot make $P$ true ($P$ is impossible), $P \implies Q$ is still true, and $P \implies Q$ is meaningless. It is like "if we cannot find an evidence to convict you, you are acquitted". It is a vacuous truth, or vacuous pass in computer-aided design (CAD) coming from no requests to make the condition $P$ existing. For example, the TA lied ($\neg P$) that this classroom has ($Q$) a hidden treasure; if we cannot find a treasure ($\neg Q$), we cannot say the TA is lying ($\neg \left( P \implies Q \right)$).
+
+\begin{definition}{}{intro-logical-implication}
+  (A.21. Definition in text) In the conditional statement $P \implies Q$, we call $P$ the \textbf{hypothesis} (precondition, premise) and $Q$ the \textbf{conclusion}. The statement $Q \implies P$ is the \textbf{converse} of $P \implies Q$. $P \implies Q$ is $(\neg P) \lor Q$
+
+  Below we list ways to say $P \implies Q$ in English. (The instructor won't ask you to fill in the blanks in the last two statements given $P \implies Q$ in the exams.)
+  \begin{enumerate}
+    \item If $P$ (is true), then $Q$ (is true).
+    \item $Q$ is true whenever $P$ is true.
+    \item $Q$ is true if $P$ is true.
+    \item $P$ is true only if $Q$ is true.
+    \item \textbf{$P$ is a sufficient condition for $Q$.} (You need to ensure $P$ true before checking $Q$ true, so $P$ true is the prerequisite.)
+    \item \textbf{$Q$ is a necessary condition for $P$.} (Given $P$ true, $Q$ is the deterministic factor to make $P \implies Q$ true or false.)
+  \end{enumerate}
+\end{definition}
+
+\subsubsection{More Examples of Predicate Logic}
+
+Express "Andy and Paul have the same biological maternal grandmother" in logic.
+\begin{enumerate}
+  \item Let $M(x, y)$ denote that $x$ is $y$'s mother. Consider
+        $$
+          \forall x \forall y \forall u \forall v(M(x, y) \land M(y, \text{Andy}) \land M(u, v) \land M(v, \text{Paul}) \implies x = u)
+        $$
+        Do you find out something weird?
+        \begin{enumerate}
+          \item First, not all $x,\, y,\, u,\, v$ satisfy the logical expression above.
+          \item Secondly, without specifying $x$ and $u$ in the precondition, you cannot make $x$ and $y$ identical.
+          \item Lastly, $y,\, \text{Andy},\, v,\, \text{Paul}$ have many mothers in the logical expression.
+        \end{enumerate}
+  \item Let $m(x)$ denote $x$'s biological mother. The following logical expression matches the English version.
+        $$
+          m(m(\text{Andy}))=m(m(\text{Paul})).
+        $$
+        Since everyone has exactly one biological mother, we introduce a function $m(x)$ to denote this fact. This is a unction to capture a single object.
+\end{enumerate}
+
+\subsubsection{Direct, Contrapositive and Contradiction Method}
+
+\begin{remark}{Providing implications}{intro-proving-methods}
+  (A.23. Remark in text)
+  The \textbf{direct method} of proving $P \implies Q$ is to assume that $P$ is true and then to apply mathematical reasoning to deduce that $Q$ is true.
+  When $P$ is "$x \in A$" and $Q$ is $Q(x)$, the direct method considers an \textit{arbitrary} $x \in A$ and deduces $Q(x)$.
+  There is no "proof by example".
+  The proof must apply to every member of $A$ as a possible instance of $x$.
+
+  The \textbf{contrapositive} of $P \implies Q$ is $\neg Q \implies \neg P$. Each of these statements fails only when $P$ is true and $Q$ is false. Thus, they are equivalent; we can prove $P \implies Q$ by proving $\neg Q \implies \neg P$. This is \textbf{contrapositive method}.
+
+  We have observed that $(P \implies Q) \iff \neg \left[ P \land (\neg Q) \right]$.
+  Hence, we can prove $P \implies Q$ by proving that $P$ and $\neg Q$ cannot both be true.
+  We do this by obtaining a contradiction after assuming both $P$ and $\neg Q$.
+  This is the \textbf{method of contradiction}.
+\end{remark}
+
+There are some notes for \cref{rem:intro-proving-methods}:
+\begin{enumerate}
+  \item Contrapositive method means the same logic in the other words instead of reversing the words.
+  \item Although $Q \implies P$ is the \textbf{converse} (like reverse) of $P \implies Q$, the two statements have different meanings, and a \textbf{converse} of $A$ is not a \textbf{contrapositive} of $A$.
+  \item Contrapositive method and contradiction method are indirect proofs.
+  \item The method of \textbf{contradiction} is not the \textbf{contrapositive} method.
+  \item All the three methods work, but you may want to pick a method that you're familiar with and is the shortest proof you need to write. Learn proving methods as many as possible if you don't know which method is the most appropriate. And ensure the order of proving right beforehand.
+  \item This course is not for mathematics or applications, but for proofs. Drop the course as soon as possible if you don't like it.
+\end{enumerate}
+
+\begin{remark}{Biconditional statements}{intro-biconditional}
+  (A.24. Remark in text)
+  The biconditional statement "P \iff Q" has the same meaning as "$(P \implies Q) \land (Q \implies P)$". We read it as "$P$ if and only if $Q$", where "$P \implies Q$ is "$P$ if $Q$", and "$P \implies Q$" is "$P$ only if $Q$".
+\end{remark}
+
+\subsection{Lemma, Theorem, Proposition and Corollary}
+
+The explanations of these four words:
+\begin{enumerate}
+  \item \textbf{Lemma}: It's a premise. It is a lesser statement, and is usually proven to help prove the other statements.
+  \item \textbf{Theorem}: It's a thesis to be proven. Thus, theorem is a major result requiring some efforts.
+  \item \textbf{Proposition}: It's something proposed to be proven (true or false), and typically it takes less effort than a theorem.
+  \item \textbf{Corollary}: It means \textit{gift} in Latin, and it follows easily from a theorem or proposition without much additional work.
+\end{enumerate}
+
+Although these words come before some graphs or paragraphs, it doesn't mean that you need to memorize them, but they are commonly used or crucial in the later paragraphs or subsections.
+
+You shouldn't read a corollary before reading its prerequisite lemma/theorem/proposition.
+
+\subsection{Induction and Recurrence}
+
+\textbf{Well ordering property} (well-ordering principle/theorem) for the natural numbers: every non-empty subset of $N$ has a least (smallest) element.
+This is an \textbf{axiom}, as parts of our intuitive understanding of what $N$ is.
+
+\begin{theorem}{Principle of induction}{intro-induction}
+  (A.25. Theorem in text)
+  For each natural number $n$, let $P(n)$ be a mathematical statement.
+  If properties (1) and (2) below hold, then for each $n \in \N$ the statement $P(n)$ is true.
+  \begin{enumerate}
+    \item P(1) is true.
+    \item For $k \in \N$, $P(k)$ is true, then $P(k + 1)$ is true.
+  \end{enumerate}
+\end{theorem}
+
+\textbf{Proof} of \cref{thm:intro-induction}:
+If $P(n)$ is not true for all $n \in \N$, then the set of natural numbers where it fails is nonempty.
+By the \textbf{well ordering property}, there is a least (smallest) natural number in this set.
+By (1), this number cannot be 1.
+By (2), it cannot be bigger than 1.
+The contradiction implies that $P(n)$ is true for all $n \in \N$.
+
+Notes for \cref{thm:intro-induction}:
+\begin{enumerate}
+  \item The principle of induction relies on the well ordering property of integers. If the base case (basis case or assumption) is wrong, the induction is totally wrong. You should prove the basis before the induction step. Otherwise, garbage in, garbage out.
+  \item In section 1.3, we will talk about induction template and induction trap (pitfall). % TODO: link to section 1.3.
+\end{enumerate}
+
+\begin{proposition}{}{intro-line-region}
+  (A.26. Proposition in text)
+  If $S$ is a set of $n$ lines in the plane such that every two have exactly one common point and no three have a common point, then $S$ cuts the plane into $\left[ 1 + \frac{n (n + 1)}{2} \right]$ regions.
+\end{proposition}
+
+\textbf{Proof} of \cref{prop:intro-line-region}:
+
+We use induction on $n$ to prove the claim for all $n \in \N$.
+Let $P(n)$ be the statement that the claim holds for all such sets of $n$ lines.
+
+Basis step ($P(1)$): With one line the number of regions is 2, which equals $\left[ 1 + \frac{1 (n + 1)}{2} \right]$.
+
+Induction step ($P(k) \implies P(k + 1)$): The statement $P(k)$ is the induction hypothesis. Let $S$ be a set of $k + 1$ lines meeting the conditions. Select a line $L$ in $S$, where the line is the dashed line in \cref{fig:intro-line-region-additional}, and let $S'$ be the set of $k$ lines obtained by deleting $L$ from $S$.
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}[]
+    \draw (0, 3) -- (3, 0);
+    \draw (0, 2) -- (3, 2);
+    \draw[dashed] (0, 0) -- (3, 3);
+  \end{tikzpicture}
+  \caption{An additional line (dashed one) for the demonstration of \cref{prop:intro-line-region}.}
+  \label{fig:intro-line-region-additional}
+\end{figure}
+
+Since $S'$ meets the conditions, the induction hypothesis states that $S'$ cuts the plane into $1 + \frac{k (k + 1)}{2}$ regions.
+When we replace $L$, some regions are cut.
+The increase in the number is the number of regions that $L$ cuts. It moves from one of these regions to another each time it crosses a line in $S'$.
+Since $L$ crosses each line in $S'$ once, then line in $S'$ cut $L$ into $\bm{k + 1}$ \textbf{pieces}. (It is a lemma that a line cuts a region into two)
+Each piece corresponds to a region that $L$ cuts.
+
+Thus, the number of regions formed by $S$ is $k + 1$ more than the number of regions formed by $S'$.
+The number of regions formed by $S$ is
+$$
+  1 + \frac{k (k + 1)}{2} + \bm{(k + 1)} = 1 + \frac{(k + 1)((k + 1) + 1)}{2}.
+$$
+We have proved that $P(k)$ implies $P(k + 1)$.
+
+By the principle of induction, the claim holds for every $n \in \N$.
+
+\subsubsection{Example A.29}
+
+Let $a_1,\, a_2,\, \ldots$ be defined as follows. And our goal is to seek for a formula for $a_n$ in terms of $n$.
+$$
+  \begin{cases}
+    a_1 & = 2                                                   \\
+    a_2 & = 8                                                   \\
+    a_n & = 4 (a_{n - 1} - a_{n - 2}) \ \ \text{for}\, n \geq 3
+  \end{cases}
+$$
+
+We may try to guess a formula that fits the data.
+The definition yields the following three values as follows.
+
+$$
+  \begin{cases}
+    a_3 & = 24  \\
+    a_4 & = 64  \\
+    a_5 & = 160
+  \end{cases}
+$$
+
+All of them satisfy $a_n = n 2^n$.
+Having guessed this as a possible formula for $a_n$, we can try to use induction to prove it.
+
+When $n = 1$, we have $a_1 = 2 = 1 \cdot 2^1$.
+When $n = 2$, we have $a_2 = 8 = 2 \cdot 2^2$.
+In both cases, the formula is correct.
+
+In the induction step, we prove that the desired formula is correct for $n \geq 3$.
+We use the hypothesis that the formula is correct for the preceding instances $n - 1$ and $n - 2$.
+This allows us to compute $a_n$ using its expression in terms of earlier value:
+
+$$
+  \begin{aligned}
+    a_n & = 4 (a_{n - 1} - a_{n - 2})                             \\
+        & = 4 \left[ (n - 1) 2^{n - 1} - (n - 2) 2^{n -2} \right] \\
+        & = (2 n - 2) 2^n - (n - 2) 2^n                           \\
+        & = n 2^n                                                 \\
+  \end{aligned}
+$$
+
+The validity of the formula for $a_n$ allows from its validity for $a_{n -1}$ and $a_{n - 2}$, which completes the proof.
+
+\subsection{Functions}
+
+\subsection{Counting and Binomial Coefficients (Skipped)}
+
+\subsection{Relations}
+
+\subsection{Pigeonhole Principle}
+
+\subsection{Optimization and Complexity}
+
+\end{document}

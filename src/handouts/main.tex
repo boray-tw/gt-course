@@ -1,0 +1,169 @@
+\documentclass[12pt]{article}
+
+% math
+\usepackage{amssymb} % enable \mathbb macro
+\usepackage{bm} % enable \bm for bolded math text
+\usepackage{mathtools} % powerful math macros
+\usepackage{mathabx} % \smalltriangleup
+% reference: https://tex.stackexchange.com/a/43009
+% properly formed argmax and argmin
+\DeclareMathOperator*{\argmax}{arg\,max}%
+\DeclareMathOperator*{\argmin}{arg\,min}%
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+% swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}%
+\makeatother
+% math operators
+% reference: https://tex.stackexchange.com/a/95726
+\newcommand{\R}{\ensuremath{\mathbb{R}}} % read numbers
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}} % integer numbers
+\newcommand{\N}{\ensuremath{\mathbb{N}}} % positive integer numbers
+\newcommand{\Zp}{\ensuremath{\mathbb{Z}^{+}}} % zero or positive integer numbers
+\newcommand{\Zn}{\ensuremath{\mathbb{Z}^{-}}} % zero or negative integer numbers
+\newcommand{\lvec}{\overrightarrow} % long vector
+\newcommand{\clist}[1]{\ensuremath{{#1}_1,\, \ldots,\, {#1}_n}}%
+\newcommand{\clistj}[2]{\ensuremath{{#1}_1,\, \ldots,\, {#1}_{#2}}}%
+\newcommand{\clistij}[3]{\ensuremath{{#1}_{#2},\, \ldots,\, {#1}_{#3}}}%
+% shorter \implies and \iff arrow
+\renewcommand{\implies}{\ensuremath{\Rightarrow}}%
+\renewcommand{\iff}{\ensuremath{\Leftrightarrow}}%
+\renewcommand{\bar}{\ensuremath{\overline}}%
+% reference: https://tex.stackexchange.com/a/471265
+\def\stackbelow#1#2{\underset{\displaystyle\overset{\displaystyle\shortparallel}{#2}}{#1}}
+
+% author affiliations
+\usepackage{authblk}
+
+% British paragraph styles:
+% 1. no tab at the beginning of each paragraph
+% 2. a gap between two adjacent paragraphs.
+\usepackage[english]{babel}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{0.5em}
+% change the title of the table of contents
+% reference: https://tex.stackexchange.com/a/28518
+\addto\captionsenglish{ % "english" matches the language of the package babel
+  \renewcommand{\contentsname}{Table of Contents}%
+}%
+
+% matrix with indices around
+% \usepackage{blkarray}
+
+% format date macros (\today, \DTMnow)
+\usepackage{datetime2}
+
+% set page margins
+\usepackage[a4paper,
+            bindingoffset=.2in,
+            left=.5in,
+            right=.5in,
+            top=.5in,
+            bottom=.5in,
+            footskip=.25in]{geometry}
+
+% plots (not pictures/images from files)
+\usepackage{pgfplots, tikz}
+\pgfplotsset{compat=1.18} % to satisfy pdflatex
+\usetikzlibrary {arrows.meta, positioning}
+
+% pictures/images from files
+\usepackage{graphicx, caption, subcaption}
+\graphicspath{{./figures/}} % path that contains required images
+
+% sub-files: independent files for multiple sections
+\usepackage{subfiles}
+
+% theorem, definition, remark block
+% reference 1: https://tex.stackexchange.com/a/391687
+% reference 2: https://tex.stackexchange.com/a/154994
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\tcbset{%
+red_by/.style    = {enhanced, sharp corners, colback={red!25!white},    parbox=false},
+yellow_bg/.style = {enhanced, sharp corners, colback={yellow!50!white}, parbox=false},
+green_bg/.style  = {enhanced, sharp corners, colback={green!50!white},  parbox=false},
+blue_bg/.style   = {enhanced, sharp corners, colback={blue!50!white},  parbox=false},
+gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white}, parbox=false},
+}%
+% define environment with \newtcbtheorem[init options]{name}{display name}{options}{prefix}
+% use it with \begin{name}{title}{marker}...\end{name}
+\newtcbtheorem[number within=section]{proposition}{Proposition}{red_by}{prop}%
+\newtcbtheorem[number within=section]{theorem}{Theorem}{yellow_bg}{thm}%
+\newtcbtheorem[number within=section]{definition}{Definition}{green_bg}{def}%
+\newtcbtheorem[number within=section]{corollary}{Corollary}{blue_bg}{cor}%
+\newtcbtheorem[number within=section]{remark}{Remark}{gray_bg}{rem}%
+% reference formats
+\usepackage{cleveref}
+\crefformat{tcb@cnt@proposition}{prop.~#2#1#3}%
+\Crefformat{tcb@cnt@proposition}{Prop.~#2#1#3}%
+\crefformat{tcb@cnt@theorem}{thm.~#2#1#3}%
+\Crefformat{tcb@cnt@theorem}{Thm.~#2#1#3}%
+\crefformat{tcb@cnt@definition}{def.~#2#1#3}%
+\Crefformat{tcb@cnt@definition}{Def.~#2#1#3}%
+\crefformat{tcb@cnt@corollary}{cor.~#2#1#3}%
+\Crefformat{tcb@cnt@corollary}{Cor.~#2#1#3}%
+\crefformat{tcb@cnt@remark}{rem.~#2#1#3}%
+\Crefformat{tcb@cnt@remark}{Rem.~#2#1#3}%
+% figures and sub-figures
+% reference 1: https://www.reddit.com/r/LaTeX/comments/173pef7/comment/k468qb9/
+% reference 2: https://tex.stackexchange.com/a/335409
+% reference 3: https://tex.stackexchange.com/a/336259
+\crefformat{figure}{fig.~#2#1#3}%
+\Crefformat{figure}{Fig.~#2#1#3}%
+% \captionsetup[subfigure]{subrefformat=simple,labelformat=simple}
+% \renewcommand\thesubfigure{(\alph{subfigure})}
+% \crefformat{subfigure}{fig.~#2#1#3}
+% \crefformat{subfigure}{Fig.~#2#1#3}
+
+% prepend section number to equations, tables and figures
+\numberwithin{equation}{section}
+\numberwithin{table}{section}
+\numberwithin{figure}{section}
+
+% justifying all paragraphs by default
+\usepackage{ragged2e}
+\justifying
+
+% allow hyphened URLs
+\usepackage[hyphens]{url} 
+
+% colored text
+\newcommand{\supp}[1]{\textcolor{gray}{#1}}%
+
+% get the version number from file "version.txt"
+% properly: https://tex.stackexchange.com/a/204036
+\newcommand\getversionnumber{%
+  \newread\tmp
+  \openin\tmp=version.txt
+  \read\tmp to \versionnumber
+  \closein\tmp
+}
+
+% document metadata
+\title{\huge\textbf{Handouts of Graph Theory}}
+\author[1]{Yean-Ru Chen}
+\author[1]{Bo-Jui Huang}
+\affil[1]{Department of Electrical Engineering, National Cheng Kung University, Taiwan}
+\date{Release: \getversionnumber\versionnumber (\DTMnow)}
+
+% ---- beginning of document ----
+\begin{document}
+
+\maketitle
+
+\pagenumbering{Roman}
+\tableofcontents
+\clearpage
+
+\pagenumbering{arabic}
+\subfile{./sections/introduction}
+\clearpage
+
+\end{document}
