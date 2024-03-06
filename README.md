@@ -129,3 +129,8 @@ As a result, for typos in content or technical problems (Docker, LaTeX, etc.), p
 
 For content correctness related problems (like misleading definitions) or supplementary content (like missing but important theorems or proofs), please [email the instructor](https://www.ee.ncku.edu.tw/teacher/index2.php?teacher_id=162) to get a correct and wanted version before [opening an issue](https://github.com/coding-ray/gt-course/issues).
 
+## Contribution and Development
+
+Contribution like [pull requests](https://github.com/coding-ray/gt-course/pulls) are welcomed.
+
+Please check the [rules and notes](doc/dev-notes.md) before
