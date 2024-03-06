@@ -120,3 +120,12 @@ The handouts should be present by 4 ~ 10 days after the class, based on Ray's wo
     cd src\build-syllabus
     .\build-handouts-windows.bat
     ```
+
+## Reporting Bugs or Supplementary Contents
+
+Ray <[coding-ray](https://github.com/coding-ray)> (黃柏叡) is the primary maintainer of this repo, but the instructor [Yean-Ru Chen](https://www.ee.ncku.edu.tw/en/teacher/index2.php?teacher_id=162) ([陳盈如](https://www.ee.ncku.edu.tw/teacher/index2.php?teacher_id=162)) is the primary provider of the handouts.
+
+As a result, for typos in content or technical problems (Docker, LaTeX, etc.), please contact Ray by [opening an issue](https://github.com/coding-ray/gt-course/issues).
+
+For content correctness related problems (like misleading definitions) or supplementary content (like missing but important theorems or proofs), please [email the instructor](https://www.ee.ncku.edu.tw/teacher/index2.php?teacher_id=162) to get a correct and wanted version before [opening an issue](https://github.com/coding-ray/gt-course/issues).
+
