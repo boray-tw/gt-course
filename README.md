@@ -108,3 +108,15 @@ The handouts should be present by 4 ~ 10 days after the class, based on Ray's wo
         main.tex 2>&1 | \
         grep '^!.*' -A200 --color=always
     ```
+
+1.  To build the syllabus in Linux, you could use the script to build the syllabus in Docker. For Windows, you could modify the script, or compile the syllabus with VS Code and LaTeX Workshop with a [TeX distribution](#install-dependencies-locally).
+    ```bash
+    # Linux
+    cd src/build-syllabus
+    ./build-syllabus.sh
+    ```
+    ```bat
+    rem Windows, in Command Prompt (CMD)
+    cd src\build-syllabus
+    .\build-handouts-windows.bat
+    ```
