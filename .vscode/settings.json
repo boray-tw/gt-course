@@ -1,0 +1,20 @@
+{
+  "latex-workshop.latex.build.forceRecipeUsage": false,
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/build",
+  "latex-workshop.latex.rootFile.useSubFile": true,
+  "latex-workshop.latex.rootFile.doNotPrompt": true,
+  "cSpell.words": [
+    "argmax",
+    "argmin",
+    "Biconditional",
+    "bijective",
+    "colback",
+    "injective",
+    "parbox",
+    "restatable",
+    "subfile"
+  ],
+  "latex-workshop.message.latexlog.exclude": [
+    "Unknown CJK family"
+  ]
+}
