@@ -7,3 +7,67 @@ This repository provides the lecture materials of the course Graph Theory ([GT](
 If you just need the handouts, please check the [latest release](https://github.com/coding-ray/gt-course/releases/latest).
 
 The handouts should be present by 4 ~ 10 days after the class, based on Ray's workloads.
+
+## Getting Started to Edit and Compile Handouts
+
+### Install Docker
+
+1. If you want to set up a working and fast LaTeX environment, you may want to skip this section. Otherwise, for building the handouts once or to isolate LaTeX environments, follow the instructions here.
+
+1. Install Docker Engine by following the [official instructions](https://docs.docker.com/engine/install/).
+
+1. Skip the next section.
+
+### Install Dependencies Locally
+
+1.  If you've set up Docker, you could skip this sections, for the Docker image [rays2/gt-handout-env](https://hub.docker.com/r/rays2/gt-handout-env) handles all the LaTeX-related dependencies.
+
+1.  Install a TeX distribution which provides the [pdfTeX](https://tug.org/applications/pdftex/) engine. If you need to compile the syllabus, the TeX distro needs to provide XeLaTeX.
+
+    > [!TIP]
+    > You could install either [TeX Live](https://www.tug.org/texlive/) or [MikTeX](https://miktex.org/download).
+    >
+    > Some Linux distributions also provide TeX Live packages from the default package manager (like `apt install texlive` or `pacman -S texlive-bin`).
+
+1.  Install the following packages with your TeX distribution.
+
+    <!--
+    When building a Docker image as the environment, the script accesses this package list, so make sure this list covers all required packages to build handouts in a Docker container.
+
+    Also, make sure the div tag is at two lines before the single-line package list.
+    -->
+
+    <div id="package-list"></div>
+
+    ```
+    babel caption cleveref datetime2 environ geometry listings listingsutf8 mathabx mathtools pdfcol pgf pgfplots preprint ragged2e subfiles tcolorbox tikzfill tools
+    ```
+
+    > [!TIP]
+    > With TeX Live, you could use `tlmgr install <packages>`, where `<packages>` is the package list above.
+    >
+    > Replace the package `tools` with `latex-tools` in MikTeX.
+
+1.  (Optional) Install an editor you prefer.
+    <details>
+    <summary>Some editors with LaTeX syntax highlighting (click to expand/hide):</summary>
+
+    Terminal:
+
+    1. [Emacs with AUCTeX](https://tex.stackexchange.com/a/356)
+    1. [Vim/gVim](https://www.vim.org/), [Neovim](https://neovim.io/), [MacVim](https://macvim.org/) (macOS) with [vim-latex](https://vim-latex.sourceforge.net/)
+    1. [Nano](https://www.nano-editor.org/)
+    1. [Sublime Text](https://www.sublimetext.com/)
+
+    Simple GUI:
+
+    1. [Notepadqq](https://notepadqq.com/s/)
+    1. [Notepad++](https://notepad-plus-plus.org/)
+
+    Comprehensive GUI, IDE:
+
+    1. [Visual Studio Code](https://code.visualstudio.com/) (VS Code), [VSCodium](https://vscodium.com/)
+    1. [TexMaker](https://www.xm1math.net/texmaker/)
+    1. [TeXstudio](https://www.texstudio.org/)
+    1. [TeXworks](https://tug.org/texworks/)
+    </details>
