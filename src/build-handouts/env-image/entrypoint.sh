@@ -5,10 +5,11 @@ BUILD_DIR="../../build"
 MAIN_FILE="main.tex"
 
 cd src/handouts
-rm -rf "$BUILD_DIR"/*
 
 if [ ! -d "${BUILD_DIR}" ]; then
   mkdir -p "$BUILD_DIR"
+else
+  rm -rf "${BUILD_DIR}/${MAIN_FILE%.tex}"
 fi
 
 echo "Building ${MAIN_FILE} silently. Only errors will show here."
