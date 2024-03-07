@@ -19,7 +19,7 @@ REPO_ROOT="$(cd ../../../ && pwd)"
 IMAGE_NAME="rays2/gt-handout-env"
 VERSION=$(cat "${REPO_ROOT}/src/handouts/version.txt")
 PACKAGES="$(
-  grep 'id="\?package-list' -A2 "${REPO_ROOT}/README.md" |
+  grep 'id="\?package-list' -A3 "${REPO_ROOT}/README.md" |
     tail -1 |
     xargs echo
 )"
