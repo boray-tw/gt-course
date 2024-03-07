@@ -21,7 +21,7 @@ RUN groupadd -g $GID_USER "${USERNAME}" && \
 # install TeX Live and dependencies with a normal user
 USER ${USERNAME}
 RUN cd /tmp && \
-    wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar zxf - && \
+    wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xz && \
     cd install-tl-* && \
     echo "Installing TeX Live with basic scheme silently..." && \
     perl ./install-tl -q -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
