@@ -20,6 +20,8 @@ RUN groupadd -g $GID_USER "${USERNAME}" && \
 
 # install TeX Live and dependencies with a normal user
 USER ${USERNAME}
+ENV HOME="$HOME_DIR"
+ENV PATH="$HOME/.texlive/bin/x86_64-linux/:$PATH"
 RUN cd /tmp && \
     wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xz && \
     cd install-tl-* && \
@@ -29,10 +31,8 @@ RUN cd /tmp && \
     rm -rf ./*
 
 ARG PACKAGES=mathtools
-ENV HOME="$HOME_DIR"
-ENV PATH="$HOME/.texlive/bin/x86_64-linux/:$PATH"
 RUN echo "Installing TeX Live packages silently: ${PACKAGES}" && \
-    ~/.texlive/bin/x86_64-linux/tlmgr install -q ${PACKAGES}
+    tlmgr install ${PACKAGES}
 
 USER root
 WORKDIR /app

@@ -30,12 +30,12 @@ RUN cd /tmp && \
     echo "Installing TeX Live with basic scheme:" && \
     perl ./install-tl -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
     rm -rf ./* && \
-    $HOME/.texlive/bin/x86_64-linux/tlmgr backup --all --clean
+    tlmgr backup --all --clean
 
 ARG PACKAGES="beamer datetime2 extsizes noto ragged2e tools xecjk"
 RUN echo "Installing TeX Live packages silently: ${PACKAGES}" && \
-    ~/.texlive/bin/x86_64-linux/tlmgr install -q ${PACKAGES} && \
-    ~/.texlive/bin/x86_64-linux/tlmgr backup -q --all --clean=0
+    tlmgr install -q ${PACKAGES} && \
+    tlmgr backup -q --all --clean=0
 
 USER root
 WORKDIR /app
