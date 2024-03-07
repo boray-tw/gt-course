@@ -29,6 +29,7 @@ RUN cd /tmp && \
     cd install-tl-* && \
     echo "Installing TeX Live with basic scheme..." && \
     perl ./install-tl -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
+    tlmgr backup -q --all --clean=0 && \
     rm -rf ./* && \
     tlmgr backup --all --clean
 
@@ -41,8 +42,7 @@ USER root
 WORKDIR /app
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh && \
-    apt autoremove -qqy wget perl
+    apt autopurge -qqy wget perl
 
 USER ${USERNAME}
-WORKDIR /app
 ENTRYPOINT [ "./entrypoint.sh" ]

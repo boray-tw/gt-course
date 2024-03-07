@@ -29,17 +29,19 @@ RUN cd /tmp && \
     cd install-tl-* && \
     echo "Installing TeX Live with basic scheme..." && \
     perl ./install-tl -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
-    cd /tmp && \
+    tlmgr backup -q --all --clean=0 && \
     rm -rf ./*
 
 ARG PACKAGES=mathtools
 RUN echo "Installing TeX Live packages: ${PACKAGES}" && \
-    tlmgr install ${PACKAGES}
+    tlmgr install ${PACKAGES} && \
+    tlmgr backup -q --all --clean=0
 
 USER root
 WORKDIR /app
 COPY entrypoint.sh ./entrypoint.sh
-RUN chmod +x ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh && \
+    apt autopurge -qqy wget perl
 
 USER ${USERNAME}
 ENTRYPOINT [ "./entrypoint.sh" ]
