@@ -18,22 +18,23 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Taipei /etc/localtime && \
 RUN groupadd -g $GID_USER "${USERNAME}" && \
     useradd -m -g "${USERNAME}" -u $UID_USER -s /bin/bash "${USERNAME}"
 
-# change to a normal user
+# install TeX Live and dependencies with a normal user
 USER ${USERNAME}
 ENV HOME="$HOME_DIR"
 ENV PATH="$HOME/.texlive/bin/x86_64-linux/:$PATH"
 ARG INSTALL_TL_URL="https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz"
 RUN cd /tmp && \
+    echo "Downloading TeX Live installer..." && \
     wget -qO- "$INSTALL_TL_URL" --no-check-certificate | tar -xz && \
     cd install-tl-* && \
-    echo "Installing TeX Live with basic scheme:" && \
+    echo "Installing TeX Live with basic scheme..." && \
     perl ./install-tl -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
     rm -rf ./* && \
     tlmgr backup --all --clean
 
 ARG PACKAGES="beamer datetime2 extsizes noto ragged2e tools xecjk"
-RUN echo "Installing TeX Live packages silently: ${PACKAGES}" && \
-    tlmgr install -q ${PACKAGES} && \
+RUN echo "Installing TeX Live packages: ${PACKAGES}" && \
+    tlmgr install ${PACKAGES} && \
     tlmgr backup -q --all --clean=0
 
 USER root

@@ -24,15 +24,16 @@ ENV HOME="$HOME_DIR"
 ENV PATH="$HOME/.texlive/bin/x86_64-linux/:$PATH"
 ARG INSTALL_TL_URL="https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz"
 RUN cd /tmp && \
+    echo "Downloading TeX Live installer..." && \
     wget -qO- "$INSTALL_TL_URL" --no-check-certificate | tar -xz && \
     cd install-tl-* && \
-    echo "Installing TeX Live with basic scheme silently..." && \
-    perl ./install-tl -q -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
+    echo "Installing TeX Live with basic scheme..." && \
+    perl ./install-tl -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
     cd /tmp && \
     rm -rf ./*
 
 ARG PACKAGES=mathtools
-RUN echo "Installing TeX Live packages silently: ${PACKAGES}" && \
+RUN echo "Installing TeX Live packages: ${PACKAGES}" && \
     tlmgr install ${PACKAGES}
 
 USER root
