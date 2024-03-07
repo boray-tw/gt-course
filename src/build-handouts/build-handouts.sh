@@ -18,6 +18,8 @@ if ! [ "$(basename $(pwd))" = "$CORRECT_DIR" ]; then
   exit 1
 fi
 
+mkdir -p "${REPO_ROOT}/build"
+
 docker run --rm -it \
   --name "$CONTAINER_NAME" \
   --mount type=bind,source="${REPO_ROOT}/src/handouts",target=/app/src/handouts,readonly \
