@@ -22,8 +22,9 @@ RUN groupadd -g $GID_USER "${USERNAME}" && \
 USER ${USERNAME}
 ENV HOME="$HOME_DIR"
 ENV PATH="$HOME/.texlive/bin/x86_64-linux/:$PATH"
+ARG INSTALL_TL_URL="https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz"
 RUN cd /tmp && \
-    wget -qO- https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xz && \
+    wget -qO- "$INSTALL_TL_URL" --no-check-certificate | tar -xz && \
     cd install-tl-* && \
     echo "Installing TeX Live with basic scheme silently..." && \
     perl ./install-tl -q -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
