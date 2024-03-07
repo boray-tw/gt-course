@@ -6,9 +6,9 @@
 IMAGE_NAME="rays2/gt-handout-env"
 IMAGE_TAG=latest
 CONTAINER_NAME="gt-handout"
-
-# get required variables to build the handotus
-REPO_ROOT="$(cd ../../ && pwd)"
+REPO_ROOT="$(cd ../../ && pwd)" # absolute path
+BUILD_DIR="build"
+BUILD_PATH="${REPO_ROOT}/${BUILD_DIR}"
 
 CORRECT_DIR=build-handouts
 if ! [ "$(basename $(pwd))" = "$CORRECT_DIR" ]; then
@@ -18,11 +18,11 @@ if ! [ "$(basename $(pwd))" = "$CORRECT_DIR" ]; then
   exit 1
 fi
 
-mkdir -p "${REPO_ROOT}/build"
+mkdir -p "$BUILD_PATH"
 
 docker run --rm -it \
   --name "$CONTAINER_NAME" \
   --mount type=bind,source="${REPO_ROOT}/src/handouts",target=/app/src/handouts,readonly \
-  --mount type=bind,source="${REPO_ROOT}/build",target=/app/build \
+  --mount type=bind,source="$BUILD_PATH",target=/app/build \
   --hostname "$CONTAINER_NAME" \
   "${IMAGE_NAME}:${IMAGE_TAG}"

@@ -6,7 +6,10 @@ MAIN_FILE="main.tex"
 
 cd src/handouts
 rm -rf "$BUILD_DIR"/*
-mkdir -p "$BUILD_DIR"
+
+if [ ! -d "${BUILD_DIR}" ]; then
+  mkdir -p "$BUILD_DIR"
+fi
 
 echo "Building ${MAIN_FILE} silently. Only errors will show here."
 for _ in {1..3}; do
