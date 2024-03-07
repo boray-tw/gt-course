@@ -18,12 +18,12 @@ for _ in {1..3}; do
   # reference: https://tex.stackexchange.com/a/459470
   pdflatex -output-directory="$BUILD_DIR" -halt-on-error main.tex 2>&1 |
     grep '^!.*' -A200 --color=always
+
+  if [ "$?" -eq "0" ]; then
+    # grep gets something (errors)
+    exit 1
+  fi
 done
 
-if [ "$?" -ne "0" ]; then
-  # grep gets nothing, so no error
-  echo "Done!"
-  exit 0
-fi
-
-exit 1
+echo "Done!"
+exit 0
