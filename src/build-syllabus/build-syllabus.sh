@@ -21,7 +21,7 @@ fi
 
 # build the image first if it is not present
 IMAGE_LIST="$(docker images "${IMAGE_NAME}" --format "{{.Repository}}:{{.Tag}}")"
-if [ ! -z "$IMAGE_LIST" ] || [ "$ALWAYS_REBUILD_IMAGE" -eq "y" ]; then
+if [ ! -z "$IMAGE_LIST" ] || [ "$ALWAYS_REBUILD_IMAGE" = "y" ]; then
   ./build-image.sh
 fi
 
