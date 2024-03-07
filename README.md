@@ -34,7 +34,7 @@ The handouts should be present by 4 ~ 10 days after the class, based on Ray's wo
     <!--
     When building a Docker image as the environment, the script accesses this package list, so make sure this list covers all required packages to build handouts in a Docker container.
 
-    Also, make sure the div tag is at two lines before the single-line package list.
+    Also, make sure the div tag is at three lines before the single-line package list.
     -->
 
     <div id="package-list"></div>
