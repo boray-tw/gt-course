@@ -9,6 +9,7 @@ CONTAINER_NAME="gt-handout"
 REPO_ROOT="$(cd ../../ && pwd)" # absolute path
 BUILD_DIR="build"
 BUILD_PATH="${REPO_ROOT}/${BUILD_DIR}"
+ALWAYS_REBUILD_IMAGE="n"
 
 CORRECT_DIR=build-handouts
 if ! [ "$(basename $(pwd))" = "$CORRECT_DIR" ]; then
@@ -19,6 +20,11 @@ if ! [ "$(basename $(pwd))" = "$CORRECT_DIR" ]; then
 fi
 
 mkdir -p "$BUILD_PATH"
+
+if [ "$ALWAYS_REBUILD_IMAGE" = "y" ]; then
+  cd env-image
+  ./build-image.sh
+fi
 
 docker run --rm -it \
   --name "$CONTAINER_NAME" \
