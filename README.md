@@ -23,13 +23,12 @@ The handouts should be present by 4 ~ 10 days after the class, based on Ray's wo
 1.  If you've set up Docker, you could skip this sections, for the Docker image [rays2/gt-handout-env](https://hub.docker.com/r/rays2/gt-handout-env) handles all the LaTeX-related dependencies.
 
 1.  Install a TeX distribution which provides the [pdfTeX](https://tug.org/applications/pdftex/) engine. If you need to compile the syllabus, the TeX distro needs to provide XeLaTeX.
+> [!TIP]
+> You could install either [TeX Live](https://www.tug.org/texlive/) or [MikTeX](https://miktex.org/download).
+>
+> Some Linux distributions also provide TeX Live packages from the default package manager (like `apt install texlive` or `pacman -S texlive-bin`).
 
-    > [!TIP]
-    > You could install either [TeX Live](https://www.tug.org/texlive/) or [MikTeX](https://miktex.org/download).
-    >
-    > Some Linux distributions also provide TeX Live packages from the default package manager (like `apt install texlive` or `pacman -S texlive-bin`).
-
-1.  Install the following packages with your TeX distribution.
+3.  Install the following packages with your TeX distribution.
 
     <!--
     When building a Docker image as the environment, the script accesses this package list, so make sure this list covers all required packages to build handouts in a Docker container.
@@ -43,12 +42,12 @@ The handouts should be present by 4 ~ 10 days after the class, based on Ray's wo
     babel caption cleveref datetime2 environ geometry ifmtarg listings listingsutf8 mathabx mathtools multirow pdfcol pgf pgfplots preprint ragged2e subfiles tcolorbox tikzfill tools wrapfig xifthen
     ```
 
-    > [!TIP]
-    > With TeX Live, you could use `tlmgr install <packages>`, where `<packages>` is the package list above.
-    >
-    > Replace the package `tools` with `latex-tools` in MikTeX.
+> [!TIP]
+> With TeX Live, you could use `tlmgr install <packages>`, where `<packages>` is the package list above.
+>
+> Replace the package `tools` with `latex-tools` in MikTeX.
 
-1.  (Optional) Install an editor you prefer.
+4.  (Optional) Install an editor you prefer.
     <details>
     <summary>Some editors with LaTeX syntax highlighting (click to expand/hide):</summary>
 
