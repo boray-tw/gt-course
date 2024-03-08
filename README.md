@@ -26,7 +26,7 @@ The handouts should be present by 4 ~ 10 days after the class, based on Ray's wo
 > [!TIP]
 > You could install either [TeX Live](https://www.tug.org/texlive/) or [MikTeX](https://miktex.org/download).
 >
-> Some Linux distributions also provide TeX Live packages from the default package manager (like `apt install texlive` or `pacman -S texlive-bin`).
+> Some Linux distributions also provide TeX Live packages from the default package manager (like `apt install texlive` or `pacman -S texlive-bin`, you cannot use `tlmgr` to manage TeX packages).
 
 3.  Install the following packages with your TeX distribution.
 
