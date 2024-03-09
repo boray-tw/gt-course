@@ -100,6 +100,26 @@
 % allow hyphened URLs
 \PassOptionsToPackage{hyphens}{url}
 
+% compact version of itemize
+\newenvironment{itemize*}
+  {\vspace{-1em}
+    \begin{itemize}%
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+  }
+  {\end{itemize}
+    \vspace{-1em}}
+
+% compact version of enumerate
+\newenvironment{enumerate*}
+  {\vspace{-1em}
+    \begin{enumerate}%
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+  }
+  {\end{enumerate}
+    \vspace{-1em}}
+
 % theorem, definition, remark block
 % reference 1: https://tex.stackexchange.com/a/391687
 % reference 2: https://tex.stackexchange.com/a/154994
