@@ -176,7 +176,7 @@ This requires correct mathematical grammar, and it requires that variables be "q
 
 Precisely speaking, they are respectively called \textbf{proposition} and \textbf{predicate}, where predicate is so-called first-order logic.
 
-"It is rainy" is a \textbf{proposition}, for we can say this statement is true or false.
+"It's raining" is a \textbf{proposition}, for we can say this statement is true or false.
 
 The question "do you know my phone number" is not a proposition, but the answer (yes/no) to this question is a proposition.
 
@@ -265,7 +265,12 @@ In the table in \cref{def:intro-quantifiers}, "a graph $\ldots$" and "an integer
   \end{tabular}
 \end{definition}
 
-In "conditional operator $P \implies Q$", if we cannot make $P$ true ($P$ is impossible), $P \implies Q$ is still true, and $P \implies Q$ is meaningless. It is like "if we cannot find an evidence to convict you, you are acquitted". It is a vacuous truth, or vacuous pass in computer-aided design (CAD) coming from no requests to make the condition $P$ existing. For example, the TA lied ($\neg P$) that this classroom has ($Q$) a hidden treasure; if we cannot find a treasure ($\neg Q$), we cannot say the TA is lying ($\neg \left( P \implies Q \right)$).
+In "conditional operator $P \implies Q$", if we cannot make $P$ true ($P$ is impossible), $P \implies Q$ is still true, and $P \implies Q$ is meaningless. It is like "if we cannot find an evidence to convict you, you are acquitted". It is a vacuous truth, or vacuous pass in computer-aided design (CAD) coming from no requests to make the condition $P$ existing. For example, $P \implies Q$, in which:
+\begin{enumerate*}
+  \item $P$ refers to "if TA always tells the truth";
+  \item $Q$ refers to "then TA said that this classroom has a hidden treasure can be truth".
+\end{enumerate*}
+If $P$ is not satisfied; that is, TA does not always tell the truth, then we cannot conclude whether the treasure exists in the classroom or not.
 
 \begin{definition}{}{intro-logical-implication}
   (A.21. Definition in text) In the conditional statement $P \implies Q$, we call $P$ the \textbf{hypothesis} (precondition, premise) and $Q$ the \textbf{conclusion}. The statement $Q \implies P$ is the \textbf{converse} of $P \implies Q$. $P \implies Q$ is $(\neg P) \lor Q$
