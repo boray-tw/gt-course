@@ -9,7 +9,11 @@
 
 \section{Introduction and Mathematical Background}
 
-The content in this section is primarily referenced from the appendixes A and B in the textbook: "Mathematical Thinking: Problem-Solving and Proofs, 2nd edition, John P. D'Angelo \& Douglas B. West, ISBN-10: 0-13-014412-6, 2000.
+References:
+\begin{enumerate}
+  \item Primary: Appendixes A and B in the textbook "Introduction to Graph Theory", 2nd edition, Douglas B. West, ISBN-10: 81-7808-830-4, 2001.
+  \item Secondary: "Mathematical Thinking: Problem-Solving and Proofs", 2nd edition, John P. D'Angelo \& Douglas B. West, ISBN-10: 0-13-014412-6, 2000.
+\end{enumerate}
 
 This section is meant to provide useful background for learning graph theory.
 
@@ -36,13 +40,15 @@ As for the equal sign, $\equiv$ means logical identity. It differs from $=$.
 
 In \cref{def:intro-set-equal}, we say that zero (0) is not an empty set ($\emptyset$), but in formal proofs, especially in graphs, we need to consider all possible cases, including zero edges, zero vertices. Otherwise, the proofs are only examples.
 
-A subset of a set $A$ contains $A$ itself and an empty set. A proper subset of a set $A$ cannot contain $A$ itself, but can contain an empty set. (This is likely in the exams.)
+A subset of a set $A$ \textbf{can} be $A$ itself and an empty set. A proper subset of a set $A$ \textbf{cannot} be $A$ itself, but \textbf{can} be an empty set. (This is likely in the exams.)
+
+\supp{In other words, all subsets of a set $A$ \textbf{include} $A$ itself and an empty set. All proper subsets of a set $A$ \textbf{don't include} $A$ itself, but \textbf{include} an empty set.}
 
 \begin{remark}{Equality of sets}{intro-equal-sets}
   (A.4. Remark in text)
   To prove that $A = B$, we prove that every element of $A$ is in $B$ and that every element of $B$ is in $A$; in other words, $A \subseteq B$ and $B \subseteq A$. It also suffices to turn the description of one set into the description of the other by operations that do not change membership.
 
-  This book proves many characterization theorems for classes of graphs. Such as theorem states that two sets are the same (e.g., the set of bipartite graphs is equal to the set of graphs without odd cycles -- Theorem 1.2.18).
+  This book proves many characterization theorems for classes of graphs. Such a theorem states that two sets are the same (e.g., the set of bipartite graphs is equal to the set of graphs without odd cycles---Theorem 1.2.18).
 \end{remark}
 
 As \cref{rem:intro-equal-sets} states, to prove $A = B$, you need to prove both $A \subseteq B$ and $B \subseteq A$ like you do in proving "if and only if" (iff, $\iff$). With only one of the two sides, the answer will be scored half or less.
@@ -53,7 +59,7 @@ In \cref{rem:intro-equal-sets}, in short, a bipartite graph is a graph with two 
 
 \begin{remark}{Specifying a set}{intro-specifying-set}
   (A.5 Remark in text)
-  Given a set $A$, we may want to specify a subset $S$ consisting of the elements of $A$ that satisfy a given condition. To do so, we write "$S = \{ x \in A:\ \text{condition}(x)\}$". We read this as "$S$ is the set of elements $x$ in $A$ such that $x$ satisfies 'condition'". For example, the expression $\{ n \in \N : n^2 \leq 25 \}$ is another way to name the set $\{ 1,\, 2,\, 3,\, 4,\, 5 \}$.
+  Given a set $A$, we may want to specify a subset $S$ consisting of the elements of $A$ that satisfy a given condition. To do so, we write "$S = \{ x \in A:\ \text{condition}(x)\}$". We read this as "$S$ is the set of elements $x$ in $A$ such that $x$ satisfies 'condition' ". For example, the expression $\{ n \in \N : n^2 \leq 25 \}$ is another way to name the set $\{ 1,\, 2,\, 3,\, 4,\, 5 \}$.
 \end{remark}
 
 \begin{definition}{}{intro-set-shorthand}

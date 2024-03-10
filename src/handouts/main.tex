@@ -35,6 +35,10 @@
 \renewcommand{\implies}{\ensuremath{\Rightarrow}}%
 \renewcommand{\iff}{\ensuremath{\Leftrightarrow}}%
 \renewcommand{\bar}{\ensuremath{\overline}}%
+% restore \leq and \geq to non-slant versions
+% reference: https://math.dartmouth.edu/news-resources/computing/resources_general/symbols-letter.pdf
+\renewcommand{\leq}{\varleq}%
+\renewcommand{\geq}{\vargeq}%
 % reference: https://tex.stackexchange.com/a/471265
 \def\stackbelow#1#2{\underset{\displaystyle\overset{\displaystyle\shortparallel}{#2}}{#1}}
 
