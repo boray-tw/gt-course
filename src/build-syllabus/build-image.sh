@@ -17,7 +17,7 @@ fi
 # where "3" means going up three directories from the CWD
 REPO_ROOT="$(cd ../../ && pwd)"
 IMAGE_NAME="gt-syllabus-env"
-VERSION="$(grep -Po "Release: v\K[0-9.]*" "${REPO_ROOT}/src/handouts/syllabus.tex")"
+VERSION="$(grep -Po "Release: \K[0-9.]*" "${REPO_ROOT}/src/handouts/syllabus.tex")"
 
 # remove_old_images
 IMAGE_LIST="$(docker images "${IMAGE_NAME}" --format "{{.Repository}}:{{.Tag}}")"
