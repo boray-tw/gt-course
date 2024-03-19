@@ -133,4 +133,4 @@ For content correctness related problems (like misleading definitions) or supple
 
 Contribution like [pull requests](https://github.com/coding-ray/gt-course/pulls) are welcomed.
 
-Please check the [rules and notes](doc/dev-notes.md) before
+Please check the [rules and notes](doc/dev-notes.md) in advance.
