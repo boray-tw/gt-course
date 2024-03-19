@@ -357,7 +357,7 @@ You shouldn't read a corollary before reading its prerequisite lemma/theorem/pro
 \textbf{Well ordering property} (well-ordering principle/theorem) for the natural numbers: every non-empty subset of $N$ has a least (smallest) element.
 This is an \textbf{axiom}, as parts of our intuitive understanding of what $N$ is.
 
-\begin{theorem}{Principle of induction}{intro-induction}
+\begin{principle}{Principle of induction (Mathematical induction)}{intro-induction}
   (A.25. Theorem in text)
   For each natural number $n$, let $P(n)$ be a mathematical statement.
   If properties (1) and (2) below hold, then for each $n \in \N$ the statement $P(n)$ is true.
@@ -365,16 +365,16 @@ This is an \textbf{axiom}, as parts of our intuitive understanding of what $N$ i
     \item P(1) is true.
     \item For $k \in \N$, $P(k)$ is true, then $P(k + 1)$ is true.
   \end{enumerate}
-\end{theorem}
+\end{principle}
 
-\textbf{Proof} of \cref{thm:intro-induction}:
+\textbf{Proof} of \cref{princ:intro-induction}:
 If $P(n)$ is not true for all $n \in \N$, then the set of natural numbers where it fails is nonempty.
 By the \textbf{well ordering property}, there is a least (smallest) natural number in this set.
 By (1), this number cannot be 1.
 By (2), it cannot be bigger than 1.
 The contradiction implies that $P(n)$ is true for all $n \in \N$.
 
-Notes for \cref{thm:intro-induction}:
+Notes for \cref{princ:intro-induction}:
 \begin{enumerate}
   \item The principle of induction relies on the well ordering property of integers. If the base case (basis case or assumption) is wrong, the induction is totally wrong. You should prove the basis before the induction step. Otherwise, garbage in, garbage out.
   \item In section 1.3, we will talk about induction template and induction trap (pitfall). % TODO: link to section 1.3.
