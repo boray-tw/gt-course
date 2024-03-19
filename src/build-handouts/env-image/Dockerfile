@@ -29,9 +29,10 @@ RUN cd /tmp && \
     wget -qO- "$INSTALL_TL_URL" --no-check-certificate | tar -xz && \
     cd install-tl-* && \
     echo "Installing TeX Live with basic scheme..." && \
-    perl ./install-tl -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
+    perl ./install-tl -scheme=scheme-basic --no-interaction -texdir="~/.texlive" -no-doc-install -no-src-install && \
     tlmgr backup -q --all --clean=0 && \
     rm -rf "$TL_DOC_PATH" && \
+    find ~/.texlive -name *src* -exec rm {} \; && \
     cd /tmp && \
     rm -rf ./*
 
@@ -40,7 +41,8 @@ ARG PACKAGES=mathtools
 RUN echo "Installing TeX Live packages: ${PACKAGES}" && \
     tlmgr install ${PACKAGES} && \
     tlmgr backup -q --all --clean=0 && \
-    rm -rf "$TL_DOC_PATH"
+    rm -rf "$TL_DOC_PATH" && \
+    find ~/.texlive -name *src* -exec rm {} \;
 
 # patch missing fonts
 ARG SCRIPT_PATCH_FONTS=/tmp/patch-missing-fonts.sh
