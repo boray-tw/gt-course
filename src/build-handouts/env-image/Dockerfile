@@ -30,6 +30,7 @@ RUN cd /tmp && \
     echo "Installing TeX Live with basic scheme..." && \
     perl ./install-tl -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
     tlmgr backup -q --all --clean=0 && \
+    cd /tmp && \
     rm -rf ./*
 
 ARG PACKAGES=mathtools
