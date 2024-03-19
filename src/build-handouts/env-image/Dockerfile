@@ -53,6 +53,7 @@ WORKDIR /app
 COPY entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh && \
     apt autopurge -qqy wget perl
+# after uninstalling perl, you can not use tlmgr command any more
 
 USER ${USERNAME}
 ENTRYPOINT [ "./entrypoint.sh" ]
