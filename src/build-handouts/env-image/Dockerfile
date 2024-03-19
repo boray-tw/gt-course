@@ -35,6 +35,7 @@ RUN cd /tmp && \
     cd /tmp && \
     rm -rf ./*
 
+# install required packages to build the handouts
 ARG PACKAGES=mathtools
 RUN echo "Installing TeX Live packages: ${PACKAGES}" && \
     tlmgr install ${PACKAGES} && \
