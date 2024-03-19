@@ -23,6 +23,7 @@ USER ${USERNAME}
 ENV HOME="$HOME_DIR"
 ENV PATH="$HOME/.texlive/bin/x86_64-linux/:$PATH"
 ARG INSTALL_TL_URL="https://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz"
+ARG TL_DOC_PATH=$HOME/.texlive/texmf-dist/doc/
 RUN cd /tmp && \
     echo "Downloading TeX Live installer..." && \
     wget -qO- "$INSTALL_TL_URL" --no-check-certificate | tar -xz && \
@@ -30,13 +31,15 @@ RUN cd /tmp && \
     echo "Installing TeX Live with basic scheme..." && \
     perl ./install-tl -scheme=scheme-basic --no-interaction -texdir="~/.texlive" && \
     tlmgr backup -q --all --clean=0 && \
+    rm -rf "$TL_DOC_PATH" && \
     cd /tmp && \
     rm -rf ./*
 
 ARG PACKAGES=mathtools
 RUN echo "Installing TeX Live packages: ${PACKAGES}" && \
     tlmgr install ${PACKAGES} && \
-    tlmgr backup -q --all --clean=0
+    tlmgr backup -q --all --clean=0 && \
+    rm -rf "$TL_DOC_PATH"
 
 # patch missing fonts
 ARG SCRIPT_PATCH_FONTS=/tmp/patch-missing-fonts.sh
