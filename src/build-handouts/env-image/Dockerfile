@@ -38,6 +38,12 @@ RUN echo "Installing TeX Live packages: ${PACKAGES}" && \
     tlmgr install ${PACKAGES} && \
     tlmgr backup -q --all --clean=0
 
+# patch missing fonts
+ARG SCRIPT_PATCH_FONTS=/tmp/patch-missing-fonts.sh
+COPY --chown=$USERNAME:$USERNAME ./patch-missing-fonts.sh $SCRIPT_PATCH_FONTS
+RUN $SCRIPT_PATCH_FONTS && \
+    rm -rf /tmp/*
+
 USER root
 WORKDIR /app
 COPY entrypoint.sh ./entrypoint.sh
