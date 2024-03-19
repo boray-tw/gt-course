@@ -37,7 +37,7 @@
 1.  Build the handout-environment image.
 
     ```bash
-    cd src/build-handouts/handout-env-image
+    cd src/build-handouts/env-image
     ./build-handout-env.sh
     ```
 
