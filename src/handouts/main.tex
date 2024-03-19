@@ -11,6 +11,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}%
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
 \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+\DeclarePairedDelimiter\anglebrackets{\langle}{\rangle}%
 % swap the definition of \abs* and \norm*, so that \abs
 % and \norm resizes the size of the brackets, and the 
 % starred version does not
@@ -31,6 +32,8 @@
 \newcommand{\clist}[1]{\ensuremath{{#1}_1,\, \ldots,\, {#1}_n}}%
 \newcommand{\clistj}[2]{\ensuremath{{#1}_1,\, \ldots,\, {#1}_{#2}}}%
 \newcommand{\clistij}[3]{\ensuremath{{#1}_{#2},\, \ldots,\, {#1}_{#3}}}%
+\newcommand{\trans}{\ensuremath{\mathsf{T}}}
+\newcommand{\transpose}[1]{\ensuremath{#1^\mathsf{T}}}
 % shorter \implies and \iff arrow
 \renewcommand{\implies}{\ensuremath{\Rightarrow}}%
 \renewcommand{\iff}{\ensuremath{\Leftrightarrow}}%
@@ -41,6 +44,13 @@
 \renewcommand{\geq}{\vargeq}%
 % reference: https://tex.stackexchange.com/a/471265
 \def\stackbelow#1#2{\underset{\displaystyle\overset{\displaystyle\shortparallel}{#2}}{#1}}
+% ceil and floor
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\set{\lbrace}{\rbrace}
+% utilities
+\newcommand{\func}[3]{\ensuremath{#1:\, #2 \to #3}}%
+\newcommand{\defaultfunc}{\func{f}{A}{B}}%
 
 % author affiliations
 \usepackage{authblk}
