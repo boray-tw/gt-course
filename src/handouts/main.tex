@@ -169,44 +169,79 @@
 \usepackage[most]{tcolorbox}
 \usepackage{xcolor}
 \tcbset{%
-red_by/.style    = {enhanced, sharp corners, colback={red!25!white},    parbox=false},
+white_bg/.style  = {enhanced, sharp corners, colback=white,             parbox=false},
+red_bg/.style    = {enhanced, sharp corners, colback={red!25!white},    parbox=false},
 yellow_bg/.style = {enhanced, sharp corners, colback={yellow!50!white}, parbox=false},
 green_bg/.style  = {enhanced, sharp corners, colback={green!50!white},  parbox=false},
-blue_bg/.style   = {enhanced, sharp corners, colback={blue!50!white},  parbox=false},
-gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white}, parbox=false},
+blue_bg/.style   = {enhanced, sharp corners, colback={blue!50!white},   parbox=false},
+gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=false},
 }%
 % define environment with \newtcbtheorem[init options]{name}{display name}{options}{prefix}
 % use it with \begin{name}{title}{marker}...\end{name}
-\newtcbtheorem[number within=section]{proposition}{Proposition}{red_by}{prop}%
+\newtcbtheorem[number within=section]{example}{Example}{white_bg}{ex}%
+\newtcbtheorem[number within=section]{proposition}{Proposition}{red_bg}{prop}%
 \newtcbtheorem[number within=section]{theorem}{Theorem}{yellow_bg}{thm}%
+\newtcbtheorem[number within=section]{principle}{Principle}{yellow_bg}{princ}%
 \newtcbtheorem[number within=section]{definition}{Definition}{green_bg}{def}%
 \newtcbtheorem[number within=section]{corollary}{Corollary}{blue_bg}{cor}%
 \newtcbtheorem[number within=section]{remark}{Remark}{gray_bg}{rem}%
 % reference formats
 \usepackage{cleveref}
-\crefformat{tcb@cnt@proposition}{prop.~#2#1#3}%
-\Crefformat{tcb@cnt@proposition}{Prop.~#2#1#3}%
-\crefformat{tcb@cnt@theorem}{thm.~#2#1#3}%
-\Crefformat{tcb@cnt@theorem}{Thm.~#2#1#3}%
-\crefformat{tcb@cnt@definition}{def.~#2#1#3}%
-\Crefformat{tcb@cnt@definition}{Def.~#2#1#3}%
-\crefformat{tcb@cnt@corollary}{cor.~#2#1#3}%
-\Crefformat{tcb@cnt@corollary}{Cor.~#2#1#3}%
-\crefformat{tcb@cnt@remark}{rem.~#2#1#3}%
-\Crefformat{tcb@cnt@remark}{Rem.~#2#1#3}%
+% gray hyperlinks n supplement
+% ref: https://tex.stackexchange.com/a/39739
+% ref: https://tex.stackexchange.com/a/133095
+\makeatletter
+\def\grayifsupp#1{
+  \def\@targetenvir{supplement}%
+  \ifx\@targetenvir\@currenvir
+    \textup{%
+      \hypersetup{linkcolor=gray}%
+      #1%
+    }%
+  \else
+  #1
+  \fi%
+}%
+% define a format for both capital and lowercase variants
+\newcommand{\defformat}[3]{%
+  \def\envname{#1}%
+  \def\capitalprefix{#2}%
+  \def\lowercaseprefix{#3}%
+  % in \crefformat and \Crefformat, #1 is the counter;
+  % #2 is counter prefix; #3 is counter suffix.
+  \crefformat{tcb@cnt@\envname}{\grayifsupp{\capitalprefix~#2#1#3}}%
+  \Crefformat{tcb@cnt@\envname}{\grayifsupp{\lowercaseprefix~#2#1#3}}%
+}%
+\makeatother
+% TCB theorem environments
+\defformat{example}{Ex.}{ex.}
+\defformat{proposition}{Prop.}{prop.}
+\defformat{theorem}{Thm.}{thm.}
+\defformat{principle}{Princ.}{princ.}
+\defformat{definition}{Def.}{def.}
+\defformat{corollary}{Cor.}{cor.}
+\defformat{remark}{Rem.}{rem.}
 % figures and sub-figures
 % reference 1: https://www.reddit.com/r/LaTeX/comments/173pef7/comment/k468qb9/
 % reference 2: https://tex.stackexchange.com/a/335409
 % reference 3: https://tex.stackexchange.com/a/336259
-\crefformat{figure}{fig.~#2#1#3}%
-\Crefformat{figure}{Fig.~#2#1#3}%
-% \captionsetup[subfigure]{subrefformat=simple,labelformat=simple}
-% \renewcommand\thesubfigure{(\alph{subfigure})}
-% \crefformat{subfigure}{fig.~#2#1#3}
-% \crefformat{subfigure}{Fig.~#2#1#3}
+\captionsetup[subfigure]{subrefformat=simple,labelformat=simple}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+\defformat{figure}{Fig.}{fig.}
+\defformat{subfigure}{Fig.}{fig.}
+% the other references
+\defformat{equation}{Eq.}{eq.}
+\defformat{table}{Table}{table}
+
+% conditional statements
+% xifthen also provides \isempty
+\usepackage{xifthen}
 
 % colored text
-\newcommand{\supp}[1]{\textcolor{gray}{#1}}%
+% use a environment wrapper for \@currenvir to set, and type multi-line supplements
+% ref: https://tex.stackexchange.com/a/18489
+\newenvironment{supplement}{\color{gray}}{\ignorespacesafterend}%
+\newcommand{\supp}[1]{\begin{supplement}#1\end{supplement}}%
 
 % get the version number from file "version.txt"
 % reference: https://tex.stackexchange.com/a/204036
