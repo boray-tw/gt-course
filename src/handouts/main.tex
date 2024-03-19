@@ -70,6 +70,13 @@
 % matrix with indices around
 % \usepackage{blkarray}
 
+% array (table formatting), multi-column and multi-row in table
+% reference: https://stackoverflow.com/a/63365298
+\usepackage{array, multicol, multirow}
+\newcolumntype{L}{>{\centering\arraybackslash}l} %
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}} %
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}} %
+
 % format date macros (\today, \DTMnow)
 \usepackage{datetime2}
 
