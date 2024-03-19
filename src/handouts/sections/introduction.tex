@@ -5,6 +5,10 @@
 % path that contains required images
 \graphicspath{ {../src/handouts/figures/} }
 
+% This document depends on fundamental-concepts.tex.tex, which provides
+% subsec:con-graph-isomorphism.
+% As a result, compiling only this document gives undefined references.
+
 \begin{document}
 
 \section{Introduction and Mathematical Background}
@@ -97,7 +101,7 @@ In graph, we usually speak of $n$ as the number of vertices, by context we know 
 
 In \cref{def:intro-correspondence}, note that 0 is not a set, but $\{ 0 \}$ is a set.
 
-"One-to-one" is ambiguous. it will be covered later, but in brief:
+"One-to-one" is ambiguous. it will be covered later in \cref{subsec:intro-function} (\cpagerefrange{subsec:intro-function}{subsec:intro-function-end}), but in brief:
 \begin{enumerate}
   \item \textbf{One-to-one correspondence} is a \textbf{bijective function}, means the mapping between two sets \textbf{must cover} all points.
   \item \textbf{One-to-one function} is an \textbf{injective function}, which means the mapping between two sets \textbf{may not cover} all points.
@@ -330,7 +334,7 @@ There are some notes for \cref{rem:intro-proving-methods}:
   \item Although $Q \implies P$ is the \textbf{converse} (like reverse) of $P \implies Q$, the two statements have different meanings, and a \textbf{converse} of $A$ is not a \textbf{contrapositive} of $A$.
   \item Contrapositive method and contradiction method are indirect proofs.
   \item The method of \textbf{contradiction} is not the \textbf{contrapositive} method.
-  \item All the three methods work, but you may want to pick a method that you're familiar with and is the shortest proof you need to write. Learn proving methods as many as possible if you don't know which method is the most appropriate. And ensure the order of proving right beforehand.
+  \item All the three methods work, but you may want to pick a method that you're familiar with and is the shortest proof you need to write. Learn proving methods/techniques as many as possible if you don't know which method is the most appropriate. And ensure the order of proving right beforehand. These tools are useful in writing a thesis.
 \end{enumerate}
 
 \begin{remark}{Biconditional statements}{intro-biconditional}
@@ -364,8 +368,8 @@ You shouldn't read a corollary before reading its prerequisite lemma/theorem/pro
   For each natural number $n$, let $P(n)$ be a mathematical statement.
   If properties (1) and (2) below hold, then for each $n \in \N$ the statement $P(n)$ is true.
   \begin{enumerate}
-    \item P(1) is true.
-    \item For $k \in \N$, $P(k)$ is true, then $P(k + 1)$ is true.
+    \item Base case: P(1) is true.
+    \item Induction: For $k \in \N$, $P(k)$ is true, then $P(k + 1)$ is true.
   \end{enumerate}
 \end{principle}
 
@@ -379,7 +383,10 @@ The contradiction implies that $P(n)$ is true for all $n \in \N$.
 Notes for \cref{princ:intro-induction}:
 \begin{enumerate}
   \item The principle of induction relies on the well ordering property of integers. If the base case (basis case or assumption) is wrong, the induction is totally wrong. You should prove the basis before the induction step. Otherwise, garbage in, garbage out.
-  \item In section 1.3, we will talk about induction template and induction trap (pitfall). % TODO: link to section 1.3.
+  \item The base case is not always 1.
+  \item It's not always to prove $P(\bm{k + 1})$ true under $P(k)$ true. It's possible for you to prove $P(k)$ true under $P(\bm{k - 1})$ true for the ease of proofs; such a case still follows the well-ordering principle which proves the principle of induction.
+  \item Mathematical induction has many variances. $n$ may be in the set of even numbers, or the set of odd numbers; $n$ may be even zero. It all depends on the domain of $n$. In different cases, the base case can differ.
+  \item In section 1.3, we will talk about induction template and induction trap (pitfall). \supp{For the induction trap, in brief, since we don't prove $P(k)$ true ($P(k)$ true is a hypothesis to prove $P(k + 1)$ true), $P(k + 1)$ may be true under an impossible assumption "$P(k)$ true". In section 1.3, you may find a certain upperbound for $n$, so you need to use another technique.} % TODO: link to section 1.3.
 \end{enumerate}
 
 \begin{proposition}{}{intro-line-region}
@@ -396,7 +403,7 @@ Basis step ($P(1)$): With one line the number of regions is 2, which equals $\le
 
 Induction step ($P(k) \implies P(k + 1)$): The statement $P(k)$ is the induction hypothesis. Let $S$ be a set of $k + 1$ lines meeting the conditions. Select a line $L$ in $S$, where the line is the dashed line in \cref{fig:intro-line-region-additional}, and let $S'$ be the set of $k$ lines obtained by deleting $L$ from $S$.
 
-\begin{figure}
+\begin{figure}[ht]
   \centering
   \begin{tikzpicture}[]
     \draw (0, 3) -- (3, 0);
@@ -422,7 +429,12 @@ We have proved that $P(k)$ implies $P(k + 1)$.
 
 By the principle of induction, the claim holds for every $n \in \N$.
 
+\supp{In this proof, it shows the case of $k + 1$ before $k$, and proves from $k$ to $k + 1$. This is common in text.}
+
 \subsubsection{Example A.29}
+
+Recurrent means for a given function $f$, $f(n)$ depends on some of previous results $f(n - 1),\, f(n - 2),\, \ldots$. In spanning trees and graph coloring problems, recurrence is used.
+% TODO: link to spanning trees and graph coloring problems
 
 Let $a_1,\, a_2,\, \ldots$ be defined as follows. And our goal is to seek for a formula for $a_n$ in terms of $n$.
 $$
@@ -466,14 +478,207 @@ $$
 
 The validity of the formula for $a_n$ allows from its validity for $a_{n -1}$ and $a_{n - 2}$, which completes the proof.
 
-\subsection{Functions}
+\subsection{Functions}\label{subsec:intro-function}
+
+\begin{definition}{}{intro-function}
+  (A.30. Definition in text)
+  A \textbf{function} $f$ from a set $A$ to a set $B$ assigns to each $a \in A$ a single element $f(a)$ in $B$, called the \textbf{image} of $a$ under $f$.
+  For a function $f$ from $A$ to $B$ (written \defaultfunc), the set $A$ is the \textbf{domain} and the set $B$ is the \textbf{target} (\textbf{codomain}). The \textbf{image} of a function $f$ with domain $A$ is $\{ f(a):\, a \in A \},$.
+\end{definition}
+
+In brief, a \textbf{function} transforms (maps) elements of one set into elements of another set.
+
+Examples of functions: absolute value function, polynomial function like $x^2 + 1$, \textit{size} of a set, etc. \textit{size} is a function whose domain is the set of finite sets and whose target is $\N \cup \{0\}$.
+
+\begin{definition}{}{intro-floor-ceil-sequence}
+  (A.31. Definition ins text)
+  For $x \in \R$, the \textbf{floor} $\floor{x}$ is the greatest integer that is at most $x$.
+  The \textbf{ceiling} $\ceil{x}$ is the smallest integer that is at least $x$.
+  A \textbf{sequence} is a function $f$ whose domain is $\N$.
+  A \textbf{sequence} is "$a_1,\, a_2,\, a_3,\, \ldots$", where $a_i = f(i)$.
+\end{definition}
+
+For the floor and ceiling functions, you could check \cref{table:intro-ex-floor-ceil} for some examples.
+
+\begin{table}[ht]
+  \def \gap {\\[-0.5em]}
+  \centering
+  \begin{tabular}{ccc}
+    \hline \gap
+    $x$  & Floor $\floor{x}$ & Ceiling $\ceil{x}$ \gap \\ \hline
+    2.4  & 2                 & 3                       \\
+    2    & 2                 & 2                       \\
+    -2.7 & -3                & -2                      \\ \hline
+  \end{tabular}
+  \caption{Examples of floor and ceiling functions}
+  \label{table:intro-ex-floor-ceil}
+\end{table}
+
+\begin{remark}{Schematic representation}{intro-repr}
+  (A.32. Remark in text)
+  A function \defaultfunc is \textbf{defined on} A and \textbf{maps} A into B.
+  To visualize a function \defaultfunc, we draw a region representing $A$ and a region representing B, and from each $x \in A$ we draw an arrow to $f(x)$ in $B$.
+  In diagraph language, this produces an orientation of bipartite graph with partite sets $A$ and $B$ in which every element of $A$ is the tail of exactly one edge (pair $(a, f(a))$).
+
+  \centering
+  %TODO: make the TikZ version
+  \includegraphics[width=.5\textwidth]{intro-function}
+\end{remark}
+
+In \cref{rem:intro-repr}, we can see that \textbf{image} is a subset of \textbf{target}. (See \cref{def:intro-function} for their definition.)
+
+\begin{definition}{}{intro-bijection}
+  (A.33. Definition in text)
+  A function \defaultfunc is a \textbf{bijection} if for every $b \in B$ there is exactly one $a \in A$ such that $f(a) = b$.
+\end{definition}
+
+Relationships between each two of domain, target (codomain) and image can be one of the following three special functions: bijective, surjective and bijective functions.
+
+\begin{reusablefigure}
+  \centering
+  % TODO: make a TikZ version
+  \includegraphics[width=.5\textwidth]{intro-special-functions}
+  \caption{Illustration for three special functions: injective, surjective and bijective functions}
+  \label{fig:intro-special-functions}
+\end{reusablefigure}
+
+\textbf{Injective function} (\textbf{injection (function)}):
+\begin{enumerate*}
+  \item It means each distinct element in its (such a function's) codomain corresponds to an distinct element in its domain, and vice versa. ($x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$)
+  \item It's possible for an injective function to map an element in its codomain to nothing in its domain like the element $C$ in \cref{fig:intro-special-functions}.
+  \item Some books call it "one-to-one function", but don't be confused with "one-to-one correspondence" (bijection).
+\end{enumerate*}
+
+\textbf{Surjective function} (\textbf{surjection (function)}):
+\begin{enumerate*}
+  \item It is also known as an \textbf{onto function}. Onto functions are more commonly used.
+  \item It means every element $y$ in its codomain can find at least one element $x$ in its domain such that $f(x) = y$. So, some elements in its domain may map to the same element in its codomain like 3 and 4 in \cref{fig:intro-special-functions}.
+  \item In other words, its image is equal to its codomain.
+\end{enumerate*}
+
+\textbf{Bijective function} (\textbf{bijection (function)}):
+\begin{enumerate*}
+  \item It is so-called \textbf{one-to-one correspondence}, but don't be confused with the one-to-one function (injection). You could use only bijective function.
+  \item Such a function is both injective and surjective.
+  \item It means the sizes of the its domain and its codomain are identical, and each element in its domain maps to a distinct element in its codomain.
+  \item In \cref{subsec:con-graph-isomorphism}, we may encounter two different-looking graphs with identical structures. To prove two graphs are \textbf{isomorphic}, we utilize the characteristics of the one-to-one correspondence (\textbf{bijective} function) from nodes and edges of a graph to those of the other graph.
+\end{enumerate*}
+\vspace{1em}
+
+\begin{example}{Pairing spouses}{intro-spouse}
+  (A.34. Example in text)
+  Let $M$ be the set of men at a party, and let $W$ be the set of women.
+  If the attendees consist entirely of married couples, then we can define a function \func{f}{M}{W} by letting $f(x)$ be the spouse of $x$.
+  For each woman $w \in W$, there is exactly one $x \in M$ such that $f(x) = w$.
+  Hence, $f$ is a bijection from $M$ to $W$.
+\end{example}
+
+\begin{definition}{}{intro-inverse}
+  (A.35. Definition in text)
+  If $f$ is a bijection from $A$ to $B$, then the \textbf{inverse} of $f$ is the function \func{g}{B}{A} such that, for each $b \in B$, $g(b)$ is the unique element $x \in A$ such that $f(x) = b$.
+  We write $f^{-1}$ for the function $g$.
+\end{definition}
+
+\begin{definition}{}{intro-composition}
+  (A.36. Definition in text)
+  If we have \defaultfunc and \func{g}{B}{C}, then the \textbf{composition} of $g$ with $f$ is a function \func{h}{A}{C} defined by $h(x) = g(f(x))$ for $x \in A$.
+  When $h$ is the composition of $g$ with $f$, we write $h = g \circ f$.
+
+  \centering
+  \includegraphics[width=.3\textwidth]{intro-composition}
+\end{definition}
+
+\label{subsec:intro-function-end}
 
 \subsection{Counting and Binomial Coefficients (Skipped)}
 
+This part is covered in senior high schools.
+
 \subsection{Relations}
+
+Given two objects $s$ and $t$, not necessarily of the same type, we may ask whether they satisfy a given \textbf{relationship}.
+Let $S$ denote the set of objects of the first type, and let $T$ denote the set of objects of the second type.
+Some of the ordered pairs $(s,\, t)$ may satisfy the \textbf{relationship}, and some may not.
+\Cref{def:intro-relation} makes this notion precise.
+
+In brief, a relationship (denoted by $\times$) is between two sets, but no need to be the same type. Functions are relations as well.
+
+\begin{definition}{}{intro-relation}
+  (A.50. Definition)
+  When $S$ and $T$ are sets, a \textbf{relation} between $S$ and $T$ is a subset of the cartesian product $S \times T$ (\cref{rem:intro-tuple-ordered-pair} in \cpageref{rem:intro-tuple-ordered-pair}).
+
+  A \textbf{relation on} $S$ is a subset of $S \times S$.
+\end{definition}
+
+For \cref{def:intro-relation}, in other words, if there is a relation between two sets, such a relationship can be denoted pair by pair (pairwisely).
+
+Note that the subnet of $S \times T$ can be an empty set, one or some of pairs in $S \times T$ and $S \times T$. See \cref{def:intro-set-equal} and its notes in \cpageref{def:intro-set-equal} for more info.
+
+For example, given two sets $D = \{ 1,\, 2\}$ and $C = \{ A,\, B \}$, their possible unordered relations are the cartesian product $D \times C$, which is $(1,\, A),\, (1,\, B),\, (2,\, A),\, (2,\, B)$. If the relations are ordered, there will be $D \times C$ and $C \times D$. Unordered relations are more common. See \cref{rem:intro-tuple-ordered-pair} in \cpageref{rem:intro-tuple-ordered-pair} for more info.
+
+Relations are common for transitions in graphs:
+\begin{enumerate*}
+  \item A graph $G$ consists of vertices $V(G)$ and edges $E(G)$. For some $v \in V(G)$ and $e \in E(G)$, we have the following two kinds of relations.
+  \item \textbf{Incidence relation} is a set of ordered pairs $(v,\, e)$, where vertex $v$ is an endpoint of edge $e$. In brief, it's the relations between each two of vertices and edges.
+  \item \textbf{Adjacency relation} is a relation on $V(G)$ containing the set of ordered vertex pairs $(x,\ y)$ such that $x$ and $y$ are the endpoints of some edge(s). In brief, it's the relations between each two vertices.
+  \item In \cref{fig:intro-relation}, let $S = \left\{ S_1,\, S_2 \right\}$ denote all possible states. All possible relations (transitions) are $S \times S$, which includes four elements in directed graph like in \cref{fig:intro-relation}, but includes three elements in undirected graph (because $(S_1,\, S_2)$ and $(S_2,\, S_1)$ are the same edge).
+  \item If a graph is not a simple graph, there can be multiple edges between some two vertices, and can be multiple loops on some vertices. So, there may be multiple adjacency relation.
+\end{enumerate*}
+
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}[thick,
+      main/.style = {draw, circle, minimum size=10mm},
+      arrow/.style = {-latex},
+      auto]
+    % nodes
+    \node[main] (1) at (0, 0) {$S_1$};
+    \node[main] (2) at (3, 0) {$S_2$};
+
+    % directed edges
+    \draw[arrow] (1) to[bend left=30] node[above] {Transition 1} (2);
+    \draw[arrow] (2) to[bend left=30] node[below] {Transition 2} (1);
+  \end{tikzpicture}
+  \caption{Illustration for relations}
+  \label{fig:intro-relation}
+\end{figure}
+
+\begin{definition}{}{intro-equiv-relation}
+  (A.52. Definition in text)
+  An \textbf{equivalence relation} on a set $S$ is a relation $R$ on $S$ such that for all choices of distinct $x,\, y,\,z \in S$ satisfy the following three properties:
+  \begin{enumerate*}
+    \item \textbf{Reflexive property}: $(x,\, x) \in R$.
+    \item \textbf{Symmetric property}: $(x,\, y) \in R$ implies $(y,\, x) \in R$.
+    \item \textbf{Transitive property}: $(x,\, y) \in R$ and $(y,\, z) \in R$ imply $(x,\, z) \in R$.
+  \end{enumerate*}
+\end{definition}
+
+An example for \cref{def:intro-equiv-relation} could be the graph isomorphism (denoted by $\triangleq$ or $\cong$ introduced in \cref{subsec:con-graph-isomorphism}), which means graphs are \textit{equal in some sense}. Note that graph isomorphism is related to graph instead of values (number of vertices and edges) or logics (truth table).
+
+A real-life example for \cref{def:intro-equiv-relation} (but not exactly matched) could be as follows. Let $S$ be the set of all people in your family tree, and let $R$ denote all relations in law in the same family tree. You can see an equivalence relation as follows.
+\begin{enumerate*}
+  \item Reflexive property: You and yourself have relationship.
+  \item Symmetric property: You and one of your cousin have relationship in law and vice versa.
+  \item Transitive property: "You and your cousin's relationship" and "your cousin and his father's relationship" imply "you and your cousin's father's relationship".
+  \item The above-mentioned three properties apply to all choices of people in your family tree.
+\end{enumerate*}
+In this case, if $R$ denotes all immediate relationships (IR)\footnote{Immediate relationships are direct familial connections such as parents, siblings, children, spouse, grandparents, and grandchildren.}, "you and your father's IR" and "your father and your uncle's IR" don't imply "you and your uncle's IR".
 
 \subsection{Pigeonhole Principle}
 
-\subsection{Optimization and Complexity}
+Simple statements: If there are $n$ holes and $n + 1$ pigeons, and all pigeons are in the holes, then there must be at least one hole with two pigeons.
+
+Formal statements: \cref{princ:intro-pigeonhole}
+
+\begin{principle}{Pigeonhole Principle}{intro-pigeonhole}
+  (A.57. Lemma in text)
+  If a set consisting of more than $kn$ objects is partitioned into $n$ classes,then some class receives more than $k$ objects.
+\end{principle}
+
+\textbf{Proof} of \cref{princ:intro-pigeonhole}: The contrapositive states that if every class receives at most $k$ objects, then in total there are at more $kn$ objects.
+
+\Cref{princ:intro-pigeonhole} need not be proven later, for it is a lemma.
+
+\subsection{Optimization and Complexity (Skipped)}
 
 \end{document}
