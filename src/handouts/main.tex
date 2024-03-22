@@ -191,17 +191,6 @@ gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=f
 % ref: https://tex.stackexchange.com/a/39739
 % ref: https://tex.stackexchange.com/a/133095
 \makeatletter
-\def\grayifsupp#1{
-  \def\@targetenvir{supplement}%
-  \ifx\@targetenvir\@currenvir
-    \textup{%
-      \hypersetup{linkcolor=gray}%
-      #1%
-    }%
-  \else
-  #1
-  \fi%
-}%
 % define a format for both capital and lowercase variants
 \newcommand{\defformat}[3]{%
   \def\envname{#1}%
@@ -209,8 +198,8 @@ gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=f
   \def\lowercaseprefix{#3}%
   % in \crefformat and \Crefformat, #1 is the counter;
   % #2 is counter prefix; #3 is counter suffix.
-  \crefformat{tcb@cnt@\envname}{\grayifsupp{\capitalprefix~#2#1#3}}%
-  \Crefformat{tcb@cnt@\envname}{\grayifsupp{\lowercaseprefix~#2#1#3}}%
+  \crefformat{tcb@cnt@\envname}{\lowercaseprefix~#2#1#3}%
+  \Crefformat{tcb@cnt@\envname}{\capitalprefix~#2#1#3}%
 }%
 \makeatother
 % TCB theorem environments
