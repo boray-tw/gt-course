@@ -134,7 +134,7 @@ We have a graph as follows, shown in \cref{fig:con-seven-bridge}.
     \caption{Original version.}
     \label{fig:con-seven-bridge-original}
   \end{subfigure}
-  \hfil
+  \hspace{.1\textwidth}
   \begin{subfigure}{0.25\textwidth}
     \centering
     \includegraphics[width=\textwidth]{con-seven-bridge-graph}
@@ -159,7 +159,7 @@ We will cover the proofs of these principles in later sections. % TODO: link to 
 \subsubsection{Graph Terminologies}
 
 \begin{definition}{}{con-loop}
-  (1.1.4 Definition in text)
+  (1.1.4. Definition in text)
   A \textbf{loop} (so-called \textbf{self-loop}) is an edge whose endpoints are equal.
 
   \textbf{Multiple edges} are edges having the same pair of endpoints, like edges between $v_2$ and $v_3$ in a multigraph like \cref{fig:con-graph}.
@@ -185,7 +185,7 @@ Continuing from \cref{def:con-loop}, if we have a node without a visible edge fr
 Notice that in most cases, unless specified, we treat a graph as a simple and finite graph. In some cases, we consider null graphs and multigraphs.
 
 \begin{definition}{}{con-complement}
-  (1.1.8 Definition in text)
+  (1.1.8. Definition in text)
   The \textbf{complement} of a \textit{simple} graph $G$ is denoted by $\bar G$, which is the simple graph with vertex set $V(G)$ and edge set $E(\bar G)$ defined by $uv \in E(\bar G) \iff uv \notin E(G)$.
 
   A \textbf{clique} in a graph is a set of pairwise adjacent vertices. A single vertex is also a clique. However, it is controversial for a null graph to be a clique.
@@ -234,12 +234,12 @@ For \cref{def:con-chromatic}, that is, if two vertices has an edge between, thes
 
 For any finite graph (\cref{def:con-finite-null-graph}), we can find its chromatic number given that the colors can be hard for humans to distinguish (like \#FF1234 and \#FF1235 pixel values).
 
-\supp{The complexity of finding a chromatic number is an open problem. It is likly NP-complete or NP-hard, but we couldn't find a way to reduce it to an NP-complete problem.}
+\supp{Chromatic numbers The complexity of finding a chromatic number is an open problem. It is likely NP-complete or NP-hard, but we couldn't find a way to reduce it to an NP-complete problem.}
 
 \subsubsection{Bipartite Graphs}
 
 \begin{definition}{}{con-bipartite}
-  (1.1.10 Definition and 1.1.12 Definition in text)
+  (1.1.10. Definition and 1.1.12. Definition in text)
   A graph $G$ is \textbf{bipartite} if $V(G)$ is the union of two disjoint (possibly empty) \textit{independent sets} called \textbf{bipartite sets} of $G$.
 
   For three disjoint independent sets, $G$ is \textbf{tripartite}.
@@ -367,7 +367,7 @@ Some comments for bipartite graphs:
 \subsection{Paths, Cycles and Trails}\label{subsec:con-path}
 
 \begin{definition}{}{con-path-cycle}
-  (1.1.15 Definition in text)
+  (1.1.15. Definition in text)
   A \textbf{path} is a (ordered) \textbf{sequence} of \textit{distinct} vertices such that any two consecutive vertices are adjacent. We call $v_0$ and $v_k$ the endpoints of the path $\anglebrackets{v_0,\, v_1,\, \ldots,\, v_k}$.
 
   A \textbf{cycle} is a sequence of vertices, where all vertices except the last vertex are distinct, and the two endpoints are equal, such that any two consecutive vertices are adjacent. For example, $\anglebrackets{v_0,\, v_1,\, \ldots,\, v_k,\, v_0}$.
@@ -412,6 +412,7 @@ There are examples for \cref{def:con-path-cycle} in \cref{fig:con-path-cycle}. N
 \end{figure}
 
 \begin{definition}{}{con-subgraph}
+  (1.1.16. Definition in text)
   A \textbf{subgraph} of $G$ is a graph $S$ such that $\ldots$
   \begin{enumerate*}
     \item $V(S) \subseteq V(G)$ and
@@ -425,7 +426,7 @@ There are examples for \cref{def:con-path-cycle} in \cref{fig:con-path-cycle}. N
 \end{definition}
 
 \begin{definition}{Connected graphs}{con-connected}
-  (1.1.16 Definition in text)
+  (1.1.16. Definition in text)
   A graph $G$ is \textbf{connected} if each pair of vertices in $G$ belongs to a path. Otherwise, $G$ is \textbf{disconnected}.
 \end{definition}
 
@@ -456,7 +457,7 @@ See \cref{fig:con-connected-unconnected} for the examples of \cref{def:con-conne
 \subsection{Graph Isomorphism}\label{subsec:con-graph-isomorphism}
 
 \begin{definition}{}{con-adj}
-  (1.1.17 Definition in text)
+  (1.1.17. Definition in text)
   Let $G$ be a loopless graph with vertex set $V(G) = \set{ v_1,\, v_2,\, \ldots,\, v_n}$ and edge set $E(G) = \set{ e_1,\, e_2,\, \ldots,\, e_m}$:
   \begin{enumerate*}
     \item The \textbf{adjacency matrix} of $G$, written $A(G)$, is an $n$-by-$n$ matrix where entry $a_{i,j}$ is the number of edges in $G$ with endpoints $\set{v_i,\, v_j}$.
