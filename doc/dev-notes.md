@@ -2,13 +2,26 @@
 
 ## Rules
 
-1.  To contribute to this repository, please install [latexindent.pl](https://github.com/cmhughes/latexindent.pl) for formatting TeX files.
+1.  To contribute to this repository, please install [latexindent.pl](https://github.com/cmhughes/latexindent.pl) or TeX package `latexindent` for formatting TeX files.
 
 1.  (Optional) Install the VS Code extension [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop).
 
-1.  With VS Code, if you're using Arch Linux, please install the following packages for `latexindent` to work.
+1. In Ubuntu, please also set up the dependencies of `latexindent` as follows.install the `apt` package `libyaml-tiny-perl` to provide `YAML::Tiny`. (ref. )
 
-        sudo pacman -S texlive-binextra perl-yaml-tiny
+    ```bash
+    # install the perl package management tool "cpanm" system-wide
+    sudo cpan -i App::cpanminus
+
+    # install the perl package dependencies system-wide
+    sudo cpanm YAML::Tiny
+    sudo cpanm File::HomeDir
+    ```
+
+1.  In Arch Linux, please install the following packages for `latexindent` to work.
+
+    ```bash
+    sudo pacman -S texlive-binextra perl-yaml-tiny
+    ```
 
     <details>
     <summary>Reasons (click to expand/hide):</summary>
