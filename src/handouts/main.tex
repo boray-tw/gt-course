@@ -32,8 +32,10 @@
 \newcommand{\clist}[1]{\ensuremath{{#1}_1,\, \ldots,\, {#1}_n}}%
 \newcommand{\clistj}[2]{\ensuremath{{#1}_1,\, \ldots,\, {#1}_{#2}}}%
 \newcommand{\clistij}[3]{\ensuremath{{#1}_{#2},\, \ldots,\, {#1}_{#3}}}%
-\newcommand{\trans}{\ensuremath{\mathsf{T}}}
-\newcommand{\transpose}[1]{\ensuremath{#1^\mathsf{T}}}
+\newcommand{\trans}{\ensuremath{\mathsf{T}}}%
+\newcommand{\transpose}[1]{\ensuremath{#1^\mathsf{T}}}%
+\newcommand{\isomorphicto}{\ensuremath{\cong}}%
+\newcommand{\composition}{\circ}%
 % shorter \implies and \iff arrow
 \renewcommand{\implies}{\ensuremath{\Rightarrow}}%
 \renewcommand{\iff}{\ensuremath{\Leftrightarrow}}%
@@ -92,11 +94,14 @@
 % plots (not pictures/images from files)
 \usepackage{pgfplots, tikz}
 \pgfplotsset{compat=1.18} % to satisfy pdflatex
-\usetikzlibrary {arrows.meta, positioning}
+\usetikzlibrary {arrows.meta, positioning, math}
 
 % pictures/images from files
 \usepackage{graphicx, caption, subcaption}
 \graphicspath{{./figures/}} % path that contains required images
+% wrap figures
+% usage: \begin{wrapfigure}[lineheight]{position}{width} ... \end{wrapfigure}
+\usepackage{wrapfig}
 % reuse figures by their labels
 % reference: https://tex.stackexchange.com/a/225075
 \usepackage{environ}
@@ -176,66 +181,61 @@ green_bg/.style  = {enhanced, sharp corners, colback={green!50!white},  parbox=f
 blue_bg/.style   = {enhanced, sharp corners, colback={blue!50!white},   parbox=false},
 gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=false},
 }%
-% define environment with \newtcbtheorem[init options]{name}{display name}{options}{prefix}
-% use it with \begin{name}{title}{marker}...\end{name}
+% define a theorem with \newtcbtheorem[init options]{name}{display name}{options}{label-prefix}
+% use it with \begin{name}{title}{label-suffix}...\end{name}
 \newtcbtheorem[number within=section]{example}{Example}{white_bg}{ex}%
 \newtcbtheorem[number within=section]{proposition}{Proposition}{red_bg}{prop}%
 \newtcbtheorem[number within=section]{theorem}{Theorem}{yellow_bg}{thm}%
 \newtcbtheorem[number within=section]{principle}{Principle}{yellow_bg}{princ}%
+\newtcbtheorem[number within=section]{lemma}{Lemma}{yellow_bg}{lem}%
 \newtcbtheorem[number within=section]{definition}{Definition}{green_bg}{def}%
 \newtcbtheorem[number within=section]{corollary}{Corollary}{blue_bg}{cor}%
 \newtcbtheorem[number within=section]{remark}{Remark}{gray_bg}{rem}%
-% reference formats
-\usepackage{cleveref}
-% gray hyperlinks n supplement
-% ref: https://tex.stackexchange.com/a/39739
-% ref: https://tex.stackexchange.com/a/133095
+% recall any theorems above, but it gives "there were multiply-defined labels" warning.
+% reference for \recall: https://tex.stackexchange.com/a/660914
+% reference for \GetSectionPrefix: https://tex.stackexchange.com/a/316731
+% \usepackage{environ}
+\usepackage{xifthen}
 \makeatletter
-\def\grayifsupp#1{
-  \def\@targetenvir{supplement}%
-  \ifx\@targetenvir\@currenvir
-    \textup{%
-      \hypersetup{linkcolor=gray}%
-      #1%
-    }%
-  \else
-  #1
-  \fi%
-}%
-% define a format for both capital and lowercase variants
-\newcommand{\defformat}[3]{%
-  \def\envname{#1}%
-  \def\capitalprefix{#2}%
-  \def\lowercaseprefix{#3}%
-  % in \crefformat and \Crefformat, #1 is the counter;
-  % #2 is counter prefix; #3 is counter suffix.
-  \crefformat{tcb@cnt@\envname}{\grayifsupp{\capitalprefix~#2#1#3}}%
-  \Crefformat{tcb@cnt@\envname}{\grayifsupp{\lowercaseprefix~#2#1#3}}%
-}%
+\newcommand{\GetSectionPrefix}[1]{\@GetSectionPrefix#1\@nil}%
+\newcommand\@GetSectionPrefix{}%
+\def\@GetSectionPrefix#1-#2\@nil{#1}%
 \makeatother
+% usage: \recall[current-section-prefix]{label-to-recall}
+\newcommand{\recall}[2][]{%
+  \newtest{\torecall}{\equal{#1}{} \OR \equal{#1}{\GetSectionPrefix{#2}}}%
+  \ifthenelse{\torecall}{\par\noindent\useboxarray[#2]{1}\par}{}%
+}%
+% usage: \begin{recallable}{tcb-theorem-name}{title}{label-suffix}...\end{recallable}
+\NewEnviron{recallable}[3]{%
+  \newboxarray{#3}%
+  \begin{#1}[reset box array=#3, store to box array=#3]{#2}{#3}%
+    \BODY%
+  \end{#1}%
+  \recall{#3}%
+}%
+% reference formats
+\usepackage[capitalise]{cleveref}
 % TCB theorem environments
-\defformat{example}{Ex.}{ex.}
-\defformat{proposition}{Prop.}{prop.}
-\defformat{theorem}{Thm.}{thm.}
-\defformat{principle}{Princ.}{princ.}
-\defformat{definition}{Def.}{def.}
-\defformat{corollary}{Cor.}{cor.}
-\defformat{remark}{Rem.}{rem.}
+\Crefformat{tcb@cnt@example}{Ex.~#2#1#3}
+\Crefformat{tcb@cnt@proposition}{Prop.~#2#1#3}
+\Crefformat{tcb@cnt@theorem}{Thm.~#2#1#3}
+\Crefformat{tcb@cnt@principle}{Princ.~#2#1#3}
+\Crefformat{tcb@cnt@definition}{Def.~#2#1#3}
+\Crefformat{tcb@cnt@lemma}{Lem.~#2#1#3}
+\Crefformat{tcb@cnt@corollary}{Cor.~#2#1#3}
+\Crefformat{tcb@cnt@remark}{Rem~#2#1#3}
 % figures and sub-figures
 % reference 1: https://www.reddit.com/r/LaTeX/comments/173pef7/comment/k468qb9/
 % reference 2: https://tex.stackexchange.com/a/335409
 % reference 3: https://tex.stackexchange.com/a/336259
 \captionsetup[subfigure]{subrefformat=simple,labelformat=simple}
 \renewcommand\thesubfigure{(\alph{subfigure})}
-\defformat{figure}{Fig.}{fig.}
-\defformat{subfigure}{Fig.}{fig.}
+\Crefformat{tcb@cnt@figure}{Fig.~#2#1#3}
+\Crefformat{tcb@cnt@subfigure}{Fig.~#2#1#3}
 % the other references
-\defformat{equation}{Eq.}{eq.}
-\defformat{table}{Table}{table}
-
-% conditional statements
-% xifthen also provides \isempty
-\usepackage{xifthen}
+\Crefformat{tcb@cnt@equation}{Eq.~#2#1#3}
+\Crefformat{tcb@cnt@table}{Table~#2#1#3}
 
 % colored text
 % use a environment wrapper for \@currenvir to set, and type multi-line supplements
@@ -261,6 +261,9 @@ gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=f
 
 % ---- beginning of document ----
 \begin{document}
+
+% enable all \recall in all sections
+\def\sectionprefix{}%
 
 \maketitle
 
