@@ -40,7 +40,7 @@ The handouts should be present by 4 ~ 10 days after the class, based on Ray's wo
     <div id="package-list"></div>
 
     ```
-    babel caption cleveref datetime2 environ geometry listings listingsutf8 mathabx mathtools pdfcol pgf pgfplots preprint ragged2e subfiles tcolorbox tikzfill tools multirow xifthen ifmtarg
+    babel caption cleveref datetime2 environ geometry ifmtarg listings listingsutf8 mathabx mathtools multirow pdfcol pgf pgfplots preprint ragged2e subfiles tcolorbox tikzfill tools wrapfig xifthen
     ```
 
     > [!TIP]
