@@ -240,14 +240,14 @@ For any finite graph (\cref{def:con-finite-null-graph}), we can find its chromat
 
 \subsubsection{Bipartite Graphs}
 
-\begin{definition}{}{con-bipartite}
+\begin{recallable}{definition}{}{con-bipartite}
   (1.1.10. Definition and 1.1.12. Definition in text)
   A graph $G$ is \textbf{bipartite} if $V(G)$ is the union of two disjoint (possibly empty) \textit{independent sets} called \textbf{bipartite sets} of $G$.
 
   For three disjoint independent sets, $G$ is \textbf{tripartite}.
 
   For $k$ disjoint independent sets, $G$ is $k$-partite (generally speaking, multipartite), where $k \in \set{ i : i \in \N \land i \geq 3}$.
-\end{definition}
+\end{recallable}
 
 \begin{figure*}[ht]
   \centering
@@ -1056,32 +1056,445 @@ By induction for a $u,v$-walk $W$ whose length is $l$ as illustrated in \cref{fi
 
   If $G$ has a $u,v$-path, then $u$ is \textbf{connected} to $v$ in $G$.
 
-  The \textbf{connection relation} on $V(G)$ consists of the \textbf{ordered pairs} $(u,\, v)$ such that $u$ is connected to $v$. (In our primary textbook, $uv$ refers to an edge between $u$ and $v$ while $(u,\, v)$ may not imply an edge $uv$. Also note that $(u,\, v)$ and $(v,\, u)$ refer to two paths.)
+  The \textbf{connection relation} on $V(G)$ consists of the \textbf{ordered pairs} $(u,\, v)$ such that $u$ is connected to $v$. (In our primary textbook, $uv$ refers to an edge between $u$ and $v$ while $(u,\, v)$ may not imply an edge $uv$; $(u,\, v)$ means that there is an $u,v$-path. Also note that $(u,\, v)$ and $(v,\, u)$ ($u \neq v$) refer to two different paths.)
 \end{definition}
 
-\begin{wrapfigure}{r}{.3\textwidth}
-  \centering
-  \includegraphics[width=.28\textwidth]{con-connected-path}
-  \caption{A graph $G$ for the illustration of connection relation.}
-  \label{fig:con-connected-path}
-\end{wrapfigure}
+Note that the concept of a \textit{connected} graph is defined on vertices instead of edges. If a graph $G$ is connected, all ordered pairs of vertices in the cartesian product (\cref{rem:intro-tuple-ordered-pair}) $V(G) \times V(G)$ have paths.
 
-Connection relation in \cref{def:con-connected-path} is an equivalence relation defined in \cref{def:intro-equiv-relation}. That is, it satisfies reflexive, symmetric and transitive properties. A path from $u$ to itself satisfies the reflexive property; in an undirected graph, a path from $u$ to $v$ implies a path from $v$ to $u$; $(v_1,\, v_2)$ and $(v_2,\, v_3)$ imply $(v_1,\, v_3)$.
+Connection relation is also an equivalence relation (\cref{def:intro-equiv-relation}), which satisfies reflexive, symmetric, transitive properties:
+\begin{enumerate*}
+  \item Reflexive property: Any vertex has connection to itself; that is, in a given graph, $(u,\, u)$ is a part of the connection relation for any vertex $u$.
+  \item Symmetric property: In an unordered graph, "$u$ is connected to $v$" implies "$v$ is connected to $u$".
+  \item Transitive property: $(v_1,\, v_2)$ and $(v_2,\, v_3)$ imply $(v_1,\, v_3)$.
+\end{enumerate*}
 
-Question 1: Is the graph $G$ in \cref{fig:con-connected-path} connected? List all equivalence classes.\\
-Answer: There are two equivalence classes, $\{1,\, 2,\, 3,\, 4,\, 5\}$ and $\{6,\, 7\}$, so this graph is not connected. These two equivalence classes also form two connected components.
+\begin{example}{}{con-connected-graph}
+  \begin{wrapfigure}{r}{.3\textwidth}
+    % TODO: TikZ version
+    \centering
+    \includegraphics[width=.28\textwidth]{con-connected-path}
+    \caption{A graph $G$ to illustrate connection relation.}
+    \label{fig:con-connected-path}
+  \end{wrapfigure}
 
-Question 2: How to write the connection relation on $V(G)$ in \cref{fig:con-connected-path}?\\
-Answer: $\{ 1,\, 2,\, 3,\, 4,\, 5 \}^2, \{ 6,\, 7 \}^2$. (Please refer to the cartesian product defined in \cref{rem:intro-tuple-ordered-pair}.)
+  \textbf{Question 1}: Is the graph $G$ in \cref{fig:con-connected-path} connected? List all equivalence classes.
+
+  \textbf{Answer}: There are two equivalence classes, $\{1,\, 2,\, 3,\, 4,\, 5\}$ and $\{6,\, 7\}$, so this graph is not connected. These two equivalence classes form two connected components (maximal connected subgraphs; \cref{def:con-component}).
+
+  \textbf{Question 2}: How to write the connection relation on $V(G)$ in \cref{fig:con-connected-path}?
+
+  \textbf{Answer}: $\{ 1,\, 2,\, 3,\, 4,\, 5 \}^2, \{ 6,\, 7 \}^2$. (Please refer to the cartesian product defined in \cref{rem:intro-tuple-ordered-pair}.)
+\end{example}
+
+\begin{remark}{}{con-maximum}
+  \textbf{Minimal}/\textbf{maximal} somethings are conditional or local minimums/maximums, while \textbf{minimum}/\textbf{maximum} is globally minimum/maximum without conditions.
+
+  E.g., I have the \textbf{maximal} height among people \textit{under 155cm} in this classroom. Amy has the \textbf{maximal} height among people around her.
+\end{remark}
 
 \begin{definition}{}{con-component}
   (1.2.8. Definition in text)
   The \textbf{connected components} or \textbf{components} of a graph $G$ are its (locally) \textbf{maximal} connected subgraphs.
+
+  \textbf{A maximal connected subgraph of $\bm{G}$ is a subgraph that is connected and is not contained in any other subgraph.}
+
+  A component is \textbf{trivial} if it has no edges; that is, it is a vertex.
+
+  An \textbf{isolated vertex} is a vertex of degree 0.
 \end{definition}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.3\textwidth]{con-connected-components}
+  \caption{There are 4 components in this graph, where the isolated vertex $p$ forms a trivial component $\{p\}$.}
+  \label{fig:con-component}
+\end{figure}
+
+For \cref{def:con-component}, a graph may have multiple maximal connected subgraphs. A connected subgraph may not be maximal, saying vertices 1, 2 and 3 in \cref{fig:con-connected-path}. If we couldn't find a vertex to make a component larger while making it connected, such a component is a maximal connected subgraph.
+
+\begin{proposition}{}{con-component}
+  Every graph with $n$ vertices and $k$ edges has \textbf{at least} $n - k$ components.
+\end{proposition}
+
+Since we are proving \textbf{at least} some values, we could prove that it cannot be less than some values. \supp{It's like when your mother gives you 10 dollars in the morning under the constraint that you need to give back \textbf{at least} 1 dollars at night. It means you can spend \textbf{at most} 9 dollars today; you can spend only 8 dollars though.}
+
+\textbf{Proof} of \cref{prop:con-component}:
+\begin{enumerate*}
+  \item An $n$-vertex graph with no edges has $n$ components, as shown in the left figure in \cref{fig:con-component-proposition}.
+  \item Adding each edge \textbf{decreases} the number of components by \textbf{at least} one ($\leq 1$). From the middle figure to the left figure, the number of component doesn't decrease.
+  \item Adding $k$ edges results in the number of components $\geq n - k$. Decreasing at most $k$ components from $n$ components is equivalent to making the number of components $\geq n - k$.
+  \item Note that without specifying "at most" or "at least", you may not get full marks in exams.
+\end{enumerate*}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.6\textwidth]{con-component-proposition}
+  \caption{An illustration for the proof of \cref{prop:con-component}.}
+  \label{fig:con-component-proposition}
+\end{figure}
+
+\Cref{prop:con-component} yields that to have a connected graph with $n$ vertices (there is only a component; solve $k$ in $n - k = 1$), you need \textbf{at least} $n - 1$ edges. A \textbf{tree} is a commonly seen connected graph with $n$ vertices and $n - 1$ edges.
+
+\begin{definition}{}{con-cut-edge-vertex}
+  A \textbf{cut-edge} or \textbf{cut-vertex} of a graph is an edge or vertex whose deletion increases the number of components.
+
+  Deleting an edge $e$ from $G$ is denoted by $G - e$.
+  Similarly, we have $G - v$ for a vertex $v$ in $G$.
+
+  Deleting a set of edges $M$ from $G$ is denoted by $G - M$.
+  Similarly, we have $G - S$ for $S$ as a set of vertices of $G$.
+\end{definition}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \begin{subfigure}[t]{.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{con-cut-edge}
+    \caption{Vertex 3 is a cut-vertex; edge 67 is a cut-edge.}
+    \label{fig:con-cut-edge}
+  \end{subfigure}
+  \hspace{.2\textwidth}
+  \begin{subfigure}[t]{.4\textwidth}
+    \centering
+    \includegraphics[width=.5\textwidth]{con-cut-edge-tree}
+    \caption{In a tree, every edge is a cut-edge. Every non-leaf node (every internal node or the root) is a cut-vertex.}
+    \label{fig:con-cut-edge-tree}
+  \end{subfigure}
+\end{figure}
+
+\begin{definition}{}{con-induced-subgraph}
+  When $T \subseteq V(G)$, the \textbf{induced subgraph} $G[T]$ consists of $T$ and all edges whose endpoints are contained in $T$. (induced by vertices)
+\end{definition}
+
+\begin{figure}
+  % TODO: TikZ version
+  \centering
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=.75\textwidth]{con-induced-subgraph-original}
+    \caption{The original graph $G$ whose vertex set is $V(G)$.}
+    \label{fig:con-induced-subgraph-original}
+  \end{subfigure}
+  \hspace{.1\textwidth}
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=.5\textwidth]{con-induced-subgraph-induced}
+    \caption{The induced subgraph $G[T]$, where $T \subseteq V(G)$.}
+    \label{fig:con-induced-subgraph-induced}
+  \end{subfigure}
+  \hspace{.1\textwidth}
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=.5\textwidth]{con-induced-subgraph-subgraph}
+    \caption{A subgraph of $G$ but not an induced subgraph of $G$ because it lacks edge 23 which is in $G$.}
+    \label{fig:con-induced-subgraph-subgraph}
+  \end{subfigure}
+  \caption{An example for induced subgraphs.}
+  \label{fig:con-induced-subgraph}
+\end{figure}
+
+For \cref{def:con-induced-subgraph}, note that:
+\begin{enumerate*}
+  \item $T$ is a subset of vertices.
+  \item $E_T = \left\{ uv \in E(G): u \in T,\, v \in T \right\}$. That is, after we choose some vertices $T$ from the graph $G$, all edges related to vertices $T$ are preserved, and there is no additional edge.
+  \item $G[T] = (T,\, E_T)$
+\end{enumerate*}
+
+\begin{remark}{Biconditional statements}{con-iff}
+  The biconditional statement "$P \iff Q$" has the as "$(P \implies Q) \land (Q \implies P)$. We read it as "$P$ if and only if $Q$", where "$Q \implies P$" is "$P$ if $Q$", and "$P \implies Q$" is "$P$ only if $Q$".
+
+  \begin{center}
+    \begin{tabular}{ccc}
+      \hline
+                            & A                        & B                        \\ \hline
+      Direct Method         & $P \implies Q$           & $P \implies Q$           \\
+      Contrapositive Method & $\neg Q \implies \neg P$ & $\neg P \implies \neg Q$ \\
+      Contradiction Method  & $\neg (P \land \neg Q)$  & $\neg (Q \land \neg P)$  \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+  $\neg (P \land \neg Q)$ means that it is impossible for $Q$ false given $P$ true.
+
+  All three statements on the left (column A) are equivalent to one another; same for the right (column B). However, the left column is not equivalent to the right column.
+
+  By rewriting the statement, we could prove the biconditional statement easier (in other words) because $P$ or $Q$ may be hard to be true.
+  Instead of using the direct method, we could choose one statement from the left and right columns respectively to prove biconditional statements.
+  But practically, it is easier to rewrite the problem to prove it with the other method without crossing methods.
+\end{remark}
+
+\begin{theorem}{}{con-cut-edge-cycle}
+  P: \underline{An edge is a cut-edge} if and only if Q: \underline{it belongs to no cycle}.
+\end{theorem}
+
+\textbf{Proof} of \cref{thm:con-cut-edge-cycle}:
+\begin{enumerate}
+  \item Instead of using the direct method (proving both $P \implies Q$ and $Q \implies P$), we can use the contrapositive method to prove it.
+  \item Let $e = xy$ be an edge, and let $H$ be the component containing $e$.
+  \item We want to prove $\neg P$: \underline{$H-e$ is connected} iff. $\neg Q$: \underline{$e$ belongs to a cycle}. $\neg P$ means the graph is still connected after we remove an edge $e$ from $H$, so $e$ is not an cut-edge.
+  \item To prove $\neg P \implies \neg Q$, suppose that $H-e$ is connected. Then, $H-e$ contains an $x,y$-path $P(x,\, y)$. $P(x,\, y) + e$ is a cycle of $G$.
+  \item To prove $\neg Q \implies \neg P$, let $P$ be a $u,v$-path, given $e$ is on a cycle $C$.
+        \begin{enumerate}
+          \item If $P$ doesn't contain the edge $e$, removing the edge $e$ doesn't affect $P$, and the graph $H$ is still connected.
+          \item If $P$ contains the edge $e$, since $e$ is on a cycle, there can still be a $u,v$-path but not through the edge $e$, making the graph $H-e$ connected. See \cref{fig:con-cut-edge-cycle} for the illustration.
+        \end{enumerate}
+\end{enumerate}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.28\textwidth]{con-cut-edge-cycle}
+  \caption{The illustration of $e$ on a cycle $C$ and on a $u,v$-path.}
+  \label{fig:con-cut-edge-cycle}
+\end{figure}
+
+\begin{lemma}{}{con-walk-cycle}
+  Every closed odd walk contains an odd cycle.
+\end{lemma}
+
+\textbf{Proof} of \cref{lem:con-walk-cycle}: By induction on length $l$ of a closed walk $W$.
+\begin{enumerate*}
+  \item Basis step: $l = 1$, which means a self-loop.
+  \item Suppose that a closed odd walk whose length $l$ satisfies $1 \leq l < W$. Note that the walk is both closed and odd in \cref{lem:con-walk-cycle}; you cannot apply mathematical induction on a wrong foundation.
+  \item Induction step: $l > 1$:
+        \begin{enumerate}
+          \item Case 1: $W$ has no repeated vertex other than the first and last vertices being the same. So, $W$ itself forms a desired cycle.
+          \item Case 2: $W$ contains a repeated vertex $v$. Saying vertex $v$ in the walk in \cref{fig:con-walk-cycle}, for some repeated vertex $v$, such a vertex partitions the walk into two cycles, where one is odd length and the other is even length, so we have an odd cycle in an odd walk.
+        \end{enumerate}
+  \item As shown in \cref{fig:con-walk-cycle}, for a $v-v$-cycle for vertices on the left of $v$, there is a 5-cycle. However, for the cycle on the right, closed even walks are not covered by \cref{lem:con-walk-cycle}. The base is important.
+\end{enumerate*}
+
+\begin{figure}
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.5\textwidth]{con-walk-cycle}
+  \caption{An illustration for \cref{lem:con-walk-cycle}.}
+  \label{fig:con-walk-cycle}
+\end{figure}
+
+\begin{definition}{}{con-bipartition}
+  A \textbf{bipartition} of $G$ is a specification of two disjoint independent sets in $G$ whose union is $V(G)$. Note two \textit{disjoint} sets refers to two sets without a vertex in both sets; an independent set refers to a set without an edge within.
+
+  An \textbf{$\bm{X,Y}$-bigraph} is \textbf{a} bipartite graph with bipartition $X$ and $Y$.
+\end{definition}
+
+Recall \cref{def:con-bipartite} as follows.
+\recall{con-bipartite}
+\begin{figure}[htbp]
+  \centering
+  \bipartitegraphwithlabels
+\end{figure}
+
+In an independent set, there is no edge (\cref{def:con-complement}). If two sets are disjoint, they share no vertex (\cref{def:intro-set-operations}). They refer to different characteristics.
+
+\begin{theorem}{}{con-bipartite-odd-cycle}
+  A graph is bipartite iff. it has no odd cycle.
+\end{theorem}
+
+\textbf{Proof} of \cref{thm:con-bipartite-odd-cycle}:
+
+$\Rightarrow$: In each of the two partite sets, since there is no edge, there cannot form a cycle. So, every walk alternates between two partite sets. Thus, return to return to the original partite set, it requires an even number of edges, and form no odd cycle.
+
+$\Leftarrow$: In this direction, we use the direct method to prove it.
+
+Case 1 for $\Leftarrow$:
+\begin{enumerate}
+  \item Let $G$ be a graph with no cycle. Without a cycle in $G$, there is no odd cycle.
+  \item Case a: If $G$ has no edges, we can partition vertices into two sets and get a bipartite graph.
+  \item Case b: If $G$ has edges (has only vertices), by putting the endpoints of each edges into two different sets, we get two disjoint independent sets. For zero-degree vertices, they can be in one of the two disjoint sets with the graph remaining bipartite.
+\end{enumerate}
+
+Case 2 for $\Leftarrow$:
+\begin{enumerate}
+  \item With cycles but without an odd cycle in graph $G$, to prove $G$ bipartite, we need to find the specification of bipartition. That is, we want to find two disjoint independent sets in $G$.
+  \item Suppose in $G$ there is a connected component (CC) denoted by $H$, which includes vertices $a$, $b$ and $v$.
+  \item Let $f_v(x)$ be a function to calculate the minimum distance from vertex $x$ to $v$ for any vertex $x \in H$. $f_v(v) = 0$. This function is the key point in this proof to partition vertices into two disjoint sets.
+  \item For any vertex $u \in H$, $f_v(x)$ is either odd or even.
+  \item Put vertices with odd $f_v(x)$ to a set, an even to the other set, as the disjoint sets $X$ and $Y$ illustrated in \cref{fig:con-bipartite-odd-cycle}. $X = \left\{x \in V(H): f_v(x) \text{ is even} \right\}$ and $Y = \left\{y \in V(H): f_v(y) \text{ is odd} \right\}$.
+  \item Case a:
+        \begin{enumerate}
+          \item For any vertices $a$ and $b$ with odd $f_v(x)$ (in the set $X$), by having an $ab$ edge, we get a closed odd walk because $\text{odd} + \text{odd} + 1 = \text{odd}$, as illustrated in \cref{fig:con-bipartite-odd-cycle-odd}.
+          \item By \cref{lem:con-walk-cycle}, this closed odd walk contains an odd cycle, and it contradicts to the assumption of case 2 (no odd cycle). As a result, there is no edge in the set $X$ (odd $f_v(x)$ vertices), so the set $X$ is independent.
+        \end{enumerate}
+
+  \item Case b:
+        \begin{enumerate}
+          \item For any vertices $a$ and $b$ with even $f_v(x)$ (in the set $Y$), since $f_v(x)$ is even, there is no $va$ or $vb$ edge to make $f_v(x)$ odd.
+          \item By having an $ab$ edge, we get a closed odd walk, as illustrated in \cref{fig:con-bipartite-odd-cycle-even}. By \cref{lem:con-walk-cycle}, this closed odd walk contains an odd cycle, and it contradicts to the assumption of case 2. As a result, there is no edge in the set $Y$ (even $f_v(x)$ vertices), so the set $Y$ is independent.
+        \end{enumerate}
+
+  \item By cases a and b, we prove that any component $H \in G$ is an $X,Y$-bigraph. By iterating through all components, we can find bipartition $X$ and $Y$ for $G$ to prove $G$ bipartite.
+\end{enumerate}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \begin{subfigure}[t]{.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{con-bipartite-odd-cycle-odd}
+    \caption{Case 2a}
+    \label{fig:con-bipartite-odd-cycle-odd}
+  \end{subfigure}
+  \hspace{.2\textwidth}
+  \begin{subfigure}[t]{.3\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{con-bipartite-odd-cycle-even}
+    \caption{Case 2b}
+    \label{fig:con-bipartite-odd-cycle-even}
+  \end{subfigure}
+  \caption{The graphs to illustrate the proof of \cref{thm:con-bipartite-odd-cycle}.}
+  \label{fig:con-bipartite-odd-cycle}
+\end{figure}
+
+Eulerian solved the seven-bridge problem (\cref{subsubsec:con-seven-bridges}), and define Eulerian graphs related to the seven-bridge problem.
+
+\begin{definition}{}{con-eulerian}
+  A graph is \textbf{Eulerian} if it has a \underline{closed trail containing all edges}.
+
+  Recall \cref{def:con-walk-trail}: A trail is a walk with \underline{no repeated edge}. (vertex can be repeated)
+
+  A \textbf{circuit} is a \ul{closed trail} when we do \ul{not specify the first vertex} but \ul{keep the list in cyclic order}.
+
+  An \textbf{Eulerian circuit} or \textbf{Eulerian trail} in a graph is a circuit or trail containing all the edges.
+\end{definition}
+
+\begin{lemma}{}{con-degree-cycle}
+  If every vertex $v$ of a graph $G$ has degree at least 2, then $G$ contains a cycle.
+\end{lemma}
+
+\textbf{Proof} of \cref{lem:con-degree-cycle}:
+\begin{enumerate}
+  \item Let $P$ be a \underline{maximal} path (\cref{rem:con-maximum}) from a given $v$ in a graph $G$ in which every vertex has degree at least 2 as illustrated in \cref{fig:con-degree-cycle}. Say that the other endpoint of $P$ is $u$.
+  \item Since the vertex $u$ is at least degree 2, there must be a edge from $u$ to some vertex in $P$, and it forms a cycle. Otherwise, $P$ is not a maximal path.
+  \item Note: A path usually has no repeated vertex.
+\end{enumerate}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.3\textwidth]{con-degree-cycle}
+  \caption{A graph to illustrate the proof of \cref{lem:con-degree-cycle}.}
+  \label{fig:con-degree-cycle}
+\end{figure}
+
+\begin{theorem}{}{con-eulerian-component-degree}
+  A graph $G$ is Eulerian if and only if \ul{it has \textbf{at most} one nontrivial component} and \ul{all its vertices have \textbf{even degree}}.
+\end{theorem}
+
+Recall \cref{def:con-component}. A trivial component is a component with only a vertex.
+
+For a graph with only a vertex without edges, since it doesn't violate \cref{thm:con-eulerian-component-degree}, such a graph is Eulerian. This is a special case not covered in the proof above.
+
+\textbf{Proof} of \cref{thm:con-eulerian-component-degree}:
+
+$\Rightarrow$: Given that a graph $G$ is Eulerian, let $C$ be an Eulerian circuit of $G$.
+\begin{enumerate}
+  \item Part a: There cannot be 2 or more (included) nontrivial components. Otherwise, such a graph is disconnected and is not Eulerian.
+  \item Part b: Each passage of $C$ through a vertex uses two incident (connected) edges (\cref{def:con-adj}), and the first edge is paired with the last one at the first vertex. It implies that all vertices of the only one nontrivial component are even degree.
+\end{enumerate}
+
+$\Leftarrow$: Let assumption of \underline{at most one nontrivial component and its vertices all have even degree} exist.
+\begin{enumerate}
+  \item We want to prove by induction on the number of edges $m$.
+  \item Basis: $m = 0$. $G$ contains only one vertex. (It doesn't violate the definition of a Eulerian graph.)
+  \item Induction: $m>0$. (In fact, by assumption, $m$ should be $\geq 2$.)
+        \begin{enumerate}
+          \item By \cref{lem:con-degree-cycle}, the only one nontrivial component has a cycle $C$.
+          \item Let $G' = G - E(C)$. That is, remove all the edges of cycle $C$. Note that $G'$ is an even graph as $C$ has 2 edges at each vertex.
+          \item By induction hypothesis, each component of $G'$ has an Eulerian circuit. Merge these circuits along $C$ to obtain an Eulerian circuit of $G$.
+          \item See \cref{fig:con-eulerian-component-degree} for an example to illustrate this step.
+        \end{enumerate}
+\end{enumerate}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.3\textwidth]{con-eulerian-component-degree}
+  \caption{A graph to illustrate the induction step in the right-to-left proof of \cref{thm:con-eulerian-component-degree}.}
+  \label{fig:con-eulerian-component-degree}
+\end{figure}
+
+\begin{theorem}{}{con-trail-decompose}
+  For a connected nontrivial graph with exactly $2 k$ \underline{odd} vertices, the minimum number of trails that decompose it is $\max \{k,\, 1\}$ (the maximum between $k$ and 1).
+\end{theorem}
+
+A odd vertex is an odd-degree vertex. A trail is a walk with no repeated vertex. If $k = 0$, it means a graph has only even vertices, and such a graph is Eulerian. $2 k$ odd vertices means the number of odd vertices is even.
+
+Recall \cref{def:con-self-comp}: A \textbf{decomposition} of a graph is a list of subgraphs such that each edge appears in exactly one subgraph in ths list.
+
+\textbf{Proof} of \cref{thm:con-trail-decompose} for a given graph $G$:
+\begin{enumerate}
+  \item A closed trail contributes even degree to every vertex.\\
+        $\Rightarrow$ Each odd vertex has some non-closed trail ending at it.\\
+        $\Rightarrow$ $G$ contains at least $k$ trails. (Note that $G$ is Eulerian when $k = 0$.)
+  \item Pair up the odd vertices and form $G'$ by adding an "dashed" edge for each pair as shown in \cref{fig:con-trail-decompose-odd-vertices} for 4 odd vertices and $k = 2$ dashed edges.\\
+        $\Rightarrow$ $G'$ has an Eulerian circuit $C$.\\
+        $\Rightarrow$ By traversing $C$ and starting a new trail when encountering a dashed edge (among $G' - E(G)$), we obtain $k$ trails to decompose $G$. For example, two trails as shown in \cref{fig:con-trail-decompose-decomposition}.
+\end{enumerate}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{con-trail-decompose-odd-vertices}
+    \caption{Adding "dashed" edges to each pair of odd vertices to form $G'$ from $G$.}
+    \label{fig:con-trail-decompose-odd-vertices}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{con-trail-decompose-decomposition}
+    \caption{A decomposition of $G$ as two trails.}
+    \label{fig:con-trail-decompose-decomposition}
+  \end{subfigure}
+  \caption{An illustration for the proof of \cref{thm:con-trail-decompose}.}
+\end{figure}
 
 \subsection{Vertex Degrees and Counting}
 
-% TODO: p.35
+\begin{definition}{}{con-degree}
+  The \textbf{degree} of a vertex $v$ in a graph $G$, denoted by $d_G(v)$ or $d(v)$, is the number of edges incident to $v$. Note that each loop at $v$ counts twice (degree 2).
+
+  The \textbf{maximum degree} is $\Delta(G) = \max _{v \in V(G)} \left\{ d_G(v) \right\}$
+
+  The \textbf{minimum degree} is $\delta(G) = \min _{v \in V(G)} \left\{ d_G(v) \right\}$
+
+  $G$ is a \textbf{regular graph} if $\Delta(G) = \delta(G)$. $k$-regular is a graph whose the common degree is $k$. ($\Delta(G) = \delta(G) = k$)
+
+  The \textbf{neighborhood} of $v$, written $N_G(v)$ or $N(v)$, is the set of \ul{vertices} adjacent to $v$.
+\end{definition}
+
+\begin{definition}{}{con-order-size}
+  The \textbf{order} of a graph $G$, denoted by $n(G)$ or $\abs{V(G)}$, is the number of vertices of $G$.
+
+  The \textbf{size} of a graph $G$, denoted by $e(G)$ or $\abs{E(G)}$, is the number of edges in $G$.
+\end{definition}
+
+\subsubsection{Counting and Bijections}
+
+\begin{proposition}{Degree-sum formula}{con-degree-sum}
+  If $G$ is a graph, then $\sum_{v \in V(G)} d(v) = 2 e(G)$.
+\end{proposition}
+
+\begin{corollary}{}{con-average-degree}
+  In a graph $G$, the average vertex degree is $\frac{2 e(G)}{n(G)}$, and hence $\delta(G) \leq \frac{2 e(G)}{n(G)} \leq \Delta(G)$.
+\end{corollary}
+
+\begin{corollary}{}{con-odd-degree}
+  Every graph has an even number of vertices of odd degree. (The number of odd vertices is even in every graph.)
+  
+  No graph of odd order is regular with odd degree.
+\end{corollary}
+
+\textbf{Proof} of the first sentence in \cref{cor:con-odd-degree}: If there is odd number of odd vertices, $\sum _{v \in V(G)} d(v)$ is odd. It contradicts to \cref{prop:con-degree-sum}. As a result, the number of odd vertices must be even in an undirected graph.
+
+\begin{corollary}{}{con-regular-graph}
+  A $k$-regular graph with $n$ vertices has $\frac{n k}{2}$ edges.
+\end{corollary}
 
 \subsection{Directed Graphs}
 
