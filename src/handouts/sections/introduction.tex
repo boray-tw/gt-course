@@ -6,7 +6,7 @@
 \graphicspath{ {../src/handouts/figures/} }
 
 % This document depends on fundamental-concepts.tex.tex, which provides
-% subsec:con-graph-isomorphism.
+% subsec:con-graph-isomorphism, thm:con-bipartite-odd-cycle
 % As a result, compiling only this document gives undefined references.
 
 % prevent \recall theorems outside this section
@@ -50,7 +50,7 @@ A subset of a set $A$ \textbf{can} be $A$ itself and an empty set. A proper subs
   (A.4. Remark in text)
   To prove that $A = B$, we prove that every element of $A$ is in $B$ and that every element of $B$ is in $A$; in other words, $A \subseteq B$ and $B \subseteq A$. It also suffices to turn the description of one set into the description of the other by operations that do not change membership.
 
-  This book proves many characterization theorems for classes of graphs. Such a theorem states that two sets are the same (e.g., the set of bipartite graphs is equal to the set of graphs without odd cycles---Theorem 1.2.18 in text). % TODO: link to Theorem 1.2.18
+  This book proves many characterization theorems for classes of graphs. Such a theorem states that two sets are the same (e.g., the set of bipartite graphs is equal to the set of graphs without odd cycles; \cref{thm:con-bipartite-odd-cycle}).
 \end{remark}
 
 As \cref{rem:intro-equal-sets} states, to prove $A = B$, you need to prove both $A \subseteq B$ and $B \subseteq A$ like you do in proving "if and only if" (iff, $\iff$). With only one of the two sides, the answer will be scored half or less.
