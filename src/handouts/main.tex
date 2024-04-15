@@ -207,9 +207,9 @@ gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=f
 \def\@GetSectionPrefix#1-#2\@nil{#1}%
 \makeatother
 % usage: \recall[current-section-prefix]{label-to-recall}
+\newtest{\torecall}[2]{\equal{#1}{} \OR \equal{#1}{\GetSectionPrefix{#2}}}%
 \newcommand{\recall}[2][]{%
-  \newtest{\torecall}{\equal{#1}{} \OR \equal{#1}{\GetSectionPrefix{#2}}}%
-  \ifthenelse{\torecall}{\par\noindent\useboxarray[#2]{1}\par}{}%
+  \ifthenelse{\torecall{#1}{#2}}{\par\noindent\useboxarray[#2]{1}\par}{}%
 }%
 % usage: \begin{recallable}{tcb-theorem-name}{title}{label-suffix}...\end{recallable}
 \NewEnviron{recallable}[3]{%
