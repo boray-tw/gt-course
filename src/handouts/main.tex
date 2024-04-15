@@ -178,6 +178,7 @@
 % reference 2: https://tex.stackexchange.com/a/154994
 \usepackage[most]{tcolorbox}
 \usepackage{xcolor}
+\usepackage[capitalise]{cleveref}
 \tcbset{%
 white_bg/.style  = {enhanced, sharp corners, colback=white,             parbox=false},
 red_bg/.style    = {enhanced, sharp corners, colback={red!25!white},    parbox=false},
@@ -186,16 +187,23 @@ green_bg/.style  = {enhanced, sharp corners, colback={green!50!white},  parbox=f
 blue_bg/.style   = {enhanced, sharp corners, colback={blue!50!white},   parbox=false},
 gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=false},
 }%
-% define a theorem with \newtcbtheorem[init options]{name}{display name}{options}{label-prefix}
+% define a theorem with \newthm[init options]{name}{display name}{options}{label-prefix}{Crefname}
 % use it with \begin{name}{title}{label-suffix}...\end{name}
-\newtcbtheorem[number within=section]{example}{Example}{white_bg}{ex}%
-\newtcbtheorem[number within=section]{proposition}{Proposition}{red_bg}{prop}%
-\newtcbtheorem[number within=section]{theorem}{Theorem}{yellow_bg}{thm}%
-\newtcbtheorem[number within=section]{principle}{Principle}{yellow_bg}{princ}%
-\newtcbtheorem[number within=section]{lemma}{Lemma}{yellow_bg}{lem}%
-\newtcbtheorem[number within=section]{definition}{Definition}{green_bg}{def}%
-\newtcbtheorem[number within=section]{corollary}{Corollary}{blue_bg}{cor}%
-\newtcbtheorem[number within=section]{remark}{Remark}{gray_bg}{rem}%
+% reference it with \cref{label-prefix:label-suffix} or \Cref{...}
+\newcounter{thmcounter}
+\newcommand{\newthm}[6][use counter=thmcounter, number within=section]{%
+  % ref: https://tex.stackexchange.com/a/467146
+  \newtcbtheorem[#1, Crefname={#6.}{#6s.}]{#2}{#3}{#4}{#5}%
+}
+\newthm{theorem}     {Theorem}    {yellow_bg}{thm}  {Thm}%
+\newthm{example}     {Example}    {white_bg} {ex}   {Ex}%
+\newthm{proposition} {Proposition}{red_bg}   {prop} {Prop}%
+\newthm{principle}   {Principle}  {yellow_bg}{princ}{Princ}%
+\newthm{lemma}       {Lemma}      {yellow_bg}{lem}  {Lem}%
+\newthm{definition}  {Definition} {green_bg} {def}  {Def}%
+\newthm{corollary}   {Corollary}  {blue_bg}  {cor}  {Cor}%
+\newthm{remark}      {Remark}     {gray_bg}  {rem}  {Rem}%
+
 % recall any theorems above, but it gives "there were multiply-defined labels" warning.
 % reference for \recall: https://tex.stackexchange.com/a/660914
 % reference for \GetSectionPrefix: https://tex.stackexchange.com/a/316731
@@ -219,17 +227,8 @@ gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=f
   \end{#1}%
   \recall{#3}%
 }%
-% reference formats
-\usepackage[capitalise]{cleveref}
-% TCB theorem environments
-\Crefformat{tcb@cnt@example}{Ex.~#2#1#3}
-\Crefformat{tcb@cnt@proposition}{Prop.~#2#1#3}
-\Crefformat{tcb@cnt@theorem}{Thm.~#2#1#3}
-\Crefformat{tcb@cnt@principle}{Princ.~#2#1#3}
-\Crefformat{tcb@cnt@definition}{Def.~#2#1#3}
-\Crefformat{tcb@cnt@lemma}{Lem.~#2#1#3}
-\Crefformat{tcb@cnt@corollary}{Cor.~#2#1#3}
-\Crefformat{tcb@cnt@remark}{Rem~#2#1#3}
+
+% reference formats other than theorems
 % figures and sub-figures
 % reference 1: https://www.reddit.com/r/LaTeX/comments/173pef7/comment/k468qb9/
 % reference 2: https://tex.stackexchange.com/a/335409
@@ -238,8 +237,9 @@ gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=f
 \renewcommand\thesubfigure{(\alph{subfigure})}
 \Crefformat{tcb@cnt@figure}{Fig.~#2#1#3}
 \Crefformat{tcb@cnt@subfigure}{Fig.~#2#1#3}
-% the other references
+% equations
 \Crefformat{tcb@cnt@equation}{Eq.~#2#1#3}
+% tables
 \Crefformat{tcb@cnt@table}{Table~#2#1#3}
 
 % colored text
