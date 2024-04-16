@@ -5,10 +5,16 @@
 % path that contains required images
 \graphicspath{ {../src/handouts/figures/} }
 
-% This document depends on introduction.tex, which provides
-% fig:intro-special-functions, def:intro-equiv-relation,
-% intro-equiv-relation, rem:intro-equal-sets, princ:intro-pigeonhole,
-% princ:intro-induction, def:intro-tuple-ordered-pair.
+% This document depends on the other sections, which provide the
+% following references (in the order of references in this section):
+%   def:intro-equiv-relation
+%   fig:intro-special-functions
+%   rem:intro-equal-sets
+%   princ:intro-pigeonhole
+%   princ:intro-induction
+%   rem:intro-tuple-ordered-pair
+%   def:intro-set-operations
+%   thm:tree-tree-stat
 % As a result, compiling only this document gives undefined references.
 
 % prevent \recall theorems outside this section
@@ -59,7 +65,7 @@
   \end{tikzpicture}
 }%
 
-This section is the chapter one in the textbook "Introduction to Graph Theory". It covers all key concepts, keywords, definitions, theorems, etc.
+This section is the chapter 1 in the textbook "Introduction to Graph Theory". It covers all key concepts, keywords, definitions, theorems, etc.
 
 \subsection{Graph}
 
@@ -131,6 +137,7 @@ We have a graph as follows, shown in \cref{fig:con-seven-bridge}.
 \begin{figure}[ht]
   \centering
   \begin{subfigure}{0.35\textwidth}
+    % TODO: TikZ version
     \centering
     \includegraphics[width=\textwidth]{con-seven-bridge-original}
     \caption{Original version.}
@@ -138,6 +145,7 @@ We have a graph as follows, shown in \cref{fig:con-seven-bridge}.
   \end{subfigure}
   \hspace{.1\textwidth}
   \begin{subfigure}{0.25\textwidth}
+    % TODO: TikZ version
     \centering
     \includegraphics[width=\textwidth]{con-seven-bridge-graph}
     \caption{Graph version.}
@@ -326,16 +334,18 @@ Some comments for bipartite graphs:
 \begin{enumerate}
   \item \label{enum:con-bipartite-odd} A bipartite graph is a graph with no odd length cycle. That is, there doesn't exist a path to traverse some vertices along edges and back to the starting point with odd number of edges. For a graph with no possible cycles or with only even length cycles, such a graph is also bipartite. \supp{A bonus problem is as follows. Proove that a graph is not bipartite if it has one or more \textit{arbitrary} (3, 5, 7, etc.) odd length cycles. However, in 2024 spring, announced in 2024-03-08, the bonus problem changed to a program homework with different topics.}
 
-  \item Another ways to define an $n$-vertex tree $G$, where $n \geq 1$:
+  \item \label{enum:con-tree-state} Another ways to define an $n$-vertex tree $G$, where $n \geq 1$:
         \begin{enumerate}
-          \item $G$ satisfies any two of the following three rules:
+          \item $G$ satisfies any two of the following three statements:
                 \begin{enumerate}
                   \item $G$ is connected. (See \cref{fig:con-connected-graph-interlude} for the illustration of connected and unconnected graphs. And see \cref{def:con-connected} for the definition.)
                   \item $G$ has "$n - 1$" edges.
                   \item $G$ has no cycles. Note that a self-loop is a cycle.
                 \end{enumerate}
-          \item $G$ has no loops, and for each $u,\, v \in V(G)$, there exists exactly one $u,\, v$-path. (This rule is sufficient to show that $G$ is a tree, for the later part shows the three rules above.) % TODO: link to their proofs
+          \item $G$ has no loops, and for each $u,\, v \in V(G)$, there exists exactly one $u,\, v$-path. (This rule is sufficient to show that $G$ is a tree, for the later part shows the three statements above.)
         \end{enumerate}
+
+  \item See \cref{thm:tree-tree-stat} (the same definition as the previous one) and its proofs from \cpageref{thm:tree-tree-stat} for more info.
 \end{enumerate}
 
 Note that a graph $G$ with "$n - 1$" edges doesn't mean $G$ is connected. For example, a graph with two components: one is a triangle with three vertices and three edges, and the other one is an isolated graph with a vertex. Such a graph is 4 vertices with 3 edges, but is disconnected.
@@ -515,6 +525,7 @@ For two isomorphic graphs $G$ and $H$, they may look different by human eyes. An
 See \cref{fig:con-isomorphism} for an example. In this example, we could see that vertices $w,\, z$ may correspond to $c,\, a$; and $x,\, y$ to $b,\, d$.
 
 \begin{figure}[ht]
+  % TODO: TikZ and LaTeX version
   \centering
   \includegraphics[width=.7\textwidth]{con-isomorphism}
   \caption{An example that $G$ is isomorphic to $H$. The following three matrices are adjacency matrices.}
@@ -1089,6 +1100,8 @@ Connection relation is also an equivalence relation (\cref{def:intro-equiv-relat
 \begin{remark}{}{con-maximum}
   \textbf{Minimal}/\textbf{maximal} somethings are conditional or local minimums/maximums, while \textbf{minimum}/\textbf{maximum} is globally minimum/maximum without conditions.
 
+  Speaking of minimum/maximum, you must consider all graphs/scenarios. Speaking of minimal/maximal, there are some constraints like satisfying some characteristics.
+
   E.g., I have the \textbf{maximal} height among people \textit{under 155cm} in this classroom. Amy has the \textbf{maximal} height among people around her.
 \end{remark}
 
@@ -1486,7 +1499,7 @@ Recall \cref{def:con-self-comp}: A \textbf{decomposition} of a graph is a list o
 
 \begin{corollary}{}{con-odd-degree}
   Every graph has an even number of vertices of odd degree. (The number of odd vertices is even in every graph.)
-  
+
   No graph of odd order is regular with odd degree.
 \end{corollary}
 
@@ -1496,6 +1509,290 @@ Recall \cref{def:con-self-comp}: A \textbf{decomposition} of a graph is a list o
   A $k$-regular graph with $n$ vertices has $\frac{n k}{2}$ edges.
 \end{corollary}
 
+\begin{proposition}{}{con-regular-bipartite-graph}
+  If $k > 0$, then a $k$-regular bipartite graph has the same number of vertices in each partite set.
+\end{proposition}
+
+\textbf{Proof} of \cref{prop:con-regular-bipartite-graph}:
+\begin{enumerate*}
+  \item Let $G$ be a $k$-regular $X,Y$-bigraph.
+  \item Counting the edges according to their endpoints in $X$ yields $e(G) = k \abs{X}$.
+  \item Counting them by their endpoints in Y yields $e(G) = k \abs{Y}$.
+  \item Since edges only go between partite sets $X$ and $Y$, $\abs{X} = \abs{Y}$.
+\end{enumerate*}
+
+\begin{proposition}{}{con-connected-vertex}
+  The minimum number of edges in a connected graph with $n$ vertices is $n - 1$.
+\end{proposition}
+
+\textbf{Proof} of \cref{prop:con-connected-vertex}:
+\begin{enumerate*}
+  \item By \cref{prop:con-component}, every graph with $n$ vertices and $k$ edges has at least $n - k$ components.
+  \item Every $n$-vertex graph with fewer than $n - 1$ edges has at least two components to make the graph disconnected.
+  \item The lower bound is achieved by a path $P_n$ or a tree with $n$ nodes, which connects all $n$ vertices with $n - 1$ edges.
+\end{enumerate*}
+
+To prove that $\beta$ is the minimum (\cref{rem:con-maximum}) of $f(G)$ for graphs in a class $\bm{G}$, there are two prerequisites:
+\begin{enumerate*}
+  \item $f(G) \geq \beta$ for all $G \in \bm{G}$.
+  \item $f(G) = \beta$ for some $G \in \bm{G}$. (Minimum value exists.)
+\end{enumerate*}
+
+\begin{proposition}{}{con-connected-minimum-degree}
+  If $G$ is a simple $n$-vertex graph with $\delta(G) \geq \frac{n - 1}{2}$, then $G$ is connected.
+\end{proposition}
+
+\textbf{Proof} of \cref{prop:con-connected-minimum-degree}:
+\begin{enumerate}
+  \item Choose two arbitrary non-adjacent vertices $u,\, v$. We want to show that they have a common neighbor.
+  \item Let $N(u)$ be the set of neighbors of $u$, and similarly for $v$.
+  \item Since $G$ is simple, $\abs{N(u)} \geq \delta(G) \geq \frac{n - 1}{2}$, and similarly for $v$.
+  \item (For any two sets $A,\, B$, the number of elements in their union is $\abs{A \cup B} = \abs{A} + \abs{B} - \abs{A \cap B}$.)
+  \item Moreover, when $u \nleftrightarrow v$ ($u$ is not adjacent to $v$), $\abs{N(u) \cup N(v)} \leq n - 2$ (all vertices except $u$ and $v$).
+  \item Therefore,
+        \[
+          \abs{N(u) \cap N(v)} = \abs{N(u)} + \abs{N(v)} - \abs{N(u) \cup N(v)}
+          \geq \frac{n - 1}{2} + \frac{n - 1}{2} - (n - 2)
+          = 1
+        \]
+  \item Since $N(u) \cap N(v)$ must has some element, $u$ and $v$ have a common neighbor.
+  \item Thus, there is a path for any $u$ and $v$, and the entire graph is connected.
+\end{enumerate}
+
+\begin{theorem}{}{con-bigraph-edges}
+  Every loopless graph $G$ has a bipartite subgraph with at least $\frac{e(G)}{2}$ edges. (Under that the graph has any edge.)
+\end{theorem}
+
+\textbf{Proof} of \cref{thm:con-bigraph-edges}:
+\begin{enumerate}
+  \item (In this proof, it utilizes proof by contradiction.)
+  \item For a loopless graph, without edge limitation in the last part of \cref{thm:con-bigraph-edges}, it is easy to generate a bipartite subgraph by putting the endpoints of some edges into two sets without an edge inside sets.
+  \item Let $H$ be the bipartite subgraph of $G$ that has the most edges.
+  \item If $d_H(v) \geq \frac{d_G(v)}{2}$ for all $v \in V(G)$, then the degree-sum formula (\cref{prop:con-degree-sum}) yields $e(H) \geq \frac{e(G)}{2}$ (last part of \cref{thm:con-bigraph-edges}). Since all $v \in V(G)$ satisfy the inequality above, we can sum all vertices while satisfying the inequality. See \cref{fig:con-bigraph-edges-original,fig:con-bigraph-edges-subgraph} for an example.
+        \begin{align*}
+           &             & d_H(v)                    & \geq d_G(v) \ \ \ \forall v \in V(G)                       \\
+           & \Rightarrow & \sum _{v \in V(G)} d_H(v) & \geq \sum _{v \in V(G)} \frac{d_G(v)}{2}                   \\
+           & \Rightarrow & 2 e(H)                    & \geq \frac{2 e(G)}{2} \ \ \ \text{(by degree-sum formula)} \\
+           & \Rightarrow & e(H)                      & \geq \frac{e(G)}{2}
+        \end{align*}
+  \item Otherwise, partition the vertices in $V(G)$ into two sets, $X$ and $Y$ as illustrated in \cref{fig:con-bigraph-edges-switching}. For some $v \in V(G)$ with degree 5 in $G$, $v$ must be in the set $Y$ to gain more edges. To satisfy $d_H(v) < \frac{d_G(v)}{2}$ ($d_H(v) < 2.5$), $v$ must be in the set $X$. The two rules contradict to each other, so $d_H(v) < \frac{d_G(v)}{2}$ is wrong.
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}
+      \node[draw, circle, fill=blue!25!white, inner sep=.15cm] (1) at (0, 2) {$v$};
+      \draw[ultra thick] (1) -- (2, 2) -- (2, 0) -- (0, 0) -- (1);
+      \draw[ultra thick, red] (1) -- (2, 0);
+    \end{tikzpicture}
+    \caption{A graph $G$ in which the blue node $v$ has degree 3, and it gives $\frac{d_G(v)}{2} = 1.5$ for this vertex $v$.}
+    \label{fig:con-bigraph-edges-original}
+  \end{subfigure}
+  \hspace{.15\textwidth}
+  \begin{subfigure}[t]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}
+      \node[draw, circle, fill=blue!25!white, inner sep=.15cm] (1) at (0, 2) {$v$};
+      \draw[ultra thick] (1) -- (2, 2) -- (2, 0) -- (0, 0) -- (1);
+    \end{tikzpicture}
+    \caption{A bipartite subgraph of $G$, denoted by $H$. The blue node $v$ in $H$ has degree 2 ($d_H(v) = 2$). $H$ satisfies that $d_H(v) \geq \frac{d_G(v)}{2} \forall v \in V(G)$, and thus $e(H) \geq \frac{e(G)}{2}$.}
+    \label{fig:con-bigraph-edges-subgraph}
+  \end{subfigure}
+
+  \vspace{1em}
+
+  \begin{subfigure}[t]{.75\textwidth}
+    % TODO: TikZ version
+    \centering
+    \includegraphics[width=\textwidth]{con-bigraph-edges-switching}
+    \caption{With $v$ in either of the two partition, there is always an edge in the same set to make the two partition not partite sets.}
+    \label{fig:con-bigraph-edges-switching}
+  \end{subfigure}
+  \caption{Figures to illustrate the proof of \cref{thm:con-bigraph-edges}.}
+  \label{fig:con-bigraph-edges}
+\end{figure}
+
+
+
 \subsection{Directed Graphs}
+
+Directed graphs are useful in network flow, quantum computing, marketing relation.
+
+In a marketing relation graph, it is intuitive that if a person has more outdegree, he/she is more successful. Moreover, such a person has some cost; for each relation there are profits.
+
+Without specifying a graph is directed, a graph is an undirected graph by default.
+
+\begin{definition}{}{con-digraph}
+  A \textbf{directed graph} or \textbf{digraph} $G$ is a triple consisting of a vertex set $V(G)$, an edge set $E(G)$, and a function assigning each edge an ordered pair of vertices.
+
+  The \textbf{first} vertex of the ordered pair is the \textbf{tail}; the \textbf{second} one is the \textbf{head}; the head and tail are the endpoints.
+
+  An edge is from its \textbf{tail} to its \textbf{head}.
+\end{definition}
+
+Continuing form \cref{def:con-digraph}, $uv$ and $vu$ edges refer to different edges. \supp{In some programs, the direction of head and tail may be reversed because the programmer thinks that the starting end is the head, and the ending end is the tail.}
+
+\begin{definition}{}{con-multi-digraph}
+  A \textbf{loop} is an edge whose endpoints are equal.
+
+  \textbf{Multiple edges} are edges having the same ordered pair of endpoints.
+
+  A digraph is \textbf{simple} if each ordered pair is the head and tail of at most one edge; one loop may be present at each vertex.
+\end{definition}
+
+Continuing from \cref{def:con-multi-digraph}, in a simple digraph $G$, one ordered vertex pair correspond to one edge or no edge, for some $u,\, v \in V(G)$, and $u,\, v$ may be the same vertex.
+
+\begin{definition}{}{con-digraph-underlying-graph}
+  A digraph is a \textbf{path} if it's a simple digraph whose vertices can be linearly ordered so that there is an edge with tail $u$ and head $v$ iff $v$ immediately follows $u$ in the vertex ordering.
+
+  The \textbf{underlying graph} of a digraph $D$ is the graph $G$ obtained by treating the edges of $D$ as unordered pairs.
+\end{definition}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.5\textwidth]{con-digraph-cycle}
+  \caption{The graph $G$ is the underlying graph of the graph $D$. Note that $G$ is not a undirected graph although it looks alike.}
+  \label{fig:con-digrpah-underlying-graph}
+\end{figure}
+
+\begin{definition}{}{con-digraph-adj-inc-matrices}
+  In the adjacency matrix $A(G)$ of a digraph $G$, the entry in positions $i,\, j$ is the number of edges from $v_i$ to $v_j$.
+
+  In the incidence matrix $M(G)$ of a loopless digraph $G$, we set $m_{i, j} = +1$ if $v_i$ is the tail of $e_j$ and $m_{i, j} = -1$ if $v_i$ is the head of $e_j$.
+\end{definition}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.75\textwidth]{con-digraph-adj-inc-matrices}
+  \caption{A digraph $G$, its adjacency matrix $A(G)$ and incidence matrix $M(G)$.}
+  \label{fig:con-digraph-adj-inc-matrices}
+\end{figure}
+
+\begin{definition}{}{con-strong-component}
+  A digraph is \textbf{weakly connected} if its underlying graph is connected.
+
+  A digraph is \textbf{strongly connected} or strong if for each ordered pair $u, v$ of vertices, there is a path from $u$ to $v$.
+
+  The \textbf{strong components} of a digraph are its \ul{maximal} strong subgraphs.
+\end{definition}
+
+For a vertex which has only non-zero indegree or outdegree, such a vertex is a strong component. An $n$-vertex path has $n$ strong components. A cycle has only one strong component.
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.4\textwidth]{con-strong-component}
+  \caption{A weakly connected digraph which has three strong components (two vertices on the left and the fish on the right).}
+  \label{fig:con-strong-component}
+\end{figure}
+
+\begin{definition}{}{con-digraph-degree}
+  The \textbf{outdegree} $d^{+}(v)$ is the number of edges with tail $v$.
+
+  The \textbf{indegree} $d^{-}(v)$ is the number of edges with head $v$.
+
+  The \textbf{out-neighborhood} or \textbf{successor} set $N^{+}(v)$ is $\{x \in V(G): v \rightarrow x\}$.
+
+  The \textbf{in-neighborhood} or \textbf{predecessor} set $N^{-}(v)$ is $\{x \in V(G): x \rightarrow v\}$.
+
+  The minimum and maximum indegree are $\delta^{-}(G)$ and $\Delta^{-}(G)$; for outdegree we use $\delta^{+}(G)$ and $\Delta^{+}(G)$.
+\end{definition}
+
+The application of \cref{def:con-digraph-degree} is common in software verification. The successor set is used to record all possible states after the current state. The predecessor set is used to find the bug which makes the current state possible.
+
+\begin{proposition}{}{con-digraph-edge-degree-relation}
+  In a digraph $G, \sum _{v \in V(G)} d^{+}(v) = e(G) = \sum _{v \in V(G)} d^{-}(v)$.
+\end{proposition}
+
+\textbf{Proof} of \cref{prop:con-digraph-edge-degree-relation}: An edge contributes 1 indegree and 1 outdegree to two vertices which may be the same vertex. The number of edges equals to the sum of all indegree or the sum of all outdegree.
+
+\begin{definition}{}{con-digraph-eulerian}
+  An \textbf{Eulerian trail} in a digraph (or graph) is a trail containing all edges.
+
+  An \textbf{Eulerian circuit} is a closed trail containing all edges.
+
+  A digraph is \textbf{Eulerian} if it has an Eulerian circuit.
+\end{definition}
+
+In a digraph, the Eulerian trail must follow the direction of edges.
+
+\begin{lemma}{}{con-digraph-cycle}
+  If $G$ is a digraph with $\delta^{+}(G) \geq 1$, then $G$ contains a cycle. The same conclusion holds when $\delta^{-}(G) \geq 1$.
+\end{lemma}
+
+\textbf{Proof} of \cref{lem:con-digraph-cycle}:
+\begin{enumerate*}
+  \item This is proof is similar to that of \cref{lem:con-degree-cycle}.
+  \item Let $P$ be a \underline{maximal} path (\cref{rem:con-maximum}) from a vertex $v$ whose $d^{+}(v) \geq 1$ and $d^{-}(v) \geq 1$ in a graph $G$ whose $\delta^{-}(G) \geq 1$ as illustrated in \cref{fig:con-digraph-cycle}. Say that the other endpoint of $P$ is $u$.
+  \item Since $d^{+}(u) \geq 1$, there must be a edge from $u$ to some vertex in $P$, and it forms a cycle. Otherwise, $P$ is not a maximal path.
+\end{enumerate*}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.4\textwidth]{con-digraph-cycle}
+  \caption{A graph $G$ whose $\delta^{-}(G) = 1$.}
+  \label{fig:con-digraph-cycle}
+\end{figure}
+
+\begin{definition}{}{con-orientation-tournament}
+  An \textbf{orientation} of a graph $G$ is a digraph $D$ obtained from $G$ by choosing an orientation ($x \rightarrow y$ or $y \rightarrow x$) for each edge $xy \in E(G)$.
+
+  An \textbf{oriented graph} is an orientation of a simple graph.
+
+  A \textbf{tournament} is an orientation of a complete graph.
+\end{definition}
+
+A complete graph is also a clique.
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.25\textwidth]{con-tournament}
+  \caption{In a round-robin tournament, each two teams have a competition and one of them is the winner over the other one. $u$ winning $v$ is a directed edge $uv$.}
+  \label{fig:con-tournament}
+\end{figure}
+
+\begin{definition}{}{con-king}
+  In a digraph, a \textbf{king} is a vertex from which every vertex is reachable by a path of length at most two.
+\end{definition}
+
+\begin{proposition}{}{con-tournament-king}
+  Every tournament has a king.
+\end{proposition}
+
+Note that \cref{prop:con-tournament-king} doesn't guarantee that a tournament has exactly a king.
+
+\textbf{Proof} of \cref{prop:con-tournament-king}:
+\begin{enumerate*}
+  \item Let $x$ be a vertex in a tournament $T$. \supp{Since we are not proving whether a vertex is king or not, we cannot assume that a vertex is a king in the first place.}
+  \item If $x$ is not a king:
+        \begin{enumerate}
+          \item $\exists y$ such that $y$ is not reachable from $x$ by a path of at most length 2. As a result, no successor of $x$ is a predecessor of $y$. In other words, $\exists y \notin N^{+}(x) \cap \set{x}$ such that $N^{+}(x) \cap N^{-}(y) = \emptyset$.
+
+          \item In a clique, every pair of vertex has an edge, but any successor of $x$ cannot be a predecessor of $y$, then each successor of $x$ must be a successor of $y$. In other words, $N^{+}(x) \subseteq N^{+}(y)$.
+
+          \item Moreover, since $y$ is not a successor of $x$, $y$ must be a predecessor of $x$. In other words, $y \in N^{-}(x)$ or $x \in N^{+}(y)$.
+
+          \item Combining $N^{+}(x) \subseteq N^{+}(y)$ and $x \in N^{+}(y)$, we have $d^{+}(y) > d^{+}(x)$.
+
+          \item See \cref{fig:con-tournament-king} for the illustration.
+        \end{enumerate}
+
+  \item If $y$ is not a king, then find $z$ with yet larger outdegree.
+  \item Since the directed graph is directed and finite, we cannot forever obtain vertices of successively higher outdegree, so this searching procedure must terminate when a king is found.
+\end{enumerate*}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.4\textwidth]{con-tournament-king}
+  \caption{Illustration for the proof of \cref{prop:con-tournament-king}.}
+  \label{fig:con-tournament-king}
+\end{figure}
 
 \end{document}
