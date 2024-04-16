@@ -92,6 +92,7 @@
             footskip=.25in]{geometry}
 
 % plots (not pictures/images from files)
+% and use \foreach command
 \usepackage{pgfplots, tikz}
 \pgfplotsset{compat=1.18} % to satisfy pdflatex
 \usetikzlibrary {arrows.meta, positioning, math}
@@ -284,7 +285,12 @@ References:
   \item Secondary: "Mathematical Thinking: Problem-Solving and Proofs", 2nd edition, John P. D'Angelo \& Douglas B. West, ISBN-10: 0-13-014412-6, 2000.
 \end{enumerate}
 
-\subfile{./sections/introduction}\clearpage
-\subfile{./sections/fundamental-concepts}\clearpage
+% note: you shouldn't use \section to prevent overwriting \section command
+\foreach \s in {
+    introduction,
+    fundamental-concepts,
+  }{
+    \subfile{./sections/\s}\clearpage
+  }
 
 \end{document}
