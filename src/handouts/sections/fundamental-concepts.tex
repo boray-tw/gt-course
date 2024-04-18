@@ -334,7 +334,7 @@ Note that some proofs are pretty simple, but it doesn't mean that they wouldn't 
 
 Some comments for bipartite graphs:
 \begin{enumerate}
-  \item \label{enum:con-bipartite-odd} A bipartite graph is a graph with no odd length cycle. That is, there doesn't exist a path to traverse some vertices along edges and back to the starting point with odd number of edges. For a graph with no possible cycles or with only even length cycles, such a graph is also bipartite. \supp{A bonus problem is as follows. Proove that a graph is not bipartite if it has one or more \textit{arbitrary} (3, 5, 7, etc.) odd length cycles. However, in 2024 spring, announced in 2024-03-08, the bonus problem changed to a program homework with different topics.}
+  \item \label{enum:con-bipartite-odd} A bipartite graph is a graph with no odd length cycle (\cref{thm:con-bipartite-odd-cycle}). That is, there doesn't exist a path to traverse some vertices along edges and back to the starting point with odd number of edges. For a graph with no possible cycles or with only even length cycles, such a graph is also bipartite. \supp{A bonus problem is as follows. Proove that a graph is not bipartite if it has one or more \textit{arbitrary} (3, 5, 7, etc.) odd length cycles. However, in 2024 spring, announced in 2024-03-08, the bonus problem changed to a program homework with different topics.}
 
   \item \label{enum:con-tree-state} Another ways to define an $n$-vertex tree $G$, where $n \geq 1$:
     \begin{enumerate}
@@ -447,14 +447,14 @@ In \cref{fig:con-path}, reversing the order of vertices in the given path gives 
   We denote $S \subseteq G$ for a subgraph of a graph $G$.
 \end{definition}
 
-For \cref{def:con-subgraph}, in other words, if $S \subseteq G$, all vertices and edges in $S$ are in $G$ without introducing new vertices or edges. Later, we will cover induced subgraphs, which pose a constraint on edges. % TODO: link to induced subgraphs
+For \cref{def:con-subgraph}, in other words, if $S \subseteq G$, all vertices and edges in $S$ are in $G$ without introducing new vertices or edges. In \cref{def:con-induced-subgraph} in \cpageref{def:con-induced-subgraph}, we will cover induced subgraphs, which pose a constraint on edges.
 
 \begin{definition}{Connected graphs}{con-connected}
   (1.1.16. Definition in text)
   A graph $G$ is \textbf{connected} if each pair of vertices in $G$ belongs to a path. Otherwise, $G$ is \textbf{disconnected}.
 \end{definition}
 
-For \cref{def:con-connected}, in other words, if a graph $G$ is connected, you can find a path from any one vertex to each other vertices. % TODO: link to its definition with components
+For \cref{def:con-connected}, in other words, if a graph $G$ is connected, you can find a path from any one vertex to each other vertices (\cref{def:con-connected-path}).
 
 See \cref{fig:con-connected-unconnected} for the examples of \cref{def:con-connected}.
 
@@ -498,7 +498,7 @@ See \cref{fig:con-connected-unconnected} for the examples of \cref{def:con-conne
 
 In \cref{def:con-adj}, in brief, the adjacency matrix records the number of edges between each two vertices; the incidence matrix records the endpoints of each edge. See \cref{fig:con-adj} for some examples.
 
-(1.1.18 Remark) The adjacency matrix of a simple graph consists of 0 and/or 1. In a simple undirected graph, the adjacency matrix is always \textbf{symmetric} ($A(G) = A(G)^\trans$) with all zeros on the diagonal.
+(1.1.18 Remark) The adjacency matrix of a simple (undirected/directed) graph consists of 0 and/or 1. In a simple undirected graph, the adjacency matrix is always \textbf{symmetric} ($A(G) = A(G)^\trans$) with all zeros on the diagonal. See \cref{sec:con-directed-graphs} for the definition of adjacency and incidence matrices of directed graphs.
 
 In a finite graph, the incidence matrix consists of 0 and/or 1, and each vertex has a degree (at least 0).
 
@@ -610,7 +610,7 @@ For \cref{def:con-complete}, a complete graph with $n$ vertices is $K_n$ rather 
 
 A complete bipartite graph is not a complete graph. Nonetheless, $K_{r,s}$ is a subgraph of $K_n$, given $r \leq n$ and $s \leq n$.
 
-$C_3$ is a subgraph of $K_5$. In a $K_5$, there are $C_5^3 = 10$ (combination) distinct $C_3$. However, in $K_{2,3}$, there is no $C_3$, which is an odd-length cycle. See \cref{thm:con-bipartite-odd-cycle}, comment \ref{enum:con-bipartite-odd} in \cpageref{enum:con-bipartite-odd} and \cref{rem:intro-equal-sets} in \cpageref{rem:intro-equal-sets} for the definition of bipartite graphs.
+$C_3$ is a subgraph of $K_5$. In a $K_5$, there are $\C{5}{3} = 10$ (combination) distinct $C_3$. However, in $K_{2,3}$, there is no $C_3$, which is an odd-length cycle. See \cref{thm:con-bipartite-odd-cycle} in \cpageref{thm:con-bipartite-odd-cycle}, comment \ref{enum:con-bipartite-odd} in \cpageref{enum:con-bipartite-odd}, and \cref{rem:intro-equal-sets} in \cpageref{rem:intro-equal-sets} for the definition of bipartite graphs.
 
 \begin{figure}[htbp]
   \centering
@@ -975,7 +975,7 @@ For example, recall the seven bridge problem in \cref{subsubsec:con-seven-bridge
 
 In brief, a $u,v$-path refers to a way to traverse some vertices from $u$ to $v$ via some edges.
 
-See \cref{def:con-path-cycle} for the definition of paths and cycles.
+See \cref{def:con-path-cycle} for the definition of paths and cycles. See \cref{fig:con-walk-cycle} for examples of paths, cycles and walks (trails).
 
 \begin{figure}[htbp]
   % TODO: TikZ version
@@ -1619,7 +1619,7 @@ To prove that $\beta$ is the minimum (\cref{rem:con-maximum}) of $f(G)$ for grap
 
 
 
-\subsection{Directed Graphs}
+\subsection{Directed Graphs}\label{sec:con-directed-graphs}
 
 Directed graphs are useful in network flow, quantum computing, marketing relation.
 
