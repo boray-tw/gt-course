@@ -335,15 +335,15 @@ Some comments for bipartite graphs:
   \item \label{enum:con-bipartite-odd} A bipartite graph is a graph with no odd length cycle. That is, there doesn't exist a path to traverse some vertices along edges and back to the starting point with odd number of edges. For a graph with no possible cycles or with only even length cycles, such a graph is also bipartite. \supp{A bonus problem is as follows. Proove that a graph is not bipartite if it has one or more \textit{arbitrary} (3, 5, 7, etc.) odd length cycles. However, in 2024 spring, announced in 2024-03-08, the bonus problem changed to a program homework with different topics.}
 
   \item \label{enum:con-tree-state} Another ways to define an $n$-vertex tree $G$, where $n \geq 1$:
+    \begin{enumerate}
+      \item $G$ satisfies any two of the following three statements:
         \begin{enumerate}
-          \item $G$ satisfies any two of the following three statements:
-                \begin{enumerate}
-                  \item $G$ is connected. (See \cref{fig:con-connected-graph-interlude} for the illustration of connected and unconnected graphs. And see \cref{def:con-connected} for the definition.)
-                  \item $G$ has "$n - 1$" edges.
-                  \item $G$ has no cycles. Note that a self-loop is a cycle.
-                \end{enumerate}
-          \item $G$ has no loops, and for each $u,\, v \in V(G)$, there exists exactly one $u,\, v$-path. (This rule is sufficient to show that $G$ is a tree, for the later part shows the three statements above.)
+          \item $G$ is connected. (See \cref{fig:con-connected-graph-interlude} for the illustration of connected and unconnected graphs. And see \cref{def:con-connected} for the definition.)
+          \item $G$ has "$n - 1$" edges.
+          \item $G$ has no cycles. Note that a self-loop is a cycle.
         \end{enumerate}
+      \item $G$ has no loops, and for each $u,\, v \in V(G)$, there exists exactly one $u,\, v$-path. (This rule is sufficient to show that $G$ is a tree, for the later part shows the three statements above.)
+    \end{enumerate}
 
   \item See \cref{thm:tree-tree-stat} (the same definition as the previous one) and its proofs from \cpageref{thm:tree-tree-stat} for more info.
 \end{enumerate}
@@ -556,14 +556,14 @@ Recall \cref{def:intro-equiv-relation} as follows.
   \item Reflexive: $G \isomorphicto G$. (A graph and itself have isomorphism relation.)
   \item Symmetric: $uv \in E(G) \iff f(u)f(v) \in E(H)$ yields $xy \in E(H) \iff f^{-1}(x)f^{-1}(y) \in E(G)$. So, $G \isomorphicto H \iff H \isomorphicto G$. Consider $f$ and its inverse ($f^{-1}$) to be bijection functions.
   \item Transitive:
-        \begin{enumerate}
-          \item See \cref{fig:con-iso-equiv} for the illustration.
-          \item Let $\func{f}{V(F)}{V(G)}$ and $\func{g}{V(G)}{V(H)}$ be two isomorphism relation functions.
-          \item Given $uv \in E(F) \iff f(u)f(v) \in E(G)$ and $xy \in E(G) \iff g(x)g(y) \in E(H)$ by definition, since $f$ is an isomorphism, for every $xy \in E(G)$ we can find $uv \in E(G)$ such that $f(u) = x$ and $f(v) = y$.
-          \item The last statement yields $uv \in E(F) \iff g(f(u))g(f(v)) \in E(H)$, where $f(u) = x$ and $f(v) = y$.
-          \item Thus, the composition $g \composition f$ is an isomorphism from $F$ to $H$.
-          \item We have proved that $F \isomorphicto G$ and $G \isomorphicto H$ together imply $F \isomorphicto H$.
-        \end{enumerate}
+    \begin{enumerate}
+      \item See \cref{fig:con-iso-equiv} for the illustration.
+      \item Let $\func{f}{V(F)}{V(G)}$ and $\func{g}{V(G)}{V(H)}$ be two isomorphism relation functions.
+      \item Given $uv \in E(F) \iff f(u)f(v) \in E(G)$ and $xy \in E(G) \iff g(x)g(y) \in E(H)$ by definition, since $f$ is an isomorphism, for every $xy \in E(G)$ we can find $uv \in E(G)$ such that $f(u) = x$ and $f(v) = y$.
+      \item The last statement yields $uv \in E(F) \iff g(f(u))g(f(v)) \in E(H)$, where $f(u) = x$ and $f(v) = y$.
+      \item Thus, the composition $g \composition f$ is an isomorphism from $F$ to $H$.
+      \item We have proved that $F \isomorphicto G$ and $G \isomorphicto H$ together imply $F \isomorphicto H$.
+    \end{enumerate}
 \end{enumerate}
 
 \begin{figure}[htbp]
@@ -832,10 +832,10 @@ For a graph with two cycles: a triangle $C_3$ and a rectangle $C_4$, the girth o
 
 \begin{enumerate*}
   \item Any two nonadjacent vertices share one element, and their union $S$ has 3 elements.
-        \begin{enumerate}
-          \item For example, the vertices 12 and 23 in the leftmost graph in \cref{fig:con-petersen-examples} share the element 2.
-          \item For a simple graph with three vertices and two edges, there are 6 elements chosen from 5 elements for three vertices. As a result, at least one element appears twice in this graph. This is proven by \cref{princ:intro-pigeonhole} (pigeonhole principle).
-        \end{enumerate}
+    \begin{enumerate}
+      \item For example, the vertices 12 and 23 in the leftmost graph in \cref{fig:con-petersen-examples} share the element 2.
+      \item For a simple graph with three vertices and two edges, there are 6 elements chosen from 5 elements for three vertices. As a result, at least one element appears twice in this graph. This is proven by \cref{princ:intro-pigeonhole} (pigeonhole principle).
+    \end{enumerate}
   \item A vertex adjacent to two vertices is a 2-set (a set with two elements) disjoint from both its neighbors.
   \item Since the 2-sets are chosen from $\{ 1,\, 2,\, 3,\, 4,\, 5 \}$, there is exactly one 2-set disjoint from $S$ (defined in the first point).
 \end{enumerate*}
@@ -1055,10 +1055,10 @@ By induction for a $u,v$-walk $W$ whose length is $l$ as illustrated in \cref{fi
 \begin{enumerate*}
   \item Basis step: When $l = 0$, $W$ contains a single vertex as a path whose length is 0.
   \item Induction step: When $l \geq 1$, there are two possible cases as follows.
-        \begin{enumerate}
-          \item Case 1: $W$ has no repeated vertex, so $W$ is a $u,v$-path (if we see only the sequence of vertices in $W$).
-          \item Case 2: $W$ has a repeated vertex $w$. (This case covers all cases with any positive number of repeated vertices.) Thus, there is a $u,u$-loop or $u,u$-cycle. By removing that loop or cycle, we get a $u,v$-path.
-        \end{enumerate}
+    \begin{enumerate}
+      \item Case 1: $W$ has no repeated vertex, so $W$ is a $u,v$-path (if we see only the sequence of vertices in $W$).
+      \item Case 2: $W$ has a repeated vertex $w$. (This case covers all cases with any positive number of repeated vertices.) Thus, there is a $u,u$-loop or $u,u$-cycle. By removing that loop or cycle, we get a $u,v$-path.
+    \end{enumerate}
 \end{enumerate*}
 
 \begin{definition}{}{con-connected-path}
@@ -1240,6 +1240,7 @@ For \cref{def:con-induced-subgraph}, note that:
 \end{remark}
 
 \begin{theorem}{}{con-cut-edge-cycle}
+  (Theorem 1.2.14 in text)
   P: \underline{An edge is a cut-edge} if and only if Q: \underline{it belongs to no cycle}.
 \end{theorem}
 
@@ -1250,10 +1251,10 @@ For \cref{def:con-induced-subgraph}, note that:
   \item We want to prove $\neg P$: \underline{$H-e$ is connected} iff. $\neg Q$: \underline{$e$ belongs to a cycle}. $\neg P$ means the graph is still connected after we remove an edge $e$ from $H$, so $e$ is not an cut-edge.
   \item To prove $\neg P \implies \neg Q$, suppose that $H-e$ is connected. Then, $H-e$ contains an $x,y$-path $P(x,\, y)$. $P(x,\, y) + e$ is a cycle of $G$.
   \item To prove $\neg Q \implies \neg P$, let $P$ be a $u,v$-path, given $e$ is on a cycle $C$.
-        \begin{enumerate}
-          \item If $P$ doesn't contain the edge $e$, removing the edge $e$ doesn't affect $P$, and the graph $H$ is still connected.
-          \item If $P$ contains the edge $e$, since $e$ is on a cycle, there can still be a $u,v$-path but not through the edge $e$, making the graph $H-e$ connected. See \cref{fig:con-cut-edge-cycle} for the illustration.
-        \end{enumerate}
+    \begin{enumerate}
+      \item If $P$ doesn't contain the edge $e$, removing the edge $e$ doesn't affect $P$, and the graph $H$ is still connected.
+      \item If $P$ contains the edge $e$, since $e$ is on a cycle, there can still be a $u,v$-path but not through the edge $e$, making the graph $H-e$ connected. See \cref{fig:con-cut-edge-cycle} for the illustration.
+    \end{enumerate}
 \end{enumerate}
 
 \begin{figure}[htbp]
@@ -1273,10 +1274,10 @@ For \cref{def:con-induced-subgraph}, note that:
   \item Basis step: $l = 1$, which means a self-loop.
   \item Suppose that a closed odd walk whose length $l$ satisfies $1 \leq l < W$. Note that the walk is both closed and odd in \cref{lem:con-walk-cycle}; you cannot apply mathematical induction on a wrong foundation.
   \item Induction step: $l > 1$:
-        \begin{enumerate}
-          \item Case 1: $W$ has no repeated vertex other than the first and last vertices being the same. So, $W$ itself forms a desired cycle.
-          \item Case 2: $W$ contains a repeated vertex $v$. Saying vertex $v$ in the walk in \cref{fig:con-walk-cycle}, for some repeated vertex $v$, such a vertex partitions the walk into two cycles, where one is odd length and the other is even length, so we have an odd cycle in an odd walk.
-        \end{enumerate}
+    \begin{enumerate}
+      \item Case 1: $W$ has no repeated vertex other than the first and last vertices being the same. So, $W$ itself forms a desired cycle.
+      \item Case 2: $W$ contains a repeated vertex $v$. Saying vertex $v$ in the walk in \cref{fig:con-walk-cycle}, for some repeated vertex $v$, such a vertex partitions the walk into two cycles, where one is odd length and the other is even length, so we have an odd cycle in an odd walk.
+    \end{enumerate}
   \item As shown in \cref{fig:con-walk-cycle}, for a $v-v$-cycle for vertices on the left of $v$, there is a 5-cycle. However, for the cycle on the right, closed even walks are not covered by \cref{lem:con-walk-cycle}. The base is important.
 \end{enumerate*}
 
@@ -1328,16 +1329,16 @@ Case 2 for $\Leftarrow$:
   \item For any vertex $u \in H$, $f_v(x)$ is either odd or even.
   \item Put vertices with odd $f_v(x)$ to a set, an even to the other set, as the disjoint sets $X$ and $Y$ illustrated in \cref{fig:con-bipartite-odd-cycle}. $X = \left\{x \in V(H): f_v(x) \text{ is even} \right\}$ and $Y = \left\{y \in V(H): f_v(y) \text{ is odd} \right\}$.
   \item Case a:
-        \begin{enumerate}
-          \item For any vertices $a$ and $b$ with odd $f_v(x)$ (in the set $X$), by having an $ab$ edge, we get a closed odd walk because $\text{odd} + \text{odd} + 1 = \text{odd}$, as illustrated in \cref{fig:con-bipartite-odd-cycle-odd}.
-          \item By \cref{lem:con-walk-cycle}, this closed odd walk contains an odd cycle, and it contradicts to the assumption of case 2 (no odd cycle). As a result, there is no edge in the set $X$ (odd $f_v(x)$ vertices), so the set $X$ is independent.
-        \end{enumerate}
+    \begin{enumerate}
+      \item For any vertices $a$ and $b$ with odd $f_v(x)$ (in the set $X$), by having an $ab$ edge, we get a closed odd walk because $\text{odd} + \text{odd} + 1 = \text{odd}$, as illustrated in \cref{fig:con-bipartite-odd-cycle-odd}.
+      \item By \cref{lem:con-walk-cycle}, this closed odd walk contains an odd cycle, and it contradicts to the assumption of case 2 (no odd cycle). As a result, there is no edge in the set $X$ (odd $f_v(x)$ vertices), so the set $X$ is independent.
+    \end{enumerate}
 
   \item Case b:
-        \begin{enumerate}
-          \item For any vertices $a$ and $b$ with even $f_v(x)$ (in the set $Y$), since $f_v(x)$ is even, there is no $va$ or $vb$ edge to make $f_v(x)$ odd.
-          \item By having an $ab$ edge, we get a closed odd walk, as illustrated in \cref{fig:con-bipartite-odd-cycle-even}. By \cref{lem:con-walk-cycle}, this closed odd walk contains an odd cycle, and it contradicts to the assumption of case 2. As a result, there is no edge in the set $Y$ (even $f_v(x)$ vertices), so the set $Y$ is independent.
-        \end{enumerate}
+    \begin{enumerate}
+      \item For any vertices $a$ and $b$ with even $f_v(x)$ (in the set $Y$), since $f_v(x)$ is even, there is no $va$ or $vb$ edge to make $f_v(x)$ odd.
+      \item By having an $ab$ edge, we get a closed odd walk, as illustrated in \cref{fig:con-bipartite-odd-cycle-even}. By \cref{lem:con-walk-cycle}, this closed odd walk contains an odd cycle, and it contradicts to the assumption of case 2. As a result, there is no edge in the set $Y$ (even $f_v(x)$ vertices), so the set $Y$ is independent.
+    \end{enumerate}
 
   \item By cases a and b, we prove that any component $H \in G$ is an $X,Y$-bigraph. By iterating through all components, we can find bipartition $X$ and $Y$ for $G$ to prove $G$ bipartite.
 \end{enumerate}
@@ -1414,12 +1415,12 @@ $\Leftarrow$: Let assumption of \underline{at most one nontrivial component and 
   \item We want to prove by induction on the number of edges $m$.
   \item Basis: $m = 0$. $G$ contains only one vertex. (It doesn't violate the definition of a Eulerian graph.)
   \item Induction: $m>0$. (In fact, by assumption, $m$ should be $\geq 2$.)
-        \begin{enumerate}
-          \item By \cref{lem:con-degree-cycle}, the only one nontrivial component has a cycle $C$.
-          \item Let $G' = G - E(C)$. That is, remove all the edges of cycle $C$. Note that $G'$ is an even graph as $C$ has 2 edges at each vertex.
-          \item By induction hypothesis, each component of $G'$ has an Eulerian circuit. Merge these circuits along $C$ to obtain an Eulerian circuit of $G$.
-          \item See \cref{fig:con-eulerian-component-degree} for an example to illustrate this step.
-        \end{enumerate}
+    \begin{enumerate}
+      \item By \cref{lem:con-degree-cycle}, the only one nontrivial component has a cycle $C$.
+      \item Let $G' = G - E(C)$. That is, remove all the edges of cycle $C$. Note that $G'$ is an even graph as $C$ has 2 edges at each vertex.
+      \item By induction hypothesis, each component of $G'$ has an Eulerian circuit. Merge these circuits along $C$ to obtain an Eulerian circuit of $G$.
+      \item See \cref{fig:con-eulerian-component-degree} for an example to illustrate this step.
+    \end{enumerate}
 \end{enumerate}
 
 \begin{figure}[htbp]
@@ -1441,11 +1442,11 @@ Recall \cref{def:con-self-comp}: A \textbf{decomposition} of a graph is a list o
 \textbf{Proof} of \cref{thm:con-trail-decompose} for a given graph $G$:
 \begin{enumerate}
   \item A closed trail contributes even degree to every vertex.\\
-        $\Rightarrow$ Each odd vertex has some non-closed trail ending at it.\\
-        $\Rightarrow$ $G$ contains at least $k$ trails. (Note that $G$ is Eulerian when $k = 0$.)
+    $\Rightarrow$ Each odd vertex has some non-closed trail ending at it.\\
+    $\Rightarrow$ $G$ contains at least $k$ trails. (Note that $G$ is Eulerian when $k = 0$.)
   \item Pair up the odd vertices and form $G'$ by adding an "dashed" edge for each pair as shown in \cref{fig:con-trail-decompose-odd-vertices} for 4 odd vertices and $k = 2$ dashed edges.\\
-        $\Rightarrow$ $G'$ has an Eulerian circuit $C$.\\
-        $\Rightarrow$ By traversing $C$ and starting a new trail when encountering a dashed edge (among $G' - E(G)$), we obtain $k$ trails to decompose $G$. For example, two trails as shown in \cref{fig:con-trail-decompose-decomposition}.
+    $\Rightarrow$ $G'$ has an Eulerian circuit $C$.\\
+    $\Rightarrow$ By traversing $C$ and starting a new trail when encountering a dashed edge (among $G' - E(G)$), we obtain $k$ trails to decompose $G$. For example, two trails as shown in \cref{fig:con-trail-decompose-decomposition}.
 \end{enumerate}
 
 \begin{figure}[htbp]
@@ -1550,11 +1551,11 @@ To prove that $\beta$ is the minimum (\cref{rem:con-maximum}) of $f(G)$ for grap
   \item (For any two sets $A,\, B$, the number of elements in their union is $\abs{A \cup B} = \abs{A} + \abs{B} - \abs{A \cap B}$.)
   \item Moreover, when $u \nleftrightarrow v$ ($u$ is not adjacent to $v$), $\abs{N(u) \cup N(v)} \leq n - 2$ (all vertices except $u$ and $v$).
   \item Therefore,
-        \[
-          \abs{N(u) \cap N(v)} = \abs{N(u)} + \abs{N(v)} - \abs{N(u) \cup N(v)}
-          \geq \frac{n - 1}{2} + \frac{n - 1}{2} - (n - 2)
-          = 1
-        \]
+    \[
+      \abs{N(u) \cap N(v)} = \abs{N(u)} + \abs{N(v)} - \abs{N(u) \cup N(v)}
+      \geq \frac{n - 1}{2} + \frac{n - 1}{2} - (n - 2)
+      = 1
+    \]
   \item Since $N(u) \cap N(v)$ must has some element, $u$ and $v$ have a common neighbor.
   \item Thus, there is a path for any $u$ and $v$, and the entire graph is connected.
 \end{enumerate}
@@ -1569,12 +1570,12 @@ To prove that $\beta$ is the minimum (\cref{rem:con-maximum}) of $f(G)$ for grap
   \item For a loopless graph, without edge limitation in the last part of \cref{thm:con-bigraph-edges}, it is easy to generate a bipartite subgraph by putting the endpoints of some edges into two sets without an edge inside sets.
   \item Let $H$ be the bipartite subgraph of $G$ that has the most edges.
   \item If $d_H(v) \geq \frac{d_G(v)}{2}$ for all $v \in V(G)$, then the degree-sum formula (\cref{prop:con-degree-sum}) yields $e(H) \geq \frac{e(G)}{2}$ (last part of \cref{thm:con-bigraph-edges}). Since all $v \in V(G)$ satisfy the inequality above, we can sum all vertices while satisfying the inequality. See \cref{fig:con-bigraph-edges-original,fig:con-bigraph-edges-subgraph} for an example.
-        \begin{align*}
-           &             & d_H(v)                    & \geq d_G(v) \ \ \ \forall v \in V(G)                       \\
-           & \Rightarrow & \sum _{v \in V(G)} d_H(v) & \geq \sum _{v \in V(G)} \frac{d_G(v)}{2}                   \\
-           & \Rightarrow & 2 e(H)                    & \geq \frac{2 e(G)}{2} \ \ \ \text{(by degree-sum formula)} \\
-           & \Rightarrow & e(H)                      & \geq \frac{e(G)}{2}
-        \end{align*}
+    \begin{align*}
+       &             & d_H(v)                    & \geq d_G(v) \ \ \ \forall v \in V(G)                       \\
+       & \Rightarrow & \sum _{v \in V(G)} d_H(v) & \geq \sum _{v \in V(G)} \frac{d_G(v)}{2}                   \\
+       & \Rightarrow & 2 e(H)                    & \geq \frac{2 e(G)}{2} \ \ \ \text{(by degree-sum formula)} \\
+       & \Rightarrow & e(H)                      & \geq \frac{e(G)}{2}
+    \end{align*}
   \item Otherwise, partition the vertices in $V(G)$ into two sets, $X$ and $Y$ as illustrated in \cref{fig:con-bigraph-edges-switching}. For some $v \in V(G)$ with degree 5 in $G$, $v$ must be in the set $Y$ to gain more edges. To satisfy $d_H(v) < \frac{d_G(v)}{2}$ ($d_H(v) < 2.5$), $v$ must be in the set $X$. The two rules contradict to each other, so $d_H(v) < \frac{d_G(v)}{2}$ is wrong.
 \end{enumerate}
 
@@ -1771,17 +1772,17 @@ Note that \cref{prop:con-tournament-king} doesn't guarantee that a tournament ha
 \begin{enumerate*}
   \item Let $x$ be a vertex in a tournament $T$. \supp{Since we are not proving whether a vertex is king or not, we cannot assume that a vertex is a king in the first place.}
   \item If $x$ is not a king:
-        \begin{enumerate}
-          \item $\exists y$ such that $y$ is not reachable from $x$ by a path of at most length 2. As a result, no successor of $x$ is a predecessor of $y$. In other words, $\exists y \notin N^{+}(x) \cap \set{x}$ such that $N^{+}(x) \cap N^{-}(y) = \emptyset$.
+    \begin{enumerate}
+      \item $\exists y$ such that $y$ is not reachable from $x$ by a path of at most length 2. As a result, no successor of $x$ is a predecessor of $y$. In other words, $\exists y \notin N^{+}(x) \cap \set{x}$ such that $N^{+}(x) \cap N^{-}(y) = \emptyset$.
 
-          \item In a clique, every pair of vertex has an edge, but any successor of $x$ cannot be a predecessor of $y$, then each successor of $x$ must be a successor of $y$. In other words, $N^{+}(x) \subseteq N^{+}(y)$.
+      \item In a clique, every pair of vertex has an edge, but any successor of $x$ cannot be a predecessor of $y$, then each successor of $x$ must be a successor of $y$. In other words, $N^{+}(x) \subseteq N^{+}(y)$.
 
-          \item Moreover, since $y$ is not a successor of $x$, $y$ must be a predecessor of $x$. In other words, $y \in N^{-}(x)$ or $x \in N^{+}(y)$.
+      \item Moreover, since $y$ is not a successor of $x$, $y$ must be a predecessor of $x$. In other words, $y \in N^{-}(x)$ or $x \in N^{+}(y)$.
 
-          \item Combining $N^{+}(x) \subseteq N^{+}(y)$ and $x \in N^{+}(y)$, we have $d^{+}(y) > d^{+}(x)$.
+      \item Combining $N^{+}(x) \subseteq N^{+}(y)$ and $x \in N^{+}(y)$, we have $d^{+}(y) > d^{+}(x)$.
 
-          \item See \cref{fig:con-tournament-king} for the illustration.
-        \end{enumerate}
+      \item See \cref{fig:con-tournament-king} for the illustration.
+    \end{enumerate}
 
   \item If $y$ is not a king, then find $z$ with yet larger outdegree.
   \item Since the directed graph is directed and finite, we cannot forever obtain vertices of successively higher outdegree, so this searching procedure must terminate when a king is found.

@@ -36,6 +36,8 @@
 \newcommand{\transpose}[1]{\ensuremath{#1^\mathsf{T}}}%
 \newcommand{\isomorphicto}{\ensuremath{\cong}}%
 \newcommand{\composition}{\circ}%
+\DeclareMathOperator*{\diam}{diam}%
+\DeclareMathOperator*{\rad}{rad}%
 % shorter \implies and \iff arrow
 \renewcommand{\implies}{\ensuremath{\Rightarrow}}%
 \renewcommand{\iff}{\ensuremath{\Leftrightarrow}}%
@@ -53,6 +55,13 @@
 % utilities
 \newcommand{\func}[3]{\ensuremath{#1:\, #2 \to #3}}%
 \newcommand{\defaultfunc}{\func{f}{A}{B}}%
+\newcommand{\combination}[2]{\ensuremath{%
+  \left( \begin{array}{c}%
+    #1 \\ %
+    #2 %
+  \end{array} \right)%
+}}%
+\newcommand{\C}[2]{\combination{#1}{#2}}%
 
 % author affiliations
 \usepackage{authblk}
@@ -196,14 +205,15 @@ gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=f
   % ref: https://tex.stackexchange.com/a/467146
   \newtcbtheorem[#1, Crefname={#6.}{#6s.}]{#2}{#3}{#4}{#5}%
 }
-\newthm{theorem}     {Theorem}    {yellow_bg}{thm}  {Thm}%
+\newthm{algorithm}   {Algorithm}  {white_bg} {alg}  {Algorithm}%
+\newthm{corollary}   {Corollary}  {blue_bg}  {cor}  {Cor}%
+\newthm{definition}  {Definition} {green_bg} {def}  {Def}%
 \newthm{example}     {Example}    {white_bg} {ex}   {Ex}%
+\newthm{lemma}       {Lemma}      {yellow_bg}{lem}  {Lem}%
 \newthm{proposition} {Proposition}{red_bg}   {prop} {Prop}%
 \newthm{principle}   {Principle}  {yellow_bg}{princ}{Princ}%
-\newthm{lemma}       {Lemma}      {yellow_bg}{lem}  {Lem}%
-\newthm{definition}  {Definition} {green_bg} {def}  {Def}%
-\newthm{corollary}   {Corollary}  {blue_bg}  {cor}  {Cor}%
 \newthm{remark}      {Remark}     {gray_bg}  {rem}  {Rem}%
+\newthm{theorem}     {Theorem}    {yellow_bg}{thm}  {Thm}%
 
 % recall any theorems above, but it gives "there were multiply-defined labels" warning.
 % reference for \recall: https://tex.stackexchange.com/a/660914

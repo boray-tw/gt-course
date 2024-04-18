@@ -9,6 +9,14 @@
 % following references (in the order of references in this section):
 %   enum:con-tree-state
 %   prop:con-connected-vertex
+%   thm:con-cut-edge-cycle
+%   def:con-component
+%   def:con-path-cycle
+%   def:con-complete
+%   def:con-loop
+%   def:intro-set-operations
+%   eq:intro-pascal
+%   def:intro-set-shorthand
 % As a result, compiling only this document gives undefined references.
 
 % prevent \recall theorems outside this section
@@ -22,6 +30,14 @@
 This section is the chapter 2 in the textbook "Introduction to Graph Theory".
 
 \supp{Tree and its techniques (breadth first search, depth first search) are common in programming contest, computer aided design (CAD), software verification, logic analysis, etc. As a result, this section is important in this course.}
+
+
+
+\subsection{Basic Properties}
+
+
+
+\subsubsection{Properties of Trees}
 
 \begin{definition}{}{tree-tree}
   A graph with no cycle is \textbf{acyclic}.
@@ -91,13 +107,13 @@ Note that your assumption must be correct before any proof. For example, these 4
   \item We use induction on $n$, which is the number of vertices in the graph $G$.
   \item For $n = 1$, an acyclic 1-vertex graph has no edge.
   \item For $n > 1$:
-        \vspace{.5em}
-        \begin{enumerate*}
-          \item We suppose that the implication holds for graphs with fewer than $n$ vertices.
-          \item Given an acyclic connected graph $G$, \cref{lem:tree-deleting-leaf} provides a leaf $v$ and states that $G' = G - v$ also is acyclic and connected (see figure above).
-          \item Applying the induction hypothesis to $G'$ yields $e \left( G' \right) = n - 2$. Since only one edge is incident to $v$, we have $e(G) = e \left( G' \right) + 1 = n - 1$.
-        \end{enumerate*}
-        \vspace{.25em} % more space after enumerate*
+    \vspace{.5em}
+    \begin{enumerate*}
+      \item We suppose that the implication holds for graphs with fewer than $n$ vertices.
+      \item Given an acyclic connected graph $G$, \cref{lem:tree-deleting-leaf} provides a leaf $v$ and states that $G' = G - v$ also is acyclic and connected (see figure above).
+      \item Applying the induction hypothesis to $G'$ yields $e \left( G' \right) = n - 2$. Since only one edge is incident to $v$, we have $e(G) = e \left( G' \right) + 1 = n - 1$.
+    \end{enumerate*}
+    \vspace{.25em} % more space after enumerate*
 \end{enumerate*}
 \vspace{.5em} % more space after enumerate*
 
@@ -105,7 +121,7 @@ Note that your assumption must be correct before any proof. For example, these 4
 \begin{enumerate*}
   \item We use proof by contradiction.
   \item Suppose the graph $G$ has a cycle.
-  \item Delete edges from cycles of $G$ one by one to form $G'$ until the resulting graph $G^{\prime}$ is acyclic. \supp{We cannot delete edges that are not parts of some cycles, or we will make the graph disconnected (no path from a component to the other one).}
+  \item Delete edges from cycles of $G$ one by one to form $G'$ until the resulting graph $G'$ is acyclic. \supp{We cannot delete edges that are not parts of some cycles, or we will make the graph disconnected (no path from a component to the other one).}
   \item Recall \cref{prop:con-connected-vertex}: The minimum number of edges in a connected graph with $n$ vertices is $n - 1$.
   \item To have $G'$ connected, $e\left( G' \right) = n - 1$.
   \item Since we are given $e(G) = n - 1$, no edges were deleted. Thus $G' = G$, and $G$ is acyclic.
@@ -148,5 +164,616 @@ Note that your assumption must be correct before any proof. For example, these 4
   \caption{A graph to illustrate the proof of equivalence between statements 1 and 4 in \cref{thm:tree-tree-stat}.}
   \label{fig:tree-tree-stat}
 \end{figure}
+
+\begin{corollary}{}{tree-cut-edge}
+  (2.1.5. Corollary in text)
+  \begin{enumerate*}
+    \item Every edge of a tree is a cut-edge.
+    \item Adding one edge to a tree forms exactly one cycle.
+    \item Every connected graph contains a spanning tree.
+  \end{enumerate*}
+\end{corollary}
+
+\textbf{Proof} of \cref{cor:tree-cut-edge}:
+\begin{enumerate*}
+  \item A tree has no cycles, so \cref{thm:con-cut-edge-cycle} implies that every edge is a cut-edge.
+  \item A tree has a unique path linking each pair of vertices (\cref{thm:tree-tree-stat} statement 4), so joining two vertices by an edge creates exactly one cycle.
+  \item As in the proof of statement 2 implying 1 and 3 in \cref{thm:tree-tree-stat}, iteratively deleting edges from cycles in a connected graph yields a connected acyclic subgraph, which is a spanning tree.
+\end{enumerate*}
+
+\begin{proposition}{}{tree-spanning-tree-edge-a}
+  (2.1.6. Proposition in text)
+  If $T,\, T'$ are spanning trees of a connected graph $G$ and $e \in E(T) - E \left( T' \right)$, then there is an edge $e' \in E \left( T' \right) - E(T)$ such that $\underline{T - e + e'}$ is a spanning tree of $G$.
+\end{proposition}
+
+\textbf{Proof} of \cref{prop:tree-spanning-tree-edge-a}:
+\begin{enumerate*}
+  \item By \cref{cor:tree-cut-edge} statement 1, every edge of $T$ is a cut-edge of $T$. Let $U$ and $U'$ be the two components of $T - e$.
+  \item Since $T'$ is connected, $T'$ has an edge $e'$ with endpoints in $U$ and $U'$.
+  \item Now $T - e + e'$ is connected, has $n(G) - 1$ edges, and is a spanning tree of $G$. Since the new edge $e'$ is not in either component, it doesn't form a cycle.
+  \item (In \cref{fig:tree-spanning-tree-edge}, $T$ is bold, $T'$ is solid, and they share two edges.)
+\end{enumerate*}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.4\textwidth]{tree-spanning-tree-edge}
+  \caption{An example for a cut-edge in spanning tree $T$ (bold edges) and $T'$ (solid edges).}
+  \label{fig:tree-spanning-tree-edge}
+\end{figure}
+
+\begin{proposition}{}{tree-spanning-tree-edge-b}
+  (2.1.7. Proposition in text)
+  If $T,\, T'$ are spanning trees of a connected graph $G$ and $e \in E(T) - E \left( T' \right)$, then there is an edge $e' \in E \left( T' \right) - E(T)$ such that $\underline{T + e - e'}$ is a spanning tree of $G$.
+\end{proposition}
+
+\textbf{Proof} of \cref{prop:tree-spanning-tree-edge-b}:
+\begin{enumerate*}
+  \item \supp{In graph theory (Geometry), addition and subtraction do not have the same meaning in Algebra. In Algebra, $a - b + c = a + c - b$.}
+  \item By \cref{cor:tree-cut-edge} statement 2, the graph $T' + e$ contains a unique cycle $C$.
+  \item Since $T$ is acyclic, there is an edge $e' \in E(C) - E(T)$ (the edge in the cycle $C$ but not in the spanning tree $T$).
+  \item Deleting $e'$ breaks the only cycle in $T' + e$. Now $T' + e - e'$ is connected and acyclic and is a spanning tree of $G$.
+  \item (In the figure above, adding $e$ to $T$ creates a cycle $C$ of length five; all four edges of $C - e$ belong to $E(T) - E \left( T' \right)$ and can serve as $e'$.)
+\end{enumerate*}
+
+
+
+\subsubsection{Distance in Trees and Graphs}
+
+\begin{definition}{}{tree-distance}
+  The \textbf{distance} from $u$ to $v$, written $d_G(u,\, v)$, is the \textbf{least} length of a $\bm{u, v}$\textbf{-path}.
+
+  The \textbf{diameter} of a graph $G$, written $\diam G$, is defined by $\max _{u,\, v \in V(G)} d(u,\, v)$. That is, the maximum distance among all pairs of vertices in $V(G)$.
+
+  The \textbf{eccentricity} of a vertex $u$, written $\epsilon(u)$, is $\max _{v \in V(G)} d(u, v)$. That is, the maximum distance from the vertex $u$ to the other vertices.
+
+  The \textbf{radius} of a graph $G$, written $\rad G$, is $\min _{u \in V(G)} \epsilon(u)$.
+\end{definition}
+
+Note that the diameter and radius of a graph do not have the same meanings for a circle. So, the diameter of a graph doesn't necessary the same as half of its radius.
+
+The eccentricity of a trivial component (a graph with only a vertex; \cref{def:con-component}) is 0.
+
+See \cref{fig:tree-distance} for an example of attributes in \cref{def:tree-distance}.
+
+\begin{figure}[htbp]
+  \centering
+  \def\nd{2.5cm}% node distance
+  \newcommand{\shiftTL}{(30:\nd * 1)}% shift for the top-left triangle
+  \newcommand{\shiftBM}{(30:\nd * 2)}% shift for thee bottom-middle triangle
+  \newcommand{\shiftRR}{(30:\nd * 3)}% shift for the right rectangle
+  \begin{tikzpicture}[
+      every node/.style = {draw, circle, inner sep=.1cm},
+      thickness/.style = {ultra thick}
+    ]
+
+    % left triangle
+    \node (a1) at (0, 0) {4}; % bottom
+    \node (a2) at (30:\nd) {3}; % right
+    \node (a3) at (90:\nd) {4}; % top
+
+    % top-left triangle
+    % multiplying 1.064 to align nodes with the right rectangle
+    % sin(30 degree) / sin(110 degree) * 2 = 1.064
+    % reference: law of sines
+    % see he bottom-middle triangle for better understanding
+    \node (b1) at ([shift=\shiftTL] +110:\nd * 1.064) {4};
+    \node (b2) at ([shift=\shiftTL] +70:\nd * 1.064) {4};
+
+    % bottom-middle triangle
+    % multiplying 1.064 to align nodes with the left triangle
+    % multiplying 0.940 to align c3 with c2 and c4
+    % sin(30 degree) / sin(110 degree) * 2 = 1.064
+    % sin(70 degree) = 0.940
+    \node (c1) at ([shift=\shiftBM] 0:0) {2};
+    \node (c2) at ([shift=\shiftBM] -110:\nd * 1.064) {3};
+    \node (c3) at ([shift=\shiftBM] -90:\nd * 1.064 * 0.940) {4};
+    \node (c4) at ([shift=\shiftBM] -70:\nd * 1.064) {3};
+
+    % right rectangle
+    % multiplying 1.414 to align d3 with d2 and d4
+    % sec(45 degree) = 1.414
+    \node (d1) at ([shift=\shiftRR] 0:0) {4};
+    \node (d2) at ([shift=\shiftRR] 0:\nd) {4};
+    \node (d3) at ([shift=\shiftRR] -45:\nd * 1.414) {4};
+    \node (d4) at ([shift=\shiftRR] -90:\nd) {3};
+
+    % edges not belonging to the longest path
+    \draw[thickness] (a3) -- (a2) -- (b1) -- (b2) -- (a2);
+    \draw[thickness] (c1) -- (c2) -- (c3) -- (c4) -- (c1);
+    \draw[thickness] (d1) -- (d3) -- (d4) -- (d2);
+
+    % longest path
+    \draw[thickness, red] (a3) -- (a1) -- (a2) --
+    (c1) --
+    (d4) -- (d1) -- (d2) -- (d3);
+  \end{tikzpicture}
+  \caption{In this graph, each vertex is labeled with its eccentricity $\epsilon(u)$. The radius is 2, the diameter is 4, and the length of the longest path (in red) is 7. Recall \cref{def:con-path-cycle}: A path contains distinct vertices.}
+  \label{fig:tree-distance}
+\end{figure}
+
+\begin{supplement}
+  In \cref{fig:tree-distance}, we introduced the diameter of a graph. To connect devices in a local area network (LAN), with quite few switches, the locations of switches limits the locations of devices that requires Ethernet. With too many switches, the cost is not acceptable. As a result, we need to take a balance between the diameter and the cost in a network.
+
+  Speaking of the distance in \cref{def:tree-distance}, on a social media, there may be a mutual friend between persons $A$ and $B$. In such a case, the distance between $A$ and $B$ is 2 (degree 1). In a social network (in real world, not online), the distance between any two strangers is at most 7 (at most 6 people between; at most degree 6). With social media, the distance may be down to 4 (degree 3). See \textit{six degrees of separation}\footnote{Wikipedia contributors. (2024, April 16). Six degrees of separation. In Wikipedia, The Free Encyclopedia. Retrieved 03:00, April 17, 2024, UTC, from \url{https://en.wikipedia.org/w/index.php?title=Six_degrees_of_separation&oldid=1219175664}} for more information.
+
+  Paul Erdős (1913--1996) is one of the most prolific mathematicians in the 20th century because it published around 1,500 mathematical papers.
+
+  Since Erdős is popular, mathematicians defined \textbf{Erdős number} as follows. The Erdős number of Erdős is 0; the Erdős number of the coauthors with Erdős is 1; the Erdős number of the coauthors with the coauthors with Erdős is 2, etc.
+\end{supplement}
+
+\begin{theorem}{}{tree-diameter}
+  (2.1.11. Theorem in text)
+  If $G$ is a simple graph, then $\diam G \geq 3$ implies $\diam \bar{G} \leq 3$.
+\end{theorem}
+
+\textbf{Proof} of \cref{thm:tree-diameter}:
+\begin{enumerate}
+  \item (When $\diam G = 1$, $G$ is a complete graph (\cref{def:con-complete}).)
+  \item (When $\diam G = 2$, in $G$, every pair of vertex either is adjacent or has a common neighbor.)
+  \item When $\diam G > 2$, there exist nonadjacent vertices $u, v \in V(G)$ ($u \nleftrightarrow v$; \cref{def:con-loop}) with no common neighbor. Such $u$ and $v$ in $\bar{G}$ must either be adjacent or have a common neighbor.
+  \item Hence in $G$, every $x \in V(G) - \{u, v\}$ (vertices other than $u$ and $v$; \cref{def:intro-set-operations}) is nonadjacent to either $u$ or $v$, or both. This makes $x$ adjacent to either $u$ or $v$, or both in $\bar{G}$.
+    \begin{supplement}
+      \item Cases for the relation between a vertex $x$ to $u$ and $v$ in $\bar{G}$ to derive the relation in $G$:
+      \begin{enumerate}
+        \item $x \leftrightarrow u$ but $x \nleftrightarrow v$ in $\bar{G}$, as vertices in the left set (circle) in \cref{fig:tree-diameter}. As a result, $x \nleftrightarrow u$ but $x \leftrightarrow v$ in $G$.
+        \item $x \nleftrightarrow u$ and $x \nleftrightarrow v$ in $\bar{G}$, for $x$ in the middle set in \cref{fig:tree-diameter}. Thus, $x \leftrightarrow u$ and $x \leftrightarrow v$ in $G$.
+        \item $x \nleftrightarrow u$ but $x \leftrightarrow v$ in $\bar{G}$, for $x$ in the right set in \cref{fig:tree-diameter}. Thus, $x \leftrightarrow u$ but $x \nleftrightarrow v$ in $G$.
+      \end{enumerate}
+    \end{supplement}
+  \item Since also $u v \in E(\bar{G})$, for every pair $x, y$ there is an $x, y$-path of length at most 3 in $\bar{G}$ through $\{u, v\}$.
+  \item Hence diam $\bar{G} \leq 3$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.5\textwidth]{tree-diameter}
+  \caption{An illustration for the proof of \cref{thm:tree-diameter}. In the three sets for $\bar{G}$, from left to right, these sets include vertices adjacent to only $u$, to both $u$ and $v$, and to only $v$, respectively.}
+  \label{fig:tree-diameter}
+\end{figure}
+
+\begin{definition}{}{tree-center}
+  (2.1.12. Definition in text)
+  The \textbf{center} of a graph $G$ is the subgraph induced by the vertices of minimum eccentricity.
+\end{definition}
+
+Continuing from \cref{def:tree-center}, it means for some vertices in $V(G)$ with the globally minimum eccentricity (distance to their own farthest vertices), these vertices form the center of $G$.
+
+\begin{theorem}{}{tree-center}
+  (2.1.13. Theorem in text; Jordan [1869])
+  The center of a tree is a vertex or an edge.
+\end{theorem}
+
+\textbf{Proof} of \cref{thm:tree-center}:
+\begin{enumerate}
+  \item We use induction on the number of vertices in a tree $T$, denoted by $n(T)$.
+
+  \item Basis step: $n(T) \leq 2$ (1 or 2). With at most two vertices, the center is the entire tree.
+
+  \item Induction step: $n(T) > 2$.
+    \begin{enumerate}
+      \item Form $T'$ by deleting every leaf of $T$. By \cref{lem:tree-deleting-leaf}, $T'$ is a tree.
+      \item Since the internal vertices on paths between leaves of $T$ remain, $T'$ has at least one vertex.
+      \item Every vertex at maximum distance in $T$ from a vertex $u \in V(T)$ is a leaf (otherwise, the path reaching it from $u$ can be extended farther).
+      \item Since all the leaves have been removed and no path between two other vertices uses a leaf, $\epsilon_{T'}(u) = \epsilon_T(u) - 1$ for every $u \in V \left( T' \right)$.
+      \item Also, the eccentricity of a leaf in $T$ is greater than the eccentricity of its neighbor in $T$. Hence the vertices minimizing $\epsilon_T(u)$ are the same as the vertices minimizing $\epsilon_{T'}(u)$.
+      \item We have shown that $T$ and $T'$ have the same center.
+      \item By the induction hypothesis, the center of $T'$ is a vertex or an edge.
+    \end{enumerate}
+\end{enumerate}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.5\textwidth]{tree-center}
+  \caption{An illustration for the proof of \cref{thm:tree-center}. $T$ is the original tree, while $T'$ is $T$ without its leaves.}
+  \label{fig:tree-center}
+\end{figure}
+
+\begin{theorem}{}{tree-wiener}
+  (2.1.14. Theorem in text)
+  Among trees with $n$ vertices, the Wiener index of $G$ is $D(G)=\sum_{u, v \in V(G)} d_G(u, v)$. Under a fixed number of vertices in a graph, the Wiener index is minimized by a star and maximized by a path, both uniquely.
+\end{theorem}
+
+In \cref{thm:tree-wiener}, the Wiener index means the summation of distances for all pair of vertices. A star is a graph with a vertex in the center, and all the other vertices only adjacent to the center vertex.
+
+\textbf{Proof} of \cref{thm:tree-wiener}:
+\begin{enumerate}
+  \item Our discussion focus on a connected graph with at least 1 vertices.
+  \item For minimization:
+    \begin{enumerate}
+      \item Since a tree has $n - 1$ edges, it has $n - 1$ pairs of vertices at distance 1, and all other pairs have distance at least 2.  The star achieves this and hence minimizes $D(T)$.
+      \item To show that no other tree achieves this, consider a leaf $x$ in $T$, and let $v$ be its neighbor. If all other vertices have distance 2 from $x$, then they must be neighbors of $v$, and $T$ is the star. The value is $D K _{1, n - 1} = (n - 1) + 2 \C{n - 1}{2} = (n - 1)^2$.
+    \end{enumerate}
+
+  \item For the maximization,
+    \begin{enumerate}
+      \item Consider first $D(P_n)$. This equals the sum of the distances from an endpoint $u$ to the other vertices, plus $D(P_{n - 1})$.
+
+      \item We have $\sum_{v \in V(P_n)} d(u, v) = \sum_{i = 0}^{n - 1} i = \C{n}{2}$.
+
+      \item Thus $D(P_n) = D(P_{n - 1}) + \C{n}{2}$.
+
+      \item With Pascal's Formula (\cref{eq:intro-pascal}), $\C{n}{k} + \C{n}{k - 1} = \C{n + 1}{k}$, induction yields $D(P_n) = \C{n + 1}{3}$.
+
+      \item We prove \textbf{by induction} on $n$ that among $n$-vertex tree, $P_n$ is the only tree that maximizes $D(T)$.
+
+      \item Basis step: $n = 1$. The only tree with one vertex is $P_1$.
+
+      \item Induction step: $n > 1$:
+        \begin{enumerate}
+          \item Let $u$ be a leaf of an $n$-vertex tree $T$.
+          \item Now $D(T) = D(T - u) + \sum_{v \in V(T)} d(u, v)$.
+          \item By the induction hypothesis, $D(T - u) \leq D(P_{n - 1})$, with equality if and only if $T - u$ is a path.
+          \item Thus it suffices to show that $\sum_{v \in V(T)} d(u, v)$ is maximized only when $T$ is a path and $u$ is an endpoint of $T$.
+          \item Consider the list of distances from $u$. In $P_n$, this list is $1,\, 2,\, \ldots,\, n - 1$, all distinct. A shortest path from $u$ to a vertex farthest from $u$ contains vertices at all distances from $u$, so in any tree the set of distances from $u$ to other vertices has no gaps.
+          \item Thus any repetition makes $\sum_{v \in V(T)} d(u, v)$ smaller than when $u$ is a leaf of a path.
+          \item When $T$ is not a path, such a repetition occurs.
+        \end{enumerate}
+    \end{enumerate}
+\end{enumerate}
+
+\begin{lemma}{}{con-subgraph-degree}
+  (2.1.15. Lemma in text)
+  If $H$ is a subgraph of $G$, then $d_G(u, v) \leq d_H(u, v)$.
+\end{lemma}
+
+\textbf{Proof} of \cref{lem:con-subgraph-degree}: Every $u, v$-path in $H$ appears also in $G$, so the shortest $u, v$-path in $G$ is no longer than the shortest $u, v$-path in $H$. For example, to go to the EE building from the Kuang-Fu student dormitory No.1, with the Dasyue road under maintenance, you need to take the other road with farther distance to the EE building.
+
+\begin{corollary}{}{con-connected-wiener}
+  (2.1.16. Corollary in text)
+  If $G$ is a connected $n$-vertex graph, then $D(G) \leq D\left(P_n\right)$.
+\end{corollary}
+
+\textbf{Proof} of \cref{cor:con-connected-wiener}: Let $T$ be a spanning tree of $G$. By \cref{lem:con-subgraph-degree}, $D(G) \leq D(T)$. By \cref{thm:tree-wiener}, $D(T) \leq D\left(P_n\right)$.
+
+
+\subsection{Spanning Trees and Enumeration}
+
+Without considering graph isomorphism and different subtrees, with 3 vertices, there are 3 possible trees as the enumeration of 3 vertices.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{.15\textwidth}
+    \centering
+    \tikz \node[draw, circle, fill=blue!25!white, inner sep=.1cm] {A};
+    \caption{One vertex.}
+    \label{fig:tree-enum-one}
+  \end{subfigure}
+  \begin{subfigure}[t]{.2\textwidth}
+    \centering
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, fill=blue!25!white, inner sep=.1cm}
+      ]
+      \node (a) at (0, 0) {A}
+      node (b) at (1, 0) {B};
+      \draw (a) --(b);
+    \end{tikzpicture}
+    \caption{Two vertices.}
+    \label{fig:tree-enum-two}
+  \end{subfigure}
+  \begin{subfigure}[t]{.4\textwidth}
+    \centering
+    \newcommand{\enumthree}[4]{%
+      \node      (#1) at (#1 * 2 + 0.5, 1.75) {#1}%
+      node[main] (#2) at (#1 * 2 + 0  , 0   ) {#2}%
+      node[main] (#3) at (#1 * 2 + 0.5, 1   ) {#3}%
+      node[main] (#4) at (#1 * 2 + 1  , 0   ) {#4};%
+      \draw (#2) -- (#3) -- (#4)%
+    }
+    \begin{tikzpicture}[
+        main/.style = {draw, circle, fill=blue!25!white, inner sep=.1cm}
+      ]
+      \enumthree{1}{B}{A}{C};
+      \enumthree{2}{A}{B}{C};
+      \enumthree{3}{A}{C}{B};
+    \end{tikzpicture}
+    \caption{Three vertices.}
+    \label{fig:tree-enum-three}
+  \end{subfigure}
+  \caption{Enumeration of spanning trees.}
+  \label{fig:tree-enum}
+\end{figure}
+
+To add a unique number (ID or code) to each tree in the enumeration for a given number of vertices, we need \cref{alg:tree-prufer-code}.
+
+\begin{algorithm}{Prüfer code}{tree-prufer-code}
+  (2.2.1. Algorithm.)
+  Production of $f(T) = \left( a_1,\, \ldots,\, a_{n - 2} \right)$ for a tree with $n$ vertices.
+
+  \textbf{Input}: A tree $T$ with vertex set $S \subseteq \N$.
+
+  \textbf{Iteration}: At the $i$-th step, delete the least remaining leaf, and let $a_i$ be the \textit{neighbor} (parent) of this leaf.
+\end{algorithm}
+
+In exams, you may be asked to (1) answer the Prüfer code of a given tree, or (2) derive the tree for a given Prüfer code. You don't need to write down the pseudo-code of the Prüfer code algorithm.
+
+See \cref{fig:tree-prufer-code} for an example of \cref{alg:tree-prufer-code}.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{.3\textwidth} % step 0
+    \centering
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        thickness/.style = {ultra thick},
+        node distance = 0.5cm,
+      ]
+      \node (a1) {2};
+      \node (b1) [right = of a1] {7} node (b2) [below = of b1] {6};
+      \node (c1) [right = of b1] {1} node (c2) [below = of c1] {8};
+      \node (d1) [right = of c1] {4} node (d2) [below = of d1] {5};
+      \node (e1) [right = of d1] {3};
+      \draw[thickness] (a1) -- (b1) -- (b2);
+      \draw[thickness] (b1) -- (c1) -- (c2);
+      \draw[thickness] (c1) -- (d1) -- (d2);
+      \draw[thickness] (d1) -- (e1);
+    \end{tikzpicture}
+    \caption{Step 0: The original tree with vertex set $[7]$ (\cref{def:intro-set-shorthand}).}
+    \label{fig:tree-prufer-code-0}
+  \end{subfigure}
+
+  \vspace{1em}
+
+  \begin{subfigure}[t]{.3\textwidth} % step 1: delete 2
+    \centering
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        thickness/.style = {ultra thick},
+        node distance = 0.5cm,
+      ]
+      \node (b1) [right = of a1] {7} node (b2) [below = of b1] {6};
+      \node (c1) [right = of b1] {1} node (c2) [below = of c1] {8};
+      \node (d1) [right = of c1] {4} node (d2) [below = of d1] {5};
+      \node (e1) [right = of d1] {3};
+      \draw[thickness] (b1) -- (b2);
+      \draw[thickness] (b1) -- (c1) -- (c2);
+      \draw[thickness] (c1) -- (d1) -- (d2);
+      \draw[thickness] (d1) -- (e1);
+    \end{tikzpicture}
+    \caption{Step 1: Delete 2, which has the least index among leaves. $a_1 = 7$, which is the parent of 2.}
+    \label{fig:tree-prufer-code-1}
+  \end{subfigure}
+  \begin{subfigure}[t]{.3\textwidth} % step 2: delete 3
+    \centering
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        thickness/.style = {ultra thick},
+        node distance = 0.5cm,
+      ]
+      \node (b1) [right = of a1] {7} node (b2) [below = of b1] {6};
+      \node (c1) [right = of b1] {1} node (c2) [below = of c1] {8};
+      \node (d1) [right = of c1] {4} node (d2) [below = of d1] {5};
+      \draw[thickness] (b1) -- (b2);
+      \draw[thickness] (b1) -- (c1) -- (c2);
+      \draw[thickness] (c1) -- (d1) -- (d2);
+    \end{tikzpicture}
+    \caption{Step 2: Delete 3. $a_2 = 4$.}
+    \label{fig:tree-prufer-code-2}
+  \end{subfigure}
+  \begin{subfigure}[t]{.3\textwidth} % step 3: delete 5
+    \centering
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        thickness/.style = {ultra thick},
+        node distance = 0.5cm,
+      ]
+      \node (b1) [right = of a1] {7} node (b2) [below = of b1] {6};
+      \node (c1) [right = of b1] {1} node (c2) [below = of c1] {8};
+      \node (d1) [right = of c1] {4};
+      \draw[thickness] (b1) -- (b2);
+      \draw[thickness] (b1) -- (c1) -- (c2);
+      \draw[thickness] (c1) -- (d1);
+    \end{tikzpicture}
+    \caption{Step 3: Delete 5. $a_3 = 4$.}
+    \label{fig:tree-prufer-code-3}
+  \end{subfigure}
+
+  \vspace{1em}
+
+  \begin{subfigure}[t]{.3\textwidth} % step 4: delete 4
+    \centering
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        thickness/.style = {ultra thick},
+        node distance = 0.5cm,
+      ]
+      \node (b1) [right = of a1] {7} node (b2) [below = of b1] {6};
+      \node (c1) [right = of b1] {1} node (c2) [below = of c1] {8};
+      \draw[thickness] (b1) -- (b2);
+      \draw[thickness] (b1) -- (c1) -- (c2);
+    \end{tikzpicture}
+    \caption{Step 4: Delete 4. $a_4 = 1$.}
+    \label{fig:tree-prufer-code-4}
+  \end{subfigure}
+  \begin{subfigure}[t]{.3\textwidth} % step 5: delete 6
+    \centering
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        thickness/.style = {ultra thick},
+        node distance = 0.5cm,
+      ]
+      \node (b1) [right = of a1] {7};
+      \node (c1) [right = of b1] {1} node (c2) [below = of c1] {8};
+      \draw[thickness] (b1) -- (c1) -- (c2);
+    \end{tikzpicture}
+    \caption{Step 5: Delete 6. $a_5 = 7$.}
+    \label{fig:tree-prufer-code-5}
+  \end{subfigure}
+  \begin{subfigure}[t]{.3\textwidth} % step 6: delete 7
+    \centering
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        thickness/.style = {ultra thick},
+        node distance = 0.5cm,
+      ]
+      \node (c1) [right = of b1] {1} node (c2) [below = of c1] {8};
+      \draw[thickness] (c1) -- (c2);
+    \end{tikzpicture}
+    \caption{Step 6: Delete 7. $a_6 = 1$.}
+    \label{fig:tree-prufer-code-6}
+  \end{subfigure}
+
+  \caption{An example of \cref{alg:tree-prufer-code} (Prüfer code).}
+  \label{fig:tree-prufer-code}
+\end{figure}
+
+\begin{example}[breakable]{}{tree-prufer-code}
+  \def\nd{1cm}% node distance
+
+  \textbf{Question}: Given Prüfer code 744171, what is the tree?
+
+  \textbf{Answer}: Since there is 6 values in the given Prüfer code, there are 8 ($ = 6 + 2$) nodes in the tree. List vertices with indices in $[8]$ (\cref{def:intro-set-shorthand}) as follows.
+
+  \begin{center}
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm}
+      ]
+      \node foreach \i in {1, ..., 8} (\i) at (\nd * \i, 0) {\i};
+    \end{tikzpicture}
+  \end{center}
+
+  Step 1: Vertices 2, 3, 5, 6, 8 are not in the Prüfer code, so they are leaves. Since the least vertex is deleted, and its parent is the first number in Prüfer code, we know that when vertex 2 is deleted, its parent is 7. Draw the edge 72, and let the leaves in red text. Vertices without color may be leaves in future steps.
+
+  \begin{center}
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        leaf/.style = {text=red},
+        every edge/.style = {draw, ultra thick},
+      ]
+      \node foreach \i in {1, 3, 4, ..., 8} (\i) at (\nd * \i, 0) {\i};
+      \node[leaf] (2) at (\nd * 2, 0) {2};
+      \draw (7) edge[bend right=45, looseness=0.5] (2);
+    \end{tikzpicture}
+  \end{center}
+
+  Step 2: The Prüfer code is now (44171). Vertices in $[8] - \{2\}$ but not in the Prüfer code are 3, 5, 6, 8. The least vertex is 3, and the first value in the Prüfer code is 4. Draw the edge 43.
+
+  \begin{center}
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        leaf/.style = {text=red},
+        every edge/.style = {draw, ultra thick},
+      ]
+      \node foreach \i in {1, 4, 5, ..., 8} (\i) at (\nd * \i, 0) {\i};
+      \foreach \i in {2, 3} \node[leaf] (\i) at (\nd * \i, 0) {\i};
+      \draw (7) edge[bend right=45, looseness=0.5] (2);
+      \draw (4) edge (3);
+    \end{tikzpicture}
+  \end{center}
+
+  Step 3: The Prüfer code is now (4171). Vertices in $[8] - \{2,\, 3\}$ but not in the Prüfer code are 5, 6, 8. The least vertex is 5, and the first value in the Prüfer code is 4. Draw the edge 54.
+
+  \begin{center}
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        leaf/.style = {text=red},
+        every edge/.style = {draw, ultra thick},
+      ]
+      \node foreach \i in {1, 4, 6, 7, 8} (\i) at (\nd * \i, 0) {\i};
+      \foreach \i in {2, 3, 5} \node[leaf] (\i) at (\nd * \i, 0) {\i};
+      \draw (7) edge[bend right=45, looseness=0.5] (2);
+      \draw (4) edge (3);
+      \draw (5) edge (4);
+    \end{tikzpicture}
+  \end{center}
+
+  Step 4: The Prüfer code is now (171). Vertices in $[8] - \{2,\, 3,\, 5\}$ but not in the Prüfer code are 4, 6, 8. The least vertex is 4, and the first value in the Prüfer code is 1. Draw the edge 41.
+
+  \begin{center}
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        leaf/.style = {text=red},
+        every edge/.style = {draw, ultra thick},
+      ]
+      \node foreach \i in {1, 6, 7, 8} (\i) at (\nd * \i, 0) {\i};
+      \foreach \i in {2, ..., 5} \node[leaf] (\i) at (\nd * \i, 0) {\i};
+      \draw (7) edge[bend right=45, looseness=0.5] (2);
+      \draw (4) edge (3);
+      \draw (5) edge (4);
+      \draw (1) edge[bend right=45, looseness=0.5] (4);
+    \end{tikzpicture}
+  \end{center}
+
+  Step 5: The Prüfer code is now (71). Vertices in $[8] - \{2,\, 3,\, 4,\, 5\}$ but not in the Prüfer code are 6, 8. The least vertex is 6, and the first value in the Prüfer code is 7. Draw the edge 76.
+
+  \begin{center}
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        leaf/.style = {text=red},
+        every edge/.style = {draw, ultra thick},
+      ]
+      \node foreach \i in {1, 7, 8} (\i) at (\nd * \i, 0) {\i};
+      \foreach \i in {2, ..., 6} \node[leaf] (\i) at (\nd * \i, 0) {\i};
+      \draw (7) edge[bend right=45, looseness=0.5] (2);
+      \draw (4) edge (3);
+      \draw (5) edge (4);
+      \draw (1) edge[bend right=45, looseness=0.5] (4);
+      \draw (7) edge (6);
+    \end{tikzpicture}
+  \end{center}
+
+  Step 6: The Prüfer code is now (1). Vertices in $[8] - \{2,\, 3,\, 4,\, 5,\, 6\}$ but not in the Prüfer code are 7, 8. The least vertex is 7, and the first value in the Prüfer code is 1. Draw the edge 17.
+
+  \begin{center}
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        leaf/.style = {text=red},
+        every edge/.style = {draw, ultra thick},
+      ]
+      \node foreach \i in {1, 8} (\i) at (\nd * \i, 0) {\i};
+      \foreach \i in {2, ..., 7} \node[leaf] (\i) at (\nd * \i, 0) {\i};
+      \draw (7) edge[bend right=45, looseness=0.5] (2);
+      \draw (4) edge (3);
+      \draw (5) edge (4);
+      \draw (1) edge[bend right=45, looseness=0.5] (4);
+      \draw (7) edge (6);
+      \draw (1) edge[bend left=60, looseness=0.5] (7);
+    \end{tikzpicture}
+  \end{center}
+
+  Step 7: Since a tree is connected, draw the edge 18 in the end.
+
+  \begin{center}
+    \begin{tikzpicture}[
+        every node/.style = {draw, circle, inner sep=.1cm},
+        leaf/.style = {text=red},
+        every edge/.style = {draw, ultra thick},
+      ]
+      \foreach \i in {1, ..., 8} \node[leaf] (\i) at (\nd * \i, 0) {\i};
+      \draw (7) edge[bend right=45, looseness=0.5] (2);
+      \draw (4) edge (3);
+      \draw (5) edge (4);
+      \draw (1) edge[bend right=45, looseness=0.5] (4);
+      \draw (7) edge (6);
+      \draw (1) edge[bend left=60, looseness=0.5] (7);
+      \draw (1) edge[bend right=60, looseness=0.5] (8);
+    \end{tikzpicture}
+  \end{center}
+\end{example}
+
+\begin{theorem}{Cayley's Formula [1889]}{tree-cayley}
+  (2.2.3. Theorem in text)
+  For a set $S \subseteq \N$ of size $n$, there are $n^{n - 2}$ trees with vertex set $S$.
+\end{theorem}
+
+\textbf{Proof} of \cref{thm:tree-cayley} (Prüfer [1918]):
+\begin{enumerate}
+  \item This holds for $n = 1$, so we assume $n \geq 2$.
+  \item We prove that \cref{alg:tree-prufer-code} defines a bijection $f$ from the set of trees with vertex set $S$ to the set $S^{n - 2}$ of lists of length $n - 2$ from $S$.
+  \item We must show for each $a = \left(a_1,\, \ldots,\, a_{n - 2}\right) \in S^{n - 2}$ that exactly one tree $T$ with vertex set $S$ satisfies $f(T) = a$.
+  \item We prove this by induction on $n$.
+  \item Basis step: $n = 2$. There is tree with two vertices. The Prüfer code is a list of length 0 , and it is the only such list.
+  \item Induction step: $n > 2$:
+  \begin{enumerate}
+    \item Computing $f(T)$ reduces each vertex to degree 1 and then possibly deletes it. Thus every non-leaf vertex in $T$ appears in $f(T)$.
+    \item No leaf appears, because recording a leaf as a neighbor of a leaf would require reducing the tree to one vertex. Hence the leaves of $T$ are the elements of $S$ not in $f(T)$.
+    \item If $f(T) = a$, then the first leaf deleted is the least element of $S$ not in $a$ (call it $x$), and the neighbor of $x$ is $a_1$.
+    \item We are given $a \in S^{n - 2}$ and seek all solutions to $f(T)=a$.
+    \item We have shown that every such tree has $x$ as its least leaf and has the edge $x a_1$.
+    \item Deleting $x$ leaves a tree with vertex set $S' = S - \{x\}$. Its Prüfer code is $a' = \left( a_2,\, \ldots,\, a_{n - 2} \right)$, an "$n - 3$"-tuple formed from $S'$.
+  \end{enumerate}
+\end{enumerate}
 
 \end{document}

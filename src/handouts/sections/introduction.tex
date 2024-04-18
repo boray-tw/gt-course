@@ -301,20 +301,20 @@ If $P$ is not satisfied; that is, TA does not always tell the truth, then we can
 Express "Andy and Paul have the same biological maternal grandmother" in logic.
 \begin{enumerate}
   \item Let $M(x, y)$ denote that $x$ is $y$'s mother. Consider
-        $$
-          \forall x \forall y \forall u \forall v(M(x, y) \land M(y, \text{Andy}) \land M(u, v) \land M(v, \text{Paul}) \implies x = u)
-        $$
-        Do you find out something weird?
-        \begin{enumerate}
-          \item First, not all $x,\, y,\, u,\, v$ satisfy the logical expression above.
-          \item Secondly, without specifying $x$ and $u$ in the precondition, you cannot make $x$ and $y$ identical.
-          \item Lastly, $y,\, \text{Andy},\, v,\, \text{Paul}$ have many mothers in the logical expression.
-        \end{enumerate}
+    $$
+      \forall x \forall y \forall u \forall v(M(x, y) \land M(y, \text{Andy}) \land M(u, v) \land M(v, \text{Paul}) \implies x = u)
+    $$
+    Do you find out something weird?
+    \begin{enumerate}
+      \item First, not all $x,\, y,\, u,\, v$ satisfy the logical expression above.
+      \item Secondly, without specifying $x$ and $u$ in the precondition, you cannot make $x$ and $y$ identical.
+      \item Lastly, $y,\, \text{Andy},\, v,\, \text{Paul}$ have many mothers in the logical expression.
+    \end{enumerate}
   \item Let $m(x)$ denote $x$'s biological mother. The following logical expression matches the English version.
-        $$
-          m(m(\text{Andy}))=m(m(\text{Paul})).
-        $$
-        Since everyone has exactly one biological mother, we introduce a function $m(x)$ to denote this fact. This is a unction to capture a single object.
+    $$
+      m(m(\text{Andy}))=m(m(\text{Paul})).
+    $$
+    Since everyone has exactly one biological mother, we introduce a function $m(x)$ to denote this fact. This is a unction to capture a single object.
 \end{enumerate}
 
 \subsubsection{Direct, Contrapositive and Contradiction Method}
@@ -355,7 +355,7 @@ The explanations of these four words:
   \item \textbf{Lemma}: It's a premise. It is a lesser statement, and is usually proven to help prove the other statements.
   \item \textbf{Theorem}: It's a thesis to be proven. Thus, theorem is a major result requiring some efforts.
   \item \textbf{Proposition}: It's something proposed to be proven (true or false), and typically it takes less effort than a theorem.
-  \item \textbf{Corollary}: It means \textit{gift} in Latin, and it follows easily from a theorem or proposition without much additional work.
+  \item \textbf{Corollary}: It means \textit{gift} in Latin, and it follows easily from a theorem or proposition without much additional work. Corollary is a sub-theorem.
 \end{enumerate}
 
 Although these words come before some graphs or paragraphs, it doesn't mean that you need to memorize them, but they are commonly used or crucial in the later paragraphs or subsections.
@@ -600,6 +600,18 @@ Relationships between each two of domain, target (codomain) and image can be one
 \subsection{Counting and Binomial Coefficients (Skipped)}
 
 This part is covered in senior high schools.
+
+"$n$ choose $k$" (A.42 Theorem in text):
+\begin{equation}
+  \left(\begin{array}{c} n \\ k \end{array}\right) = C^n_k = \frac{n!}{k! (n - k)!}
+  \label{eq:intro-combination}
+\end{equation}
+
+Pascal's formula/rule (A.48 Lemma in text):
+\begin{equation}
+  \text{If } n \geq 1 \text{, then } \C{n}{k} = \C{n - 1}{k} + \C{n - 1}{k - 1}
+  \label{eq:intro-pascal}
+\end{equation}
 
 \subsection{Relations}
 

@@ -16,7 +16,9 @@
     "colback",
     "CSIE",
     "currenvir",
+    "Dasyue",
     "datetime",
+    "Erdős",
     "Eulerian",
     "extsizes",
     "graphicx",
@@ -25,6 +27,7 @@
     "indegree",
     "injective",
     "Königsberg",
+    "Kuang",
     "labelformat",
     "Leonhard",
     "libfontconfig",
@@ -34,6 +37,7 @@
     "multigraphs",
     "NCKU",
     "NCTU",
+    "nonneighbor",
     "nonstopmode",
     "noto",
     "outdegree",
@@ -42,6 +46,7 @@
     "parbox",
     "Pregel",
     "princ",
+    "Prüfer",
     "restatable",
     "Sarada",
     "subfigure",
@@ -58,5 +63,12 @@
   ],
   "latex-workshop.message.latexlog.exclude": [
     "Unknown CJK family"
+  ],
+  "latex-workshop.latexindent.args": [
+    "-c",
+    "%DIR%/",
+    "%TMPFILE%",
+    "-y=defaultIndent: '%INDENT%'",
+    "-l=%WORKSPACE_FOLDER%/src/handouts/indentconfig.yaml"
   ]
 }
