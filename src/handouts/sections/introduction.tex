@@ -126,13 +126,15 @@ In \cref{def:intro-correspondence}, note that 0 is not a set, but $\{ 0 \}$ is a
 
   \centering
   \begin{tikzpicture}[
+      white/.style = {circle, minimum size=4cm, fill=white},
       yellow/.style = {circle, minimum size=4cm, fill=yellow!50!white},
       green/.style = {circle, minimum size=4cm, fill=green!50!white},
       circ/.style = {draw, very thick, circle, minimum size=4cm},
-      rect/.style = {draw, very thick, rectangle, minimum height=6cm, minimum width=9cm},
+      rect/.style = {draw, very thick, fill=white, rectangle, minimum height=6cm, minimum width=9cm},
       callout/.style = {rectangle, fill=yellow!50!white, anchor=west}
     ]
 
+    % white U
     \node[rect] at (0, 0) {};
 
     \begin{scope}
@@ -155,7 +157,7 @@ In \cref{def:intro-correspondence}, note that 0 is not a set, but $\{ 0 \}$ is a
     node at (0, 0) {$A \cap B$}
     node at (-2, 0) {$\stackbelow{A - B}{A \cap \bar B}$}
     node at (2, 0) {$\stackbelow{B - A}{B \cap \bar A}$}
-    node at (0, -2.5) {$\left( A \cap B \right)^c = \bar {\left( A \cap B \right)}$};
+    node at (0, -2.5) {$\left( A \cup B \right)^c = \bar {\left( A \cup B \right)}$};
   \end{tikzpicture}
 \end{definition}
 
