@@ -33,7 +33,12 @@ This section is meant to provide useful background for learning graph theory.
 
 \begin{definition}{}{intro-set-equal}
   (A.3. Definition in text)
-  Sets $A$ and $B$ are \textbf{equal}, written $A = B$, if they have the same elements. The \textbf{empty set}, written $\emptyset$ or $\lbrace \rbrace$ (but not 0), is the unique set with no elements. A \textbf{proper subset} of a set $A$ is a subset that is not $A$ itself.
+
+  Sets $A$ and $B$ are \textbf{equal}, written $A = B$, if they have the same elements.
+
+  The \textbf{empty set}, written $\emptyset$ or $\lbrace\ \rbrace$ (but not 0), is the unique set with no elements.
+
+  A \textbf{proper subset} of a set $A$ is a subset that is not $A$ itself.
 \end{definition}
 
 In \cref{def:intro-set-equal}, notice that there is a special case, in ordered sets, if the orders of the sets $A$ are $B$ not identical, they are not equal. However, in unordered sets, it doesn't matter.
@@ -69,9 +74,13 @@ In \cref{rem:intro-equal-sets}, in short, a bipartite graph is a graph with two 
 \begin{definition}{}{intro-set-shorthand}
   (A.6. Definition in text)
   When $a,\, b \in \Z$, we write $\{a,\, \ldots,\, b\}$ to represent $\{ i \in \Z: a \leq i \leq b \}$.
+
   When $n \in \N$, we write $[n]$ for $\{1,\, \ldots,\, n\}$; also $[0] = \emptyset$.
+
   The set of \textbf{even numbers} is $\{ 2 k : k \in \Z \}$.
+
   The set of \textbf{old numbers} is $\{ 2 k + 1 : k \in \Z \}$.
+
   The \textbf{parity} of an integer states whether it is even or odd.
 \end{definition}
 
@@ -116,12 +125,17 @@ In \cref{def:intro-correspondence}, note that 0 is not a set, but $\{ 0 \}$ is a
 \begin{definition}{}{intro-set-operations}
   (A.11. Definition in text)
   Let $A$ and $B$ be sets.
-  Their \textbf{union} $A \cup B$ consists of all elements in $A$ or in $B$ (or both).
-  Their \textbf{intersection} $A \cap B$ consists of all elements in both $A$ and $B$.
+
+  Their \textbf{union} $A \cup B$ consists of all elements in $A$ or in $B$ (or both). That's the yellow and green area in ths following figure.
+
+  Their \textbf{intersection} $A \cap B$ consists of all elements in both $A$ and $B$ (green area).
+
   Their \textbf{difference} $A - B$ consists of the elements of $A$ that are not in $B$.
-  Their \textbf{symmetric difference} $A \smalltriangleup B$ is the set of elements belonging to exactly one of $A$ or $B$.
+
+  Their \textbf{symmetric difference} $A \smalltriangleup B$ is the set of elements belonging to exactly one of $A$ or $B$. It's like the XOR operator.
 
   The sets are \textbf{disjoint} if their intersection is the empty set $\emptyset$.
+
   If a set $A$ is contained in some universe $U$ under discussion, then the \textbf{complement} $\bar A$ of $A$ is the set of elements of $U$ \textit{not} in $A$.
 
   \centering
