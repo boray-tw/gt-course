@@ -55,6 +55,13 @@
 % utilities
 \newcommand{\func}[3]{\ensuremath{#1:\, #2 \to #3}}%
 \newcommand{\defaultfunc}{\func{f}{A}{B}}%
+\newcommand{\combination}[2]{\ensuremath{%
+  \left( \begin{array}{c}%
+    #1 \\ %
+    #2 %
+  \end{array} \right)%
+}}%
+\newcommand{\C}[2]{\combination{#1}{#2}}%
 
 % author affiliations
 \usepackage{authblk}
