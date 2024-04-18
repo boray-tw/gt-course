@@ -11,6 +11,7 @@ make_tex_pk_font() {
 
 # DPI FONT
 FONT_LIST="
+600 matha6
 600 matha8
 600 matha12
 657 matha10
