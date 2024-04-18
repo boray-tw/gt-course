@@ -9,7 +9,7 @@ cd src/handouts
 if [ ! -d "${BUILD_DIR}" ]; then
   mkdir -p "$BUILD_DIR"
 else
-  rm -rf "${BUILD_DIR}/${MAIN_FILE%.tex}"
+  rm -rf "${BUILD_DIR}/${MAIN_FILE%.tex}.*"
 fi
 
 echo "Building ${MAIN_FILE} silently. Only errors will show here."
