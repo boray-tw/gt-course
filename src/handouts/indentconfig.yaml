@@ -1,0 +1,3 @@
+# defaultIndent: "  " # set by LaTeX Workshop. uncomment this for pure latexindet.pl
+indentRules:
+  item: "  "

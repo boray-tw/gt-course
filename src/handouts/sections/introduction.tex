@@ -301,20 +301,20 @@ If $P$ is not satisfied; that is, TA does not always tell the truth, then we can
 Express "Andy and Paul have the same biological maternal grandmother" in logic.
 \begin{enumerate}
   \item Let $M(x, y)$ denote that $x$ is $y$'s mother. Consider
-        $$
-          \forall x \forall y \forall u \forall v(M(x, y) \land M(y, \text{Andy}) \land M(u, v) \land M(v, \text{Paul}) \implies x = u)
-        $$
-        Do you find out something weird?
-        \begin{enumerate}
-          \item First, not all $x,\, y,\, u,\, v$ satisfy the logical expression above.
-          \item Secondly, without specifying $x$ and $u$ in the precondition, you cannot make $x$ and $y$ identical.
-          \item Lastly, $y,\, \text{Andy},\, v,\, \text{Paul}$ have many mothers in the logical expression.
-        \end{enumerate}
+    $$
+      \forall x \forall y \forall u \forall v(M(x, y) \land M(y, \text{Andy}) \land M(u, v) \land M(v, \text{Paul}) \implies x = u)
+    $$
+    Do you find out something weird?
+    \begin{enumerate}
+      \item First, not all $x,\, y,\, u,\, v$ satisfy the logical expression above.
+      \item Secondly, without specifying $x$ and $u$ in the precondition, you cannot make $x$ and $y$ identical.
+      \item Lastly, $y,\, \text{Andy},\, v,\, \text{Paul}$ have many mothers in the logical expression.
+    \end{enumerate}
   \item Let $m(x)$ denote $x$'s biological mother. The following logical expression matches the English version.
-        $$
-          m(m(\text{Andy}))=m(m(\text{Paul})).
-        $$
-        Since everyone has exactly one biological mother, we introduce a function $m(x)$ to denote this fact. This is a unction to capture a single object.
+    $$
+      m(m(\text{Andy}))=m(m(\text{Paul})).
+    $$
+    Since everyone has exactly one biological mother, we introduce a function $m(x)$ to denote this fact. This is a unction to capture a single object.
 \end{enumerate}
 
 \subsubsection{Direct, Contrapositive and Contradiction Method}

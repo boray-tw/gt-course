@@ -58,5 +58,12 @@
   ],
   "latex-workshop.message.latexlog.exclude": [
     "Unknown CJK family"
+  ],
+  "latex-workshop.latexindent.args": [
+    "-c",
+    "%DIR%/",
+    "%TMPFILE%",
+    "-y=defaultIndent: '%INDENT%'",
+    "-l=%WORKSPACE_FOLDER%/src/handouts/indentconfig.yaml"
   ]
 }

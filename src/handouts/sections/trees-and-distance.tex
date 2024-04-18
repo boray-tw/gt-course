@@ -91,13 +91,13 @@ Note that your assumption must be correct before any proof. For example, these 4
   \item We use induction on $n$, which is the number of vertices in the graph $G$.
   \item For $n = 1$, an acyclic 1-vertex graph has no edge.
   \item For $n > 1$:
-        \vspace{.5em}
-        \begin{enumerate*}
-          \item We suppose that the implication holds for graphs with fewer than $n$ vertices.
-          \item Given an acyclic connected graph $G$, \cref{lem:tree-deleting-leaf} provides a leaf $v$ and states that $G' = G - v$ also is acyclic and connected (see figure above).
-          \item Applying the induction hypothesis to $G'$ yields $e \left( G' \right) = n - 2$. Since only one edge is incident to $v$, we have $e(G) = e \left( G' \right) + 1 = n - 1$.
-        \end{enumerate*}
-        \vspace{.25em} % more space after enumerate*
+    \vspace{.5em}
+    \begin{enumerate*}
+      \item We suppose that the implication holds for graphs with fewer than $n$ vertices.
+      \item Given an acyclic connected graph $G$, \cref{lem:tree-deleting-leaf} provides a leaf $v$ and states that $G' = G - v$ also is acyclic and connected (see figure above).
+      \item Applying the induction hypothesis to $G'$ yields $e \left( G' \right) = n - 2$. Since only one edge is incident to $v$, we have $e(G) = e \left( G' \right) + 1 = n - 1$.
+    \end{enumerate*}
+    \vspace{.25em} % more space after enumerate*
 \end{enumerate*}
 \vspace{.5em} % more space after enumerate*
 
