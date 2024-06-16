@@ -766,14 +766,14 @@ See \cref{fig:tree-prufer-code} for an example of \cref{alg:tree-prufer-code}.
   \item We prove this by induction on $n$.
   \item Basis step: $n = 2$. There is tree with two vertices. The Prüfer code is a list of length 0 , and it is the only such list.
   \item Induction step: $n > 2$:
-  \begin{enumerate}
-    \item Computing $f(T)$ reduces each vertex to degree 1 and then possibly deletes it. Thus every non-leaf vertex in $T$ appears in $f(T)$.
-    \item No leaf appears, because recording a leaf as a neighbor of a leaf would require reducing the tree to one vertex. Hence the leaves of $T$ are the elements of $S$ not in $f(T)$.
-    \item If $f(T) = a$, then the first leaf deleted is the least element of $S$ not in $a$ (call it $x$), and the neighbor of $x$ is $a_1$.
-    \item We are given $a \in S^{n - 2}$ and seek all solutions to $f(T)=a$.
-    \item We have shown that every such tree has $x$ as its least leaf and has the edge $x a_1$.
-    \item Deleting $x$ leaves a tree with vertex set $S' = S - \{x\}$. Its Prüfer code is $a' = \left( a_2,\, \ldots,\, a_{n - 2} \right)$, an "$n - 3$"-tuple formed from $S'$.
-  \end{enumerate}
+    \begin{enumerate}
+      \item Computing $f(T)$ reduces each vertex to degree 1 and then possibly deletes it. Thus every non-leaf vertex in $T$ appears in $f(T)$.
+      \item No leaf appears, because recording a leaf as a neighbor of a leaf would require reducing the tree to one vertex. Hence the leaves of $T$ are the elements of $S$ not in $f(T)$.
+      \item If $f(T) = a$, then the first leaf deleted is the least element of $S$ not in $a$ (call it $x$), and the neighbor of $x$ is $a_1$.
+      \item We are given $a \in S^{n - 2}$ and seek all solutions to $f(T)=a$.
+      \item We have shown that every such tree has $x$ as its least leaf and has the edge $x a_1$.
+      \item Deleting $x$ leaves a tree with vertex set $S' = S - \{x\}$. Its Prüfer code is $a' = \left( a_2,\, \ldots,\, a_{n - 2} \right)$, an "$n - 3$"-tuple formed from $S'$.
+    \end{enumerate}
 \end{enumerate}
 
 \end{document}
