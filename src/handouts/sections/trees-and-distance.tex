@@ -624,6 +624,8 @@ See \cref{fig:tree-prufer-code} for an example of \cref{alg:tree-prufer-code}.
 
   \textbf{Question}: Given Prüfer code 744171, what is the tree?
 
+  By the induction hypothesis, there exists exactly one tree $T'$ having vertex set $S'$ and Prüfer code $a'$. Since every tree with Prüfer code $a$ is formed by adding the edge $x a_1$ to such a tree, there is at most one solution to $f(T) = a$. Furthermore, adding $x a_1$ to $T'$ does create a tree with vertex set $S$ and Prüfer code $a$, so there is at least one solution.
+
   \textbf{Answer}: Since there is 6 values in the given Prüfer code, there are 8 ($ = 6 + 2$) nodes in the tree. List vertices with indices in $[8]$ (\cref{def:intro-set-shorthand}) as follows.
 
   \begin{center}
