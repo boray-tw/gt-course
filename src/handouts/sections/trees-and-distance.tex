@@ -17,6 +17,9 @@
 %   def:intro-set-operations
 %   eq:intro-pascal
 %   def:intro-set-shorthand
+%   def:con-degree
+%   def:intro-bijection
+%   subsec:con-graph-isomorphism
 % As a result, compiling only this document gives undefined references.
 
 % prevent \recall theorems outside this section
@@ -24,6 +27,8 @@
 \def\sectionprefix{tree}%
 
 \begin{document}
+
+% TODO: use TikZ to replace almost all figures
 
 \section{Trees and Distance}
 
@@ -777,5 +782,650 @@ See \cref{fig:tree-prufer-code} for an example of \cref{alg:tree-prufer-code}.
       \item Deleting $x$ leaves a tree with vertex set $S' = S - \{x\}$. Its Prüfer code is $a' = \left( a_2,\, \ldots,\, a_{n - 2} \right)$, an "$n - 3$"-tuple formed from $S'$.
     \end{enumerate}
 \end{enumerate}
+
+Recall \cref{def:tree-tree}. A spanning tree $T$ of a graph $G$ is a subgraph of $G$ with the same vertex set of $G$ while $T$ is a tree.
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.7\textwidth]{tree-spanning-tree}
+  \caption{(2.2.6. Example in text) Three are 8 possible spanning trees (on the right) of a kite (on the left).}
+  \label{fig:tree-spanning-tree}
+\end{figure}
+
+\begin{definition}{}{tree-contraction}
+  (2.2.7. Definition in text)
+  In a graph $G$, \textbf{contraction} of edge $e$ with endpoints $u,\, v$ is the replacement of $u$ and $v$ with a single vertex whose incident edges are the edges other than $e$ that were incident to $u$ or $v$. The resulting graph $G \cdot e$ has one less edge than $G$.
+\end{definition}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.7\textwidth]{tree-contraction}
+  \caption{A contraction of edge $e$ in graph $G$ on the left, is $G \cdot e$ on the right.}
+  \label{fig:tree-contraction}
+\end{figure}
+
+In \cref{def:tree-contraction}, contraction is like compression. In a drawing of $G$, contraction of $e$ shrinks the edge to a single point. Contracting an edge can produce multiple edges or loops, but we leave them as they are. To count spanning trees correctly, we must keep multiple edges (see \cref{ex:tree-recursive-spanning-tree-count}). In other applications of contraction, the multiple edges may be irrelevant.
+
+\begin{proposition}{}{tree-recursive-spanning-tree-count}
+  (2.2.8. Proposition in text)
+  Let $\tau(G)$ denote the number of spanning trees of a graph $G$.
+  If $e \in E(G)$ is not a loop, then $\tau (G) = \tau (G - e) + \tau (G \cdot e)$.
+\end{proposition}
+
+\Cref{prop:tree-recursive-spanning-tree-count} is like a recursive relationship. We calculate the number of spanning trees of $G$ with the spanning tree counts of its subgraph and contraction recursively to divide and conquer the problem. Note that this proposition is not for the enumeration of spanning trees, but the count.
+
+Note that $G \cdot e$ and $G$ are a bijection. To show the correctness of \cref{prop:tree-recursive-spanning-tree-count} with an example, in \cref{fig:tree-spanning-tree}, let the diagonal edge be $e$. There are two kinds of spanning tree of $G$. One is those with $e$, and the other is those without $e$ (as subgraphs of $G - e$). The spanning trees in $G \cdot e$ have one-to-one correspondence to the spanning trees that contain $e$ in $G$. So, we can calculate $\tau (G)$ with $\tau (G - e) + \tau (G \cdot e)$.
+
+\begin{supplement}
+  \textbf{Proof} of \cref{prop:tree-recursive-spanning-tree-count}:
+  \begin{enumerate*}
+    \item The spanning trees of $G$ that omit $e$ are precisely the spanning trees of $G - e$ (as a bijection).
+    \item To show that $G$ has $\tau(G \cdot e)$ spanning trees containing $e$, we show that contraction of $e$ defines a bijection from the set of spanning trees of $G$ containing $e$ to the set of spanning trees of $G \cdot e$.
+    \item When we contract $e$ in a spanning tree that contains $e$, we obtain a spanning tree of $G \cdot e$, because the resulting subgraph of $G \cdot e$ is spanning and connected and has the right number of edges.
+    \item The other edges maintain their identity under contraction, so no two trees are mapped to the same spanning tree of $G \cdot e$ by this operation.'
+    \item Also, each spanning tree of $G \cdot e$ arises in this way, since expanding the new vertex back into $e$ yields a spanning tree of $G$. Since each spanning tree of $G \cdot e$ arises exactly once, the function is a bijection.
+  \end{enumerate*}
+\end{supplement}
+
+\begin{example}{A step in the recurrence}{tree-recursive-spanning-tree-count}
+  (2.2.9. Example in text)
+  In \cref{fig:tree-recursive-spanning-tree-count}, each of the graphs on the right has four spanning trees, so \cref{prop:tree-recursive-spanning-tree-count} implies that the kite has eight spanning trees. Without the multiple edges, the computation would fail.
+\end{example}
+
+\begin{figure}[htbp]
+  % TODO: TikZ version
+  \centering
+  \includegraphics[width=.7\textwidth]{tree-recursive-spanning-tree-count}
+  \caption{Graphs for \cref{ex:tree-recursive-spanning-tree-count}.}
+  \label{fig:tree-recursive-spanning-tree-count}
+\end{figure}
+
+Note: We cannot apply the recurrence of \cref{prop:tree-recursive-spanning-tree-count} when $e$ is a loop. By definition, a self-loop is not a spanning tree. In some cases, you regard a self-loop as a spanning tree; if you utilize \cref{prop:tree-recursive-spanning-tree-count}, there will be two spanning trees as a wrong answer.
+
+\begin{example}{A Matrix Tree computation}{tree-matrix-tree}
+  To compute \cref{prop:tree-recursive-spanning-tree-count} by a program, we utilize the Matrix Tree computation.
+
+  Let $Q$ be a matrix of a graph $G$. $Q_{ii}$ is the degree of vertex $i$. Let $a_{ij}$ be the number of edges between vertices $i$ and $j$ ($i \neq j$). $Q_{ij} = - a_{ij}$ ($i \neq j$). If there is no edge between vertices $i$ and $j$ ($i \neq j$), then $a_{ij} = 0$.
+
+  Later, by utilizing \cref{thm:tree-matrix-tree}, we can calculate $\tau (G)$ by $Q$.
+
+  \centering
+  \includegraphics[width=.5\textwidth]{tree-matrix-tree}
+\end{example}
+
+\begin{theorem}{Matrix Tree Theorem}{tree-matrix-tree}
+  (2.2.12. Theorem in text) Given a loopless graph $G$ with vertex set $v_1,\, \ldots,\, v_n$, let $a_{i, j}$ be the number of edges with endpoints $v_i$ and $v_j$. Let $Q$ be the matrix in which entry $(i, j)$ is $- a_{i, j}$ when $i \neq j$ and is $d \left( v_i \right)$ when $i = j$. If $Q^*$ is a matrix obtained by deleting row $s$ and column $t$ of $Q$, then $\tau (G) = (-1)^{s + t} \operatorname{det} Q^*$.
+\end{theorem}
+
+In \cref{thm:tree-matrix-tree}, $\operatorname{det} A = \abs{A}$ is the determinant of the matrix $A$.
+
+\begin{definition}{}{tree-graceful}
+  (2.2.14. Definition). A graceful labeling of a graph $G$ with $m$ edges is a function $f: V(G) \rightarrow \{0,\, \ldots,\, m\}$ such that distinct vertices receive distinct numbers and $\{\abs{f(u) - f(v)}: u v \in E(G)\} = \{1,\, \ldots,\, m\}$ (each edge is \textbf{uniquely} identified by the absolute difference between its endpoint indices). A graph is graceful if it has a graceful labeling.
+\end{definition}
+
+\begin{theorem}{}{tree-graceful-decomposition}
+  (2.2.16. Theorem in text) (Rosa [1967]) If a tree $T$ with $m$ edges has a graceful labeling, then $K_{2 m + 1}$ has a decomposition into $2 m + 1$ copies of $T$.
+\end{theorem}
+
+In \cref{fig:tree-graceful}, the graph $G$ on the left with 4 edges is graceful. On the right, we have a $K_9$. By rotating $G$ 9 times, we can show \cref{thm:tree-graceful-decomposition}. The first one is the one with bold lines, and the second one is solid, and so on.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.7\textwidth]{tree-graceful}
+  \caption{An example of a graceful tree defined by \cref{def:tree-graceful}}
+  \label{fig:tree-graceful}
+\end{figure}
+
+Direct \textbf{proof} of \cref{thm:tree-graceful-decomposition}:
+\begin{enumerate*}
+  \item View the vertices of $K_{2 m+1}$ as the congruence classes modulo $2 m + 1$, arranged circularly. The difference between two congruence classes is 1 if they are consecutive, 2 if one class is between them, and so on up to difference $m$. We group the edges of $K_{2 m + 1}$ by the difference between the endpoints. For $1 \leq j \leq m$, there are $2 m + 1$ edges with difference $j$.
+  \item From a graceful labeling of $T$, we define copies of $T$ in $K_{2 m+1}$; the copies are $T_0, \ldots, T_{2 m}$. The vertices of $T_k$ are $k, \ldots, k+m(\bmod 2 m+1)$, with $k+i$ adjacent to $k+j$ if and only if $i$ is adjacent to $j$ in the graceful labeling of $T$. The copy $T_0$ looks just like the graceful labeling and has one edge with each difference. Moving to the next copy shifts each edge to another having the same difference by adding one to the name of each endpoint. Each difference class of edges has one edge in each $T_k$, and thus $T_0, \ldots, T_{2 m}$ decompose $K_{2 m+1}$.
+\end{enumerate*}
+
+\begin{definition}{}{tree-caterpillar}
+  (2.2.17. Definition in text)
+  A \textbf{caterpillar} is a tree in which a single path (the \textbf{spine}) is incident to (or contains) every edge.
+\end{definition}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.8\textwidth]{tree-caterpillar}
+  \caption{The 0,7-path is the spine of the graph on the left because all the edges other than those on the 0,7-path are connected to the 0,7-path. The graph on the right (a Y graph) is not a caterpillar.}
+  \label{fig:tree-caterpillar}
+\end{figure}
+
+\textbf{Bonus}: Prove that a caterpillar is graceful. (1 point)
+
+\begin{theorem}{}{tree-caterpillar-from-tree}
+  (2.2.19. Theorem in text)
+  A tree is a caterpillar if and only if it does not contain the tree $Y$ above.
+\end{theorem}
+
+\textbf{Proof} of \cref{thm:tree-caterpillar-from-tree}: Let $G'$ denote the tree obtained from a tree $G$ by deleting each leaf of $G$. (For example, after deleting all leaves of $Y$, the center vertex with its neighbors must survive.) Since all vertices that survive in $G'$ are non-leaves in $G, G'$ has a vertex of degree at least 3 if and only if $Y$ appears in $G$. Hence $G$ has no copy of $Y$ if and only if $\Delta \left( G' \right) \leq 2$ ($\Delta \left( G' \right)$ is the maximum degree in $G'$; see \cref{def:con-degree}). This is equivalent to $G'$ being a path, which is equivalent to $G$ being a caterpillar.
+
+
+\subsection{Optimization and Trees}
+
+In this subsection, we'll introduce the three techniques helpful in Electrical Engineering: minimum spanning tree (MST), shortest paths, and binary decision diagram (BDD).
+
+\begin{supplement}
+  For example, in finding the program architecture bug or implementing software verification, we want the bug is discoverable via the shortest path in a program execution tree.
+
+  In an integrated circuit (IC) or automation control, there may be a potential defect with some combination of signal. By using a binary decision tree (BDT), we prevent building a large truth table for the input. By using a binary decision diagram (BDD), we save more spaces in hardware or memory.
+\end{supplement}
+
+\subsubsection{Minimum Sapnning Tree (MST)}
+
+All the algorithms introduced in this section has their own limitations. There is no a monolithic algorithm suitable that can find a MST from all kinds of graphs.
+
+\begin{algorithm}{Kruskal's Algorithm - for minimum spanning trees}{tree-mst-kruskal}
+  (2.3.1. Algorithm in text) C.f. Exercise 2.3.10 (Prim's algorithm)
+
+  \textbf{Input}: A weighted connected graph.
+
+  \textbf{Idea}: Maintain an acyclic spanning subgraph $H$, enlarging it by edges with low weight to form a spanning tree. (A minimum spanning tree, MST, is a spanning tree with the minimum possible total edge weight.) Consider edges in non-decreasing order of weight, breaking ties arbitrarily. \supp{Although in the process, $H$ may be a forest, it will be a spanning tree at the end. In the meanwhile, Prim's algorithm gaurentees $H$ being a tree in the process.}
+
+  \textbf{Initialization}: Set $E(H) = \emptyset$.
+
+  \textbf{Iteration}: If the next cheapest edge joins two components of $H$, then include it; otherwise, discard it. Terminate when $H$ is connected.
+\end{algorithm}
+
+In the exams, you may be asked to answer the process of a specific MST algorithm given a graph.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=.7\textwidth]{tree-mst-0}
+    \caption{Initial graph}
+    \label{fig:tree-mst-0}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=.65\textwidth]{tree-mst-1}
+    \caption{Step 1: Add the bold edge which has the minimum weight to the acyclic spanning subgraph $H$.}
+    \label{fig:tree-mst-1}
+  \end{subfigure}
+  \hspace{.1\textwidth}
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=.6\textwidth]{tree-mst-2}
+    \caption{Step 2: Add 2, but form a forest.}
+    \label{fig:tree-mst-2}
+  \end{subfigure}
+  \hspace{.1\textwidth}
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=.6\textwidth]{tree-mst-3}
+    \caption{Step 3}
+    \label{fig:tree-mst-3}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=.6\textwidth]{tree-mst-4}
+    \caption{Step 4}
+    \label{fig:tree-mst-4}
+  \end{subfigure}
+  \hspace{.1\textwidth}
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=.6\textwidth]{tree-mst-5}
+    \caption{Step 5: Add 7 because adding 5 or 6 results in a cycle to break $H$.}
+    \label{fig:tree-mst-5}
+  \end{subfigure}
+  \hspace{.1\textwidth}
+  \begin{subfigure}[t]{.25\textwidth}
+    \centering
+    \includegraphics[width=.6\textwidth]{tree-mst-6}
+    \caption{Step 6: Add 10 because we cannot add 5, 6, 8 or 9 without creating a cycle.}
+    \label{fig:tree-mst-6}
+  \end{subfigure}
+  \caption{The process of Kruskal's algorithm.}
+  \label{fig:tree-mst}
+\end{figure}
+
+\subsubsection{Shortest Paths}
+
+Note that there may be multiple shortest paths, or there does not exist a shortest path for vertices between two components in a disconnected graph.
+
+Shortest paths are defined on the paths with the lowest \textbf{weights} of edges instead of vertex or edge counts. For example, although a path via alleys is the shortest path, but a path via main roads requires the minimum time (weight).
+
+\begin{algorithm}{Dijkstra's Algorithm--distances from one vertex}{tree-dijkstra}
+  (2.3.5. Algorithm in text)
+
+  \textbf{Input}: A graph (or digraph) with nonnegative edge weights and a starting vertex $u$. The weight of edge $x y$ is $w(x y)$; let $w(x y)=\infty$ if $x y$ is not an edge.
+
+  \textbf{Idea}: Maintain the set $S$ of vertices to which a shortest path from $u$ is known, enlarging $S$ to include all vertices. To do this, maintain a tentative distance $t(z)$ from $u$ to each $z \notin S$, being the length of the shortest $u, z$-path yet found.
+
+  \textbf{Initialization}: Set $S = \{ u \}$; $t(u) = 0$; $t(z) = w(u z)$ for $z \neq u$.
+
+  \textbf{Iteration}: Select a vertex $v$ outside $S$ such that $t(v) = \min _{z \notin S} t(z)$. Add $v$ to $S$. Explore edges from $v$ to update tentative distances: for each edge $v z$ with $z \notin S$, update $t(z)$ to $\min \{ t(z),\, t(v) + w(v z)\}$.
+
+  The iteration continues until $S = V(G)$ or until $t(z) = \infty$ for every $z \notin S$. At the end, set $d(u, v) = t(v)$ for all $v$.
+\end{algorithm}
+
+Time algorithm is useful in costs (like latencies) for a specific network topology, where the costs are nonnegative.
+
+Note that finding shortest paths is an NP-complete problem, so Dijkstra's algorithm only provides a heuristic optimization for a special case (nonnegative edge weights).
+
+For an unweighted graph or for a graph with identical edge weight, Dijkstra's algorithm acts like Breadth-First Search (BFS). C.f. BFS (2.3.8. Algorithm in text).
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=.6\textwidth]{tree-dijkstra-0}
+    \caption{Initial graph.}
+    \label{fig:tree-dijkstra-0}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{tree-dijkstra-1}
+    \caption{Step 1: We visit $u$, so $S = \{ u \}$. The distance from $u$ to itself is 0 ($t(u) = 0$). Although there is a path from $u$ to $c,\, d,\, e$, but we see only vertices from $u$ now, so $t(c) = t(d) = t(e) = \infty$ now. The confirmed $t$ values are in orange.}
+    \label{fig:tree-dijkstra-1}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{tree-dijkstra-2}
+    \caption{Step 2: We visit $a$ because it is the nearest unconfirmed vertex from $u$ now.}
+    \label{fig:tree-dijkstra-2}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{tree-dijkstra-3}
+    \caption{Step 3}
+    \label{fig:tree-dijkstra-3}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{tree-dijkstra-4}
+    \caption{Step 4}
+    \label{fig:tree-dijkstra-4}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{tree-dijkstra-5}
+    \caption{Step 5}
+    \label{fig:tree-dijkstra-5}
+  \end{subfigure}
+
+  \caption{The process of Dijkstra's algorithm on a sample connected graph.}
+  \label{fig:tree-dijkstra}
+\end{figure}
+
+In exams, you may be asked to show the process of Dijkstra's algorithm step by step. Although some graph has an obvious solution, you need to show it step by step along with the updated values without haste.
+
+\subsubsection{Binary Decision Diagram (BDD)}
+
+Idea: By simplifying a diagram (graph), we can represent it with fewer nodes and edges.
+
+\begin{enumerate}
+  \item BDD is a data structure for switching functions that relies on a \textbf{compactification} (compression) of binary decision trees.
+  \item The idea is to \textbf{skip redundant fragments} (duplicated subtrees or nodes) of a binary decision tree.
+  \item Collapsing constant subtrees (i.e., subtrees where all terminal nodes have the same value) into a single node and identifying nodes with \textbf{isomorphic} subtrees.
+  \item BDD is a \textbf{DAG} (directed acyclic graph) of outdegree 2:
+    \begin{enumerate}
+      \item Inner (internal) nodes are labeled by variables.
+        \supp{For example, to represent gates of an IC in software, we use variables in boolean expressions.} We use a solid line for 1, and a dashed one for 0. \supp{However, using solid lines only with 0/1 labels on them is more clear and preferred by the instructor.}
+      \item Outgoing edges are for possible evaluations of the corresponding variable.
+      \item Terminal nodes are function values.
+    \end{enumerate}
+  \item With a \textbf{fixed variable ordering}, BDD can be a \textbf{minimal and canonical} (unique BDD for a function) form representation for Boolean formulae. Note that to have a \textbf{minimum} BDD, we need to try all variable orders. However, a relatively minimal BDD is enough for us.
+\end{enumerate}
+
+Isomorphic of graph $G$ and $H$ means a bijection (one-to-one and onto) between the sets of nodes of $G$ and $H$.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{.3\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{tree-bijection}
+    \caption{Recall bijection (\cref{def:intro-bijection}).}
+    \label{fig:tree-bijection}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.5\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{tree-isomorphism}
+    \caption{Recall isomorphism (\cref{subsec:con-graph-isomorphism}).}
+    \label{fig:tree-isomorphism}
+  \end{subfigure}
+  \caption{Recall bijection and isomorphism.}
+  \label{fig:tree-bijection-isomorphism}
+\end{figure}
+
+Take $z_1 \land \left( \neg z_2 \lor z_3 \right)$ as example. See \cref{fig:tree-bdd}.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{.6\textwidth}
+    \centering
+    \includegraphics[width=.8\textwidth]{tree-bdd-0-bdt}
+    \caption{You need 6 internal nodes and 14 edges to represent the binary decision tree.}
+    \label{fig:tree-bdd-0-bdt}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{.4\textwidth}
+    \centering
+    \includegraphics[width=.7\textwidth]{tree-bdd-1}
+    \caption{Step 1: The right subtree of $z_1$ can be collapsed to 0, while the right subtree of $z_2$ is 1. This is a BDD but not minimal.}
+    \label{fig:tree-bdd-1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.4\textwidth}
+    \centering
+    \includegraphics[width=.7\textwidth]{tree-bdd-2}
+    \caption{Step 2: Combine shared leave nodes.}
+    \label{fig:tree-bdd-2}
+  \end{subfigure}
+
+  \caption{An example of BDD for the boolean formulae $z_1 \land \left( \neg z_2 \lor z_3 \right)$.}
+  \label{fig:tree-bdd}
+\end{figure}
+
+Exercise in class: Draw the following diagrams for $f=\left(z_1 \land z_3\right) \lor \left(z_2 \land z_3\right)$:
+\begin{enumerate*}
+  \item Binary Decision Tree
+  \item Binary Decision Diagram
+\end{enumerate*}
+
+
+
+Before defining the ordered BDD, we need to define \textbf{variable ordering} in advance:
+\begin{enumerate}
+  % NOTE: \wp is the Weierstrass-p symbol, a weierstrass elliptic function, or
+  % a uniquely fancy script p
+  % ref: https://mathoverflow.net/a/278138
+  % ref: https://mathoverflow.net/a/278932
+  \item Let $Var$ be a finite set of variables. A \textbf{variable ordering} for Var denotes any tuple $\wp = \left(z_1, \ldots, z_m\right)$ such that $Var = \left\{z_1, \ldots, z_m \right\}$ and $z_i \neq z_j$ for $1 \leq i < j \leq m$. That is, variables are in a strictly increasing order.
+
+  \item We write $<_{\wp}$ for the induced \textbf{total order} on $Var$. That is, for $\wp = \left( z_1,\, \ldots,\, z_m \right)$ the binary relation $<_{\wp}$ on $Var$ is given by $z_i <_{\wp} z_j$ if and only if $i < j$.
+
+  \item We write $z_i \leqslant_{\wp} z_j$ iff. either $z_i <_{\wp} z_j$ or $i = j$.
+\end{enumerate}
+
+\textbf{$\bm{\wp}$-ordered binary decision diagram} ($\wp$-OBDD) is defined as:
+\[\mathfrak{B} = \left( V,\, V_I,\, V_T,\, \successor_0,\, \successor_1,\, \var,\, \val,\, v_0 \right)\]
+, where
+\begin{enumerate*}
+  \item $\mathfrak{B}$ is a fraktur $B$ symbol showing the \textbf{binary} property.
+  \item $V$ is a finite set for nodes, and $V = V_I \cup V_T \cup v_0$.
+  \item $V_I$ is the internal node set.
+  \item $V_T$ is the terminal (leaf node) set.
+  \item $v_0$ means the root of BDDs (boolean formula).
+  \item $\successor_0$ and $\successor_1$ assign each inner node $v$ a 0-successor and 1-successor. $\successor_0(v) \in V$ and $\successor_1(v) \in V$. $\successor_0$ means the subtree that definitely evaluates to 0 in the BDT (tree). We don't say "subtree" because we focus on diagrams rather than trees.
+\end{enumerate*}
+
+$\wp$-OBDD:
+\begin{enumerate}
+  \item A variable labeling function $\var:\, V_I \rightarrow Var$ that assigns to each inner node $v$ a variable $\var(v) \in Var$.
+  \item A value function $\val:\, V_T \rightarrow \{0,\, 1\}$ that assigns to each drain a function value 0 or 1.
+  \item Consistency of the variable labeling function with the variable ordering $\wp$ is required in the following sense. If $\wp = \left( z_1,\, \ldots,\, z_m \right)$, then for each inner node $v$: if $\var(v) = z_i$ and $w \in \left\{ \successor_0(v), \successor_1(v)\right\} \cap V_I$, then $\var(w) = z_j$ for some $j > i$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.3\textwidth]{tree-obdd}
+  \caption{Two internal nodes $v$ and $w$ in a $\wp$-OBDD, where the two nodes correspond to two boolean variables $z_i$ and $z_j$, respectively. \supp{If you need additional names for nodes, such names must be outside the nodes. However, we usually use the boolean variable names inside nodes without additional names.}}
+  \label{fig:tree-obdd}
+\end{figure}
+
+\textbf{Minimality of Reduced OBDD} (ROBDD):
+
+\begin{enumerate}
+  \item When the variable ordering $\wp$ for $Var$ is fixed, then reduced $\wp$-OBDDs provide unique representations of switching functions for $Var$. (Of course, uniqueness is up to isomorphism)
+  \item Two reduction rules for minimize $\wp$-OBDDs:
+    \begin{enumerate}
+      \item Elimination rule (\cref{fig:tree-robdd-elimination-rule}):
+
+        If $v$ is an inner node of $\mathfrak{B}$ with $\successor_0(v) = \successor_1(v) = w$ ($v$ is not a determinant for results), then remove (eliminate) $v$ and redirect all incoming edges $u \rightarrow v$ to $w$.
+
+      \item Isomorphism rule:
+
+        It means if we have isomorphic structure in an OBDD, we can remove one copy or merge two copies into one.
+
+        Specifically, if $v,\, w$ are nodes in $\mathfrak{B}$ with $v \neq w$ and either
+        \vspace{1em}
+        \begin{enumerate*}
+          \item Case 1 (\cref{fig:tree-robdd-isomorphism-rule-1}): $v,\ w$ are drains with $\val(v) = \val(w)$
+          \item Case 2 (\cref{fig:tree-robdd-isomorphism-rule-2}): $v, w$ are inner nodes with
+            \vspace{-1em}
+            $$
+              \left\langle \var(v),\, \successor_1(v),\, \successor_0(v) \right\rangle =
+              \left\langle \var(w),\, \successor_1(w),\, \successor_0(w) \right\rangle
+            $$
+        \end{enumerate*}
+        , then remove node $v$ and redirect all incoming edges $u \rightarrow v$ to node $w$.
+    \end{enumerate}
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{tree-robdd-elimination-rule}
+    \caption{Elimination rule.}
+    \label{fig:tree-robdd-elimination-rule}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{tree-robdd-isomorphism-rule-1}
+    \caption{Isomorphism rule, case 1.}
+    \label{fig:tree-robdd-isomorphism-rule-1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{tree-robdd-isomorphism-rule-2}
+    \caption{Isomorphism rule, case 2.}
+    \label{fig:tree-robdd-isomorphism-rule-2}
+  \end{subfigure}
+
+  \caption{Examples of minimality of a reduced OBDD.}
+  \label{fig:tree-robdd}
+\end{figure}
+
+\textbf{Shared OBDD} (SOBDD):
+\begin{enumerate}
+  \item Let $Var$ be a finite set of Boolean variables and $\wp$ a variable ordering for $Var$.
+  \item A shared $\wp$-OBDD ($\wp$-SOBDD for short) is a tuple $\overline{\mathfrak{B}} = \left( V,\, V_I,\, V_T,\, \successor_0,\, \successor_1,\, \var,\, \val,\, \bar{v}_0 \right)$.
+  \item The last component is a tuple $\bar{v}_0 = \left( v_0^1,\, \ldots,\, v_0^k \right)$ of roots.
+  \item The requirements are as in $\wp$-ROBDDs, i.e., for all nodes $v,\, w \in V$
+    \begin{enumerate*}
+      \item $\var(v) <_{\wp} \var \left( \successor_b(v) \right)$ if $v \in V_I$ and $b \in\{0,1\}$, and
+      \item $v \neq w$ implies $f_v \neq f_w$, where the switching function $f_v$ for the nodes $v \in V$ is defined as for OBDDs.
+    \end{enumerate*}
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=.2\textwidth]{tree-sobdd}
+  \caption{$z_1 \land \neg z_2$, $\neg z_2$, $z_1 \xor z_2$ and $\neg z_1 \lor z_2$ form a SOBDD with 4 root nodes (3 $z_1$ and the $z_2$ on the left with an arrow on its top).}
+  \label{fig:tree-sobdd}
+\end{figure}
+
+\textbf{Boolean Operators}:
+\begin{enumerate}
+  \item \textbf{ITE operator}:
+
+    ITE operator takes as arguments three switching functions $g,\, f_1,\, f_2$ and composes them according to "if $g$ then $f_1$ else $f_2$ ". Formally:
+    \[
+      \ite\left(g, f_1, f_2\right) =
+      \left( g \land f_1 \right) \lor \left( \neg g \land f_2 \right)
+    \]
+
+    Special cases: $g$ is constant 0 or 1:
+    \begin{align*}
+      \ite\left( 0,\, f_1,\, f_2 \right) & = f_2 \\
+      \ite\left( 1,\, f_1,\, f_2 \right) & = f_1
+    \end{align*}
+
+  \item Shannon Expansion:
+    If $f$ is a switching function (0 or 1) for $Var$, then for each variable $z \in Var$:
+    \[
+      f =
+      \left( \neg z \land \left. f \right|_{z = 0} \right) \lor
+      \left( z \land \left. f \right|_{z = 1} \right)
+    \]
+    Rewritten with the ITE:
+    \[
+      f_v = \ite\left( z,\, f_{\successor_1(v)}, f_{\successor_0(v)} \right)
+    \]
+
+  \item Other Boolean operators by using ITE:
+    \begin{align*}
+      \neg f              & = \ite\left( f,\, 0,\, 1 \right)                             \\
+      f_1 \vee f_2        & = \ite\left( f_1,\, 1,\, f_2 \right)                         \\
+      f_1 \wedge f_2      & = \ite\left( f_1,\, f_2,\, 0 \right)                         \\
+      f_1 \xor f_2        & = \ite\left( f_1,\, \neg f_2,\, f_2 \right)                  \\
+      f_1 \xor f_2        & = \ite\left( f_1,\, \ite\left(f_2, 0,1\right),\, f_2 \right) \\
+      f_1 \rightarrow f_2 & = \ite\left( f_1,\, f_2,\, 1 \right)
+    \end{align*}
+\end{enumerate}
+
+\textbf{BDD operation}:
+\begin{enumerate}
+  \item Basic operator for efficient BDD structural manipulation:
+    \begin{enumerate*}
+      \item Based on recursive Shannon Expansion.
+      \item Same semantics by using ITE.
+    \end{enumerate*}
+
+  \item Let $B_1$ and $B_2$ be two switching functions.
+    \[
+      B_1 \op B_2 =
+      \left[ \neg \left( x_i \right) \left(\left. B_1 \right|_{x_i = 0} \op B_2 \right) \right] \lor
+      \left[ \left( x_i \right) \left( \left. B_1 \right|_{x_i = 1} \op B_2 \right) \right]
+    \]
+    , where $\op$ can be OR, AND, XOR, $\ldots$, etc. See \cref{fig:tree-bdd-op} for the illustration.
+
+  \item Case 1: $B_1$ and $B_2$ have the same root (saying $x_i$) as illustrated in \cref{fig:tree-bdd-op-same-root}.
+
+  \item Case 2: $B_1$ and $B_2$ have different roots (saying $x_i$ and $x_k$) as illustrated in \cref{fig:tree-bdd-op-different-roots}:
+    \begin{enumerate}
+      \item Suppose the ordering is $x_i < x_k$, and we process $x_i$ first as illustrated \cref{fig:tree-bdd-op}.
+      \item Then take $B_1^1$ and $B_1^0$ as two new $B_1$ to recursively construct the following trees (based on either case 1 or case 2), respectively.
+    \end{enumerate}
+\end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=.6\textwidth]{tree-bdd-op}
+    \caption{$B_1 \op B_2$}
+    \label{fig:tree-bdd-op}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{tree-bdd-op-same-root}
+    \caption{$B_1 \op B_2$ with the same root ($x_1$)}
+    \label{fig:tree-bdd-op-same-root}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{tree-bdd-op-different-roots}
+    \caption{$B_1 \op B_2$ with different roots ($x_i$ and $x_k$).}
+    \label{fig:tree-bdd-op-different-roots}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.5\textwidth}
+    \centering
+    \includegraphics[width=.6\textwidth]{tree-bdd-op-different-roots-first}
+    \caption{Process only $B_1$ rooted at $x_i$ from \cref{fig:tree-bdd-op-different-roots}. Note that $B_2$ comes without a superscript because we leave $B_2$ as it is now.}
+    \label{fig:tree-bdd-op-different-roots-first}
+  \end{subfigure}
+  \caption{BDD operations.}
+  \label{fig:tree-bdd-op-figures}
+\end{figure}
+
+In the exams, you may be given two Boolean formula $B_1$ and $B_2$, and you need to generate their own BDD. With the given operator, you need to perform the operation on the two BDDs.
+
+\begin{example}{}{tree-bdd-op}
+  \textbf{Question}: Let $B_1 = \neg \left( x_1 \lor x_3 \right)$, $B_2 = x_2 \land x_3$, and $\op$ is OR. (1) Please derive the BDDs of $B_1$ and $B_2$. (2) Please perform the operation $\op$. That is, $B_1 \lor B_2$.
+
+  \textbf{Solution}: \cref{fig:tree-bdd-op-example}
+\end{example}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=.7\textwidth]{tree-bdd-example-step-0}
+    \caption{Question part 1: Two BDDs.}
+    \label{fig:tree-bdd-op-example-step-0}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{tree-bdd-example-step-1}
+    \caption{Step 1: Let $x_1$ (vertex with the lowest index) be the root of the result BDD. 1-successor on the left contains $x_3$ along with its successors, and the entire $x_2$.}
+    \label{fig:tree-bdd-op-example-step-1}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{tree-bdd-example-step-2-1}
+    \caption{Step 2-1: The red $V$ means the OR operator. 0-successor of $x_1$ evaluates to 1 because "1 OR anything" is 1.}
+    \label{fig:tree-bdd-op-example-step-2-1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{tree-bdd-example-step-2-2}
+    \caption{Step 2-2: Take $x_2$ as the root of the 1-successor of $x_1$, and follow the process of different roots like step 1.}
+    \label{fig:tree-bdd-op-example-step-2-2}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{tree-bdd-example-step-3-1}
+    \caption{Step 3-1: 0 in the 0-successor of $x_2$ is useless, so we remove it.}
+    \label{fig:tree-bdd-op-example-step-3-1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[t]{.45\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{tree-bdd-example-step-3-2}
+    \caption{Step 3-2: Take $x_3$ as the root of the 1-successor of $x_2$.}
+    \label{fig:tree-bdd-op-example-step-3-2}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{.3\textwidth}
+    \centering
+    \includegraphics[width=.9\textwidth]{tree-bdd-example-step-3-3}
+    \caption{Step 3-3: Evaluate the 1-successor and 0-successor of $x_3$ to 1 like step 2-1.}
+    \label{fig:tree-bdd-op-example-step-3-3}
+  \end{subfigure}
+  \hspace{.025\textwidth}
+  \begin{subfigure}[t]{.3\textwidth}
+    \centering
+    \includegraphics[width=.7\textwidth]{tree-bdd-example-step-4-1}
+    \caption{Step 4-1: Retain a single $x_3$.}
+    \label{fig:tree-bdd-op-example-step-4-1}
+  \end{subfigure}
+  \hspace{.025\textwidth}
+  \begin{subfigure}[t]{.3\textwidth}
+    \centering
+    \includegraphics[width=.7\textwidth]{tree-bdd-example-step-4-2}
+    \caption{Step 4-2: Redirect 1 leaves to a single 1. This is the final result.}
+    \label{fig:tree-bdd-op-example-step-4-2}
+  \end{subfigure}
+
+  \caption{Solution to \cref{ex:tree-bdd-op}}
+  \label{fig:tree-bdd-op-example}
+\end{figure}
 
 \end{document}
