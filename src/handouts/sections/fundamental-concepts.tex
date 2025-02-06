@@ -83,7 +83,7 @@ This section is the chapter 1 in the textbook "Introduction to Graph Theory". It
 
 \Cref{def:con-graph} is a \textit{triple}, which means you need these three components to describe a graph, usually in the order of vertex set, edge set, and relations.
 
-In \cref{def:con-graph}, for simple graphs, you could use a vertex set with either \textit{an edge set} or \textit{a relation for each edge} to define a graph. But for multigraphs like \cref{fig:con-graph}, in which there are multiple edges (\cref{def:con-loop}) between some two vertices, all three components of a graph are nontrivial.
+In \cref{def:con-graph}, for simple graphs, you could use a vertex set with either \textit{an edge set} or \textit{a relation for each pair of vertices} to define a graph. But for multigraphs like \cref{fig:con-graph}, in which there are multiple edges (\cref{def:con-loop}) between some two vertices, all three components of a graph are nontrivial.
 
 An edge between vertices $u$ and $v$ can be denoted by either $\set{ u,\, v }$, $uv$ or $\left( u,\, v \right)$.
 
@@ -113,7 +113,7 @@ In \cref{def:con-graph}, the relation of a graph may$\ldots$
     \draw (3) to node[below] {$e_6$} (4);
     \draw (4) to node[left] {$e_7$} (1);
   \end{tikzpicture}
-  \caption{A sample multigraph (opposite to a simple graph)}
+  \caption{A multigraph (as opposed to a simple graph).}
   \label{fig:con-graph}
 \end{figure}
 
