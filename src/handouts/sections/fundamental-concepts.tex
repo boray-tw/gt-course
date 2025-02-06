@@ -93,7 +93,7 @@ In \cref{def:con-graph}, the relation of a graph may$\ldots$
   \item \textit{group} edges with the same endpoints and show the number of each group.
 \end{enumerate*}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[thick,
       main/.style = {draw, circle, minimum size=10mm},
@@ -136,7 +136,7 @@ We have a graph as follows, shown in \cref{fig:con-seven-bridge}.
   \right)
 \end{equation*}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.35\textwidth}
     % TODO: TikZ version
@@ -205,7 +205,7 @@ Notice that in most cases, unless specified, we treat a graph as a simple and fi
   An \textbf{independent set} (stable set) in a graph is a set of pairwise nonadjacent vertices.
 \end{definition}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \begin{subfigure}[t]{.3\textwidth}
     \centering
@@ -259,7 +259,7 @@ For any finite graph (\cref{def:con-finite-null-graph}), we can find its chromat
   For $k$ disjoint independent sets, $G$ is $k$-partite (generally speaking, multipartite), where $k \in \set{ i : i \in \N \land i \geq 3}$.
 \end{recallable}
 
-\begin{figure*}[ht]
+\begin{figure*}[htbp]
   \centering
   \begin{subfigure}{.4\textwidth}
     \centering
@@ -284,7 +284,7 @@ However, it is possible for all the people here to get no offers (jobs). This is
 
 In a rooted tree like \cref{fig:con-rooted-tree}, you are able to see the children and parents of nodes, so you can find a root. In an unrooted tree like \cref{fig:con-unrooted-tree}, you couldn't. % TODO: link to tree
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \begin{subfigure}[t]{.2\textwidth}
     \centering
@@ -354,7 +354,7 @@ Note that a graph $G$ with "$n - 1$" edges doesn't mean $G$ is connected. For ex
 
 \supp{In the above-mentioned definition of a tree, we could pick two rules in three because in their proofs, they show that any two satisfied rules imply the other rule in a circular way.}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[thick,
       main/.style = {draw, circle, minimum size=10mm},
@@ -397,7 +397,7 @@ There are examples for \cref{def:con-path-cycle} in \cref{fig:con-path-cycle}. N
 
 In \cref{fig:con-path}, reversing the order of vertices in the given path gives another path by definition. The vertex sequence matters. Same for \cref{fig:con-cycle}; starting from $a$ back to $a$ and starting from $b$ back to $b$ yield two different cycles, and if you go in the other direction, you have another two different cycles in definition.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \def \nodelist {
     \node[main] (x) at (0, 1.5) {$x$}
     node[main] (y) at (0, 0) {$y$}
@@ -458,7 +458,7 @@ For \cref{def:con-connected}, in other words, if a graph $G$ is connected, you c
 
 See \cref{fig:con-connected-unconnected} for the examples of \cref{def:con-connected}.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   % ref using inner sep to set maximum size: https://tex.stackexchange.com/a/228365
   % ref for every node: https://tex.stackexchange.com/a/78718
   \centering
@@ -502,7 +502,7 @@ In \cref{def:con-adj}, in brief, the adjacency matrix records the number of edge
 
 In a finite graph, the incidence matrix consists of 0 and/or 1, and each vertex has a degree (at least 0).
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   % TODO: TikZ and blkarray versions
   \includegraphics[width=.8\textwidth]{con-adj}
@@ -518,7 +518,7 @@ In a finite graph, the incidence matrix consists of 0 and/or 1, and each vertex 
 \end{definition}
 
 You could recall three special function, including a bijective function as shown in \cref{fig:intro-special-functions}.
-\reusefigure[ht]{fig:intro-special-functions}
+\reusefigure[htbp]{fig:intro-special-functions}
 
 For \cref{def:con-isomorphism}, in other words, a graph $G$ is isomorphic to a graph $H$ if and only if there exists a bijection function $\func{f}{V(G)}{V(H)}$, where $V(G)$ and $V(H)$ are vertices sets of $G$ and $H$ respectively, such that for every edge $uv$ in $G$, there is a corresponding edge $f(u)f(v)$ in $H$, and vice versa, without introducing additional vertices or edges.
 
@@ -526,7 +526,7 @@ For two isomorphic graphs $G$ and $H$, they may look different by human eyes. An
 
 See \cref{fig:con-isomorphism} for an example. In this example, we could see that vertices $w,\, z$ may correspond to $c,\, a$; and $x,\, y$ to $b,\, d$.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   % TODO: TikZ and LaTeX version
   \centering
   \includegraphics[width=.7\textwidth]{con-isomorphism}
@@ -944,7 +944,7 @@ For example, recall the seven bridge problem in \cref{subsubsec:con-seven-bridge
 \end{align*}
 
 % TODO FIXME: modify \reusablefigure to receive subfigure
-\begin{figure}[ht]
+\begin{figure}[htbp]
   % TODO: TikZ version
   \centering
   \begin{subfigure}{0.35\textwidth}
@@ -1184,7 +1184,7 @@ Since we are proving \textbf{at least} some values, we could prove that it canno
   When $T \subseteq V(G)$, the \textbf{induced subgraph} $G[T]$ consists of $T$ and all edges whose endpoints are contained in $T$. (induced by vertices)
 \end{definition}
 
-\begin{figure}
+\begin{figure}[htbp]
   % TODO: TikZ version
   \centering
   \begin{subfigure}[t]{.25\textwidth}
@@ -1283,7 +1283,7 @@ For \cref{def:con-induced-subgraph}, note that:
   \item As shown in \cref{fig:con-walk-cycle}, for a $v-v$-cycle for vertices on the left of $v$, there is a 5-cycle. However, for the cycle on the right, closed even walks are not covered by \cref{lem:con-walk-cycle}. The base is important.
 \end{enumerate*}
 
-\begin{figure}
+\begin{figure}[htbp]
   % TODO: TikZ version
   \centering
   \includegraphics[width=.5\textwidth]{con-walk-cycle}

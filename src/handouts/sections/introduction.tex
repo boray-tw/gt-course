@@ -425,7 +425,7 @@ Basis step ($P(1)$): With one line the number of regions is 2, which equals $\le
 
 Induction step ($P(k) \implies P(k + 1)$): The statement $P(k)$ is the induction hypothesis. Let $S$ be a set of $k + 1$ lines meeting the conditions. Select a line $L$ in $S$, where the line is the dashed line in \cref{fig:intro-line-region-additional}, and let $S'$ be the set of $k$ lines obtained by deleting $L$ from $S$.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[]
     \draw (0, 3) -- (3, 0);
@@ -522,7 +522,7 @@ Examples of functions: absolute value function, polynomial function like $x^2 + 
 
 For the floor and ceiling functions, you could check \cref{table:intro-ex-floor-ceil} for some examples.
 
-\begin{table}[ht]
+\begin{table}[htbp]
   \def \gap {\\[-0.5em]}
   \centering
   \begin{tabular}{ccc}
@@ -660,7 +660,7 @@ Relations are common for transitions in graphs:
   \item If a graph is not a simple graph, there can be multiple edges between some two vertices, and can be multiple loops on some vertices. So, there may be multiple adjacency relation.
 \end{enumerate*}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[thick,
       main/.style = {draw, circle, minimum size=10mm},
