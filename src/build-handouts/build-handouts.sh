@@ -27,8 +27,9 @@ if [ "$ALWAYS_REBUILD_IMAGE" = "y" ]; then
 fi
 
 docker run --rm -it \
+  --user $(id -u):$(id -g) \
   --name "$CONTAINER_NAME" \
+  --hostname "$CONTAINER_NAME" \
   --mount type=bind,source="${REPO_ROOT}/src/handouts",target=/app/src/handouts,readonly \
   --mount type=bind,source="$BUILD_PATH",target=/app/build \
-  --hostname "$CONTAINER_NAME" \
   "${IMAGE_NAME}:${IMAGE_TAG}"
