@@ -123,18 +123,12 @@ Graph theory has been booming since 17th to 19th centuries.\footnote{In 1736, Le
 
 In this problem, there are seven bridges among two mainlands and two islands on the Pregel river. The goal is to find a path to traverse all bridges exactly once and back to the starting point. See \cref{subsec:con-path} for more info about a path.
 
-We have a graph as follows, shown in \cref{fig:con-seven-bridge}.
-% ref: https://stackoverflow.com/a/33801400
-\begin{equation*}
-  G =
-  \left(
-  \begin{array}{l}
-    \{ w,\, x,\, y,\, z \},                        \\
-    \{ \foreach \i in {1,...,6} {e_\i,\, } e_7 \}, \\
-    \{ wx,\, wx,\, wz,\, wz,\, wy,\, xy,\, yz \}
-  \end{array}
-  \right)
-\end{equation*}
+We have a graph $G = (V(G), E(G), \text{Relations})$ as follows, shown in \cref{fig:con-seven-bridge}.
+\begin{align*}
+  V(G)             & = \{ w,\, x,\, y,\, z \}                        \\
+  E(G)             & = \{ \foreach \i in {1,...,6} {e_\i,\, } e_7 \} \\
+  \text{Relations} & = \{ wx,\, wx,\, wz,\, wz,\, wy,\, xy,\, yz \}
+\end{align*}
 
 \begin{figure}[htbp]
   \centering
