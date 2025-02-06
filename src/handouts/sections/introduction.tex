@@ -33,16 +33,21 @@ This section is meant to provide useful background for learning graph theory.
 
 \begin{definition}{}{intro-set-equal}
   (A.3. Definition in text)
-  Sets $A$ and $B$ are \textbf{equal}, written $A = B$, if they have the same elements. The \textbf{empty set}, written $\emptyset$ or $\lbrace \rbrace$ (but not 0), is the unique set with no elements. A \textbf{proper subset} of a set $A$ is a subset that is not $A$ itself.
+
+  Sets $A$ and $B$ are \textbf{equal}, written $A = B$, if they have the same elements.
+
+  The \textbf{empty set}, written $\emptyset$ or $\lbrace\ \rbrace$ (but not 0), is the unique set with no elements.
+
+  A \textbf{proper subset} of a set $A$ is a subset that is not $A$ itself.
 \end{definition}
 
 In \cref{def:intro-set-equal}, notice that there is a special case, in ordered sets, if the orders of the sets $A$ are $B$ not identical, they are not equal. However, in unordered sets, it doesn't matter.
 
 As a result, you need to compare the numbers, elements and orders (in ordered sets) to make sure the two sets are equal.
 
-As for the equal sign, $\equiv$ means logical identity. It differs from $=$.
+As for the equal sign, $\equiv$ means logical identity, which differs from $=$.
 
-In \cref{def:intro-set-equal}, we say that zero (0) is not an empty set ($\emptyset$), but in formal proofs, especially in graphs, we need to consider all possible cases, including zero edges, zero vertices. Otherwise, the proofs are only examples.
+In \cref{def:intro-set-equal}, we say that zero (0) is not an empty set ($\emptyset$), but in formal proofs, especially in graphs, we need to consider all possible cases, including zero edge (no edge), zero vertex. Otherwise, the proofs are not complete, and are only examples.
 
 A subset of a set $A$ \textbf{can} be $A$ itself and an empty set. A proper subset of a set $A$ \textbf{cannot} be $A$ itself, but \textbf{can} be an empty set. (This is likely in the exams.)
 
@@ -59,7 +64,7 @@ As \cref{rem:intro-equal-sets} states, to prove $A = B$, you need to prove both 
 
 If you have more than two equal statements, like in Linear Algebra you have 8 equal characteristics, you can use circular proofs. But in Linear Algebra it proves it by two circles with one equality between.
 
-In \cref{rem:intro-equal-sets}, in short, a bipartite graph is a graph with two disjoint and independent sets. An odd cycle is an odd-length cycle.
+In \cref{rem:intro-equal-sets}, in short, a bipartite graph is a graph with two disjoint and independent sets (introduced in \cref{def:con-bipartite}). An odd cycle is an odd-length cycle.
 
 \begin{remark}{Specifying a set}{intro-specifying-set}
   (A.5 Remark in text)
@@ -69,9 +74,13 @@ In \cref{rem:intro-equal-sets}, in short, a bipartite graph is a graph with two 
 \begin{definition}{}{intro-set-shorthand}
   (A.6. Definition in text)
   When $a,\, b \in \Z$, we write $\{a,\, \ldots,\, b\}$ to represent $\{ i \in \Z: a \leq i \leq b \}$.
-  When $n \in \N$, we write $[n]$ for $\{1,\, \ldots,\, n\}$; also $[0] = \emptyset$.
+
+  When $n \in \N$, we write $[n]$ for $\{1,\, \ldots,\, n\}$; also $[0] = \emptyset$ (\cref{def:intro-set-equal}).
+
   The set of \textbf{even numbers} is $\{ 2 k : k \in \Z \}$.
+
   The set of \textbf{old numbers} is $\{ 2 k + 1 : k \in \Z \}$.
+
   The \textbf{parity} of an integer states whether it is even or odd.
 \end{definition}
 
@@ -116,23 +125,30 @@ In \cref{def:intro-correspondence}, note that 0 is not a set, but $\{ 0 \}$ is a
 \begin{definition}{}{intro-set-operations}
   (A.11. Definition in text)
   Let $A$ and $B$ be sets.
-  Their \textbf{union} $A \cup B$ consists of all elements in $A$ or in $B$ (or both).
-  Their \textbf{intersection} $A \cap B$ consists of all elements in both $A$ and $B$.
+
+  Their \textbf{union} $A \cup B$ consists of all elements in $A$ or in $B$ (or both). That's the yellow and green area in ths following figure.
+
+  Their \textbf{intersection} $A \cap B$ consists of all elements in both $A$ and $B$ (green area).
+
   Their \textbf{difference} $A - B$ consists of the elements of $A$ that are not in $B$.
-  Their \textbf{symmetric difference} $A \smalltriangleup B$ is the set of elements belonging to exactly one of $A$ or $B$.
+
+  Their \textbf{symmetric difference} $A \smalltriangleup B$ is the set of elements belonging to exactly one of $A$ or $B$. It's like the XOR operator.
 
   The sets are \textbf{disjoint} if their intersection is the empty set $\emptyset$.
+
   If a set $A$ is contained in some universe $U$ under discussion, then the \textbf{complement} $\bar A$ of $A$ is the set of elements of $U$ \textit{not} in $A$.
 
   \centering
   \begin{tikzpicture}[
+      white/.style = {circle, minimum size=4cm, fill=white},
       yellow/.style = {circle, minimum size=4cm, fill=yellow!50!white},
       green/.style = {circle, minimum size=4cm, fill=green!50!white},
       circ/.style = {draw, very thick, circle, minimum size=4cm},
-      rect/.style = {draw, very thick, rectangle, minimum height=6cm, minimum width=9cm},
+      rect/.style = {draw, very thick, fill=white, rectangle, minimum height=6cm, minimum width=9cm},
       callout/.style = {rectangle, fill=yellow!50!white, anchor=west}
     ]
 
+    % white U
     \node[rect] at (0, 0) {};
 
     \begin{scope}
@@ -155,7 +171,7 @@ In \cref{def:intro-correspondence}, note that 0 is not a set, but $\{ 0 \}$ is a
     node at (0, 0) {$A \cap B$}
     node at (-2, 0) {$\stackbelow{A - B}{A \cap \bar B}$}
     node at (2, 0) {$\stackbelow{B - A}{B \cap \bar A}$}
-    node at (0, -2.5) {$\left( A \cap B \right)^c = \bar {\left( A \cap B \right)}$};
+    node at (0, -2.5) {$\left( A \cup B \right)^c = \bar {\left( A \cup B \right)}$};
   \end{tikzpicture}
 \end{definition}
 
@@ -172,7 +188,7 @@ In \cref{def:intro-correspondence}, note that 0 is not a set, but $\{ 0 \}$ is a
 
   An \textbf{ordered pair} $(x, y)$ is a list with two entries. The \textbf{cartesian product} of sets $S$ and $T$, written $S \times T$, is the set $\{(x, y): x \in S, y \in T\}$.
 
-  Note that $A^2 = A \times A$ and $A^k = \left\{\left(x_1, \ldots, x_k\right): x_i \in A\right\}$. We read " $x_i$ " as " $x$ sub $i^{\prime}$. When $S = T = \Z$, the cartesian product $S \times T$ is the \textbf{integer lattice} (such a cartesian project covers all integer points on cartesian coordinates, like grids), the set of points in the plane with \textbf{integer coordinates}.
+  Note that $A^2 = A \times A$ and $A^k = \left\{\left(x_1, \ldots, x_k\right): x_i \in A\right\}$. We read " $x_i$ " as " $x$ sub $i$". When $S = T = \Z$, the cartesian product $S \times T$ is the \textbf{integer lattice} (such a cartesian project covers all integer points on cartesian coordinates, like grids), the set of points in the plane with \textbf{integer coordinates}.
 \end{remark}
 
 For the k-tuple in \cref{rem:intro-tuple-ordered-pair}, for example, if $A = \{0, 1\}$ and $k = 2$, the cartesian product $A^2$ is $\{ (0,\, 0),\, (0,\, 1),\, (1,\, 0),\, (1,\, 1) \}$, where all entries are ordered pairs. For $k = 3$, there will be three numbers in each entry. Since $(0,\, 1)$ differs from $(1,\, 0)$, we call it ordered pairs.
@@ -190,7 +206,7 @@ Precisely speaking, they are respectively called \textbf{proposition} and \textb
 
 The question "do you know my phone number" is not a proposition, but the answer (yes/no) to this question is a proposition.
 
-"Go out" is a imperative, rather than a proposition.
+"Go out" is an imperative, rather than a proposition.
 
 A \textbf{predicate} is "\textbf{for all} $x$ in $S$, the sentence $P(x)$ is true" (for all students in this class, I know their phone number) or "\textbf{for some} $x$ in $S$, the sentence $P(x)$ is true". With a specific range (for all, for some, existing, some, etc.), if we can say it is true or false, this is a predicate.
 
@@ -283,7 +299,7 @@ In "conditional operator $P \implies Q$", if we cannot make $P$ true ($P$ is imp
 If $P$ is not satisfied; that is, TA does not always tell the truth, then we cannot conclude whether the treasure exists in the classroom or not.
 
 \begin{definition}{}{intro-logical-implication}
-  (A.21. Definition in text) In the conditional statement $P \implies Q$, we call $P$ the \textbf{hypothesis} (precondition, premise) and $Q$ the \textbf{conclusion}. The statement $Q \implies P$ is the \textbf{converse} of $P \implies Q$. $P \implies Q$ is $(\neg P) \lor Q$
+  (A.21. Definition in text) In the conditional statement $P \implies Q$, we call $P$ the \textbf{hypothesis} (precondition, premise) and $Q$ the \textbf{conclusion}. The statement $Q \implies P$ is the \textbf{converse} of $P \implies Q$. $P \implies Q$ is $(\neg P) \lor Q$.
 
   Below we list ways to say $P \implies Q$ in English. (The instructor won't ask you to fill in the blanks in the last two statements given $P \implies Q$ in the exams.)
   \begin{enumerate}
@@ -307,14 +323,14 @@ Express "Andy and Paul have the same biological maternal grandmother" in logic.
     Do you find out something weird?
     \begin{enumerate}
       \item First, not all $x,\, y,\, u,\, v$ satisfy the logical expression above.
-      \item Secondly, without specifying $x$ and $u$ in the precondition, you cannot make $x$ and $y$ identical.
-      \item Lastly, $y,\, \text{Andy},\, v,\, \text{Paul}$ have many mothers in the logical expression.
+      \item Secondly, without specifying $x$ and $u$ in the precondition, you cannot make $x$ and $u$ identical.
+      \item Lastly, $y,\, \text{Andy},\, v,\, \text{Paul}$ have many mothers in this logical expression.
     \end{enumerate}
   \item Let $m(x)$ denote $x$'s biological mother. The following logical expression matches the English version.
     $$
       m(m(\text{Andy}))=m(m(\text{Paul})).
     $$
-    Since everyone has exactly one biological mother, we introduce a function $m(x)$ to denote this fact. This is a unction to capture a single object.
+    Since everyone has exactly one biological mother, we introduce a function $m(x)$ to denote this fact. This is a function to capture a single object.
 \end{enumerate}
 
 \subsubsection{Direct, Contrapositive and Contradiction Method}
@@ -365,8 +381,8 @@ You shouldn't read a corollary before reading its prerequisite lemma/theorem/pro
 \subsection{Induction and Recurrence}
 
 \begin{principle}{Well-ordering principle (property)}{intro-wop}
-  For the natural numbers: every non-empty subset of $N$ has a least (smallest) element.
-  This is an \textbf{axiom}, as parts of our intuitive understanding of what $N$ is.
+  For the natural numbers: every non-empty subset of $\N$ has a least (smallest) element.
+  This is an \textbf{axiom}, as parts of our intuitive understanding of what $\N$ is.
 \end{principle}
 
 \begin{principle}{Principle of induction (Mathematical induction)}{intro-induction}
@@ -405,11 +421,11 @@ Notes for \cref{princ:intro-induction}:
 We use induction on $n$ to prove the claim for all $n \in \N$.
 Let $P(n)$ be the statement that the claim holds for all such sets of $n$ lines.
 
-Basis step ($P(1)$): With one line the number of regions is 2, which equals $\left[ 1 + \frac{1 (n + 1)}{2} \right]$.
+Basis step ($P(1)$): With one line the number of regions is 2, which equals $1 + \frac{1 (n + 1)}{2}$.
 
 Induction step ($P(k) \implies P(k + 1)$): The statement $P(k)$ is the induction hypothesis. Let $S$ be a set of $k + 1$ lines meeting the conditions. Select a line $L$ in $S$, where the line is the dashed line in \cref{fig:intro-line-region-additional}, and let $S'$ be the set of $k$ lines obtained by deleting $L$ from $S$.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[]
     \draw (0, 3) -- (3, 0);
@@ -423,7 +439,7 @@ Induction step ($P(k) \implies P(k + 1)$): The statement $P(k)$ is the induction
 Since $S'$ meets the conditions, the induction hypothesis states that $S'$ cuts the plane into $1 + \frac{k (k + 1)}{2}$ regions.
 When we replace $L$, some regions are cut.
 The increase in the number is the number of regions that $L$ cuts. It moves from one of these regions to another each time it crosses a line in $S'$.
-Since $L$ crosses each line in $S'$ once, then line in $S'$ cut $L$ into $\bm{k + 1}$ \textbf{pieces}. (It is a lemma that a line cuts a region into two)
+Since $L$ crosses each line in $S'$ once, then line in $S'$ cut $L$ into $\bm{k + 1}$ \textbf{pieces}. (It is a lemma that a line cuts a region into two.)
 Each piece corresponds to a region that $L$ cuts.
 
 Thus, the number of regions formed by $S$ is $k + 1$ more than the number of regions formed by $S'$.
@@ -489,7 +505,7 @@ The validity of the formula for $a_n$ allows from its validity for $a_{n -1}$ an
 \begin{definition}{}{intro-function}
   (A.30. Definition in text)
   A \textbf{function} $f$ from a set $A$ to a set $B$ assigns to each $a \in A$ a single element $f(a)$ in $B$, called the \textbf{image} of $a$ under $f$.
-  For a function $f$ from $A$ to $B$ (written \defaultfunc), the set $A$ is the \textbf{domain} and the set $B$ is the \textbf{target} (\textbf{codomain}). The \textbf{image} of a function $f$ with domain $A$ is $\{ f(a):\, a \in A \},$.
+  For a function $f$ from $A$ to $B$ (written {\defaultfunc}), the set $A$ is the \textbf{domain} and the set $B$ is the \textbf{target} (\textbf{codomain}). The \textbf{image} of a function $f$ with domain $A$ is $\{ f(a):\, a \in A \}$.
 \end{definition}
 
 In brief, a \textbf{function} transforms (maps) elements of one set into elements of another set.
@@ -506,7 +522,7 @@ Examples of functions: absolute value function, polynomial function like $x^2 + 
 
 For the floor and ceiling functions, you could check \cref{table:intro-ex-floor-ceil} for some examples.
 
-\begin{table}[ht]
+\begin{table}[htbp]
   \def \gap {\\[-0.5em]}
   \centering
   \begin{tabular}{ccc}
@@ -522,8 +538,8 @@ For the floor and ceiling functions, you could check \cref{table:intro-ex-floor-
 
 \begin{remark}{Schematic representation}{intro-repr}
   (A.32. Remark in text)
-  A function \defaultfunc is \textbf{defined on} A and \textbf{maps} A into B.
-  To visualize a function \defaultfunc, we draw a region representing $A$ and a region representing B, and from each $x \in A$ we draw an arrow to $f(x)$ in $B$.
+  A function {\defaultfunc} is \textbf{defined on} A and \textbf{maps} A into B.
+  To visualize a function {\defaultfunc}, we draw a region representing $A$ and a region representing B, and from each $x \in A$ we draw an arrow to $f(x)$ in $B$.
   In diagraph language, this produces an orientation of bipartite graph with partite sets $A$ and $B$ in which every element of $A$ is the tail of exactly one edge (pair $(a, f(a))$).
 
   \centering
@@ -535,7 +551,7 @@ In \cref{rem:intro-repr}, we can see that \textbf{image} is a subset of \textbf{
 
 \begin{definition}{}{intro-bijection}
   (A.33. Definition in text)
-  A function \defaultfunc is a \textbf{bijection} if for every $b \in B$ there is exactly one $a \in A$ such that $f(a) = b$.
+  A function {\defaultfunc} is a \textbf{bijection} if for every $b \in B$ there is exactly one $a \in A$ such that $f(a) = b$.
 \end{definition}
 
 Relationships between each two of domain, target (codomain) and image can be one of the following three special functions: bijective, surjective and bijective functions.
@@ -548,46 +564,49 @@ Relationships between each two of domain, target (codomain) and image can be one
   \label{fig:intro-special-functions}
 \end{reusablefigure}
 
-\textbf{Injective function} (\textbf{injection (function)}):
+\vspace{.5em}
+\textbf{Injective function}, \textbf{injection} or \textbf{injection function}:
 \begin{enumerate*}
   \item It means each distinct element in its (such a function's) codomain corresponds to an distinct element in its domain, and vice versa. ($x_1 \neq x_2 \implies f(x_1) \neq f(x_2)$)
   \item It's possible for an injective function to map an element in its codomain to nothing in its domain like the element $C$ in \cref{fig:intro-special-functions}.
   \item Some books call it "one-to-one function", but don't be confused with "one-to-one correspondence" (bijection).
 \end{enumerate*}
 
-\textbf{Surjective function} (\textbf{surjection (function)}):
+\vspace{.5em}
+\textbf{Surjective function}, \textbf{surjection} or \textbf{surjection function}:
 \begin{enumerate*}
   \item It is also known as an \textbf{onto function}. Onto functions are more commonly used.
   \item It means every element $y$ in its codomain can find at least one element $x$ in its domain such that $f(x) = y$. So, some elements in its domain may map to the same element in its codomain like 3 and 4 in \cref{fig:intro-special-functions}.
   \item In other words, its image is equal to its codomain.
 \end{enumerate*}
 
-\textbf{Bijective function} (\textbf{bijection (function)}):
+\vspace{.5em}
+\textbf{Bijective function}, \textbf{bijection} or \textbf{bijection function}:
 \begin{enumerate*}
   \item It is so-called \textbf{one-to-one correspondence}, but don't be confused with the one-to-one function (injection). You could use only bijective function.
   \item Such a function is both injective and surjective.
   \item It means the sizes of the its domain and its codomain are identical, and each element in its domain maps to a distinct element in its codomain.
-  \item In \cref{subsec:con-graph-isomorphism}, we may encounter two different-looking graphs with identical structures. To prove two graphs are \textbf{isomorphic}, we utilize the characteristics of the one-to-one correspondence (\textbf{bijective} function) from nodes and edges of a graph to those of the other graph.
+  \item In \cref{subsec:con-graph-isomorphism}, we may encounter two different-looking graphs with identical structures. To prove two graphs are \textbf{isomorphic}, we utilize the characteristics of the one-to-one correspondence (\textbf{bijective} function) from vertices and edges of a graph to those of the other graph.
 \end{enumerate*}
 \vspace{1em}
 
 \begin{example}{Pairing spouses}{intro-spouse}
   (A.34. Example in text)
   Let $M$ be the set of men at a party, and let $W$ be the set of women.
-  If the attendees consist entirely of married couples, then we can define a function \func{f}{M}{W} by letting $f(x)$ be the spouse of $x$.
+  If the attendees consist entirely of married couples, then we can define a function {\func{f}{M}{W}} by letting $f(x)$ be the spouse of $x$.
   For each woman $w \in W$, there is exactly one $x \in M$ such that $f(x) = w$.
   Hence, $f$ is a bijection from $M$ to $W$.
 \end{example}
 
 \begin{definition}{}{intro-inverse}
   (A.35. Definition in text)
-  If $f$ is a bijection from $A$ to $B$, then the \textbf{inverse} of $f$ is the function \func{g}{B}{A} such that, for each $b \in B$, $g(b)$ is the unique element $x \in A$ such that $f(x) = b$.
+  If $f$ is a bijection from $A$ to $B$, then the \textbf{inverse} of $f$ is the function {\func{g}{B}{A}} such that, for each $b \in B$, $g(b)$ is the unique element $x \in A$ such that $f(x) = b$.
   We write $f^{-1}$ for the function $g$.
 \end{definition}
 
 \begin{definition}{}{intro-composition}
   (A.36. Definition in text)
-  If we have \defaultfunc and \func{g}{B}{C}, then the \textbf{composition} of $g$ with $f$ is a function \func{h}{A}{C} defined by $h(x) = g(f(x))$ for $x \in A$.
+  If we have {\defaultfunc} and {\func{g}{B}{C}}, then the \textbf{composition} of $g$ with $f$ is a function {\func{h}{A}{C}} defined by $h(x) = g(f(x))$ for $x \in A$.
   When $h$ is the composition of $g$ with $f$, we write $h = g \circ f$.
 
   \centering
@@ -631,7 +650,7 @@ In brief, a relationship (denoted by $\times$) is between two sets, but no need 
 
 For \cref{def:intro-relation}, in other words, if there is a relation between two sets, such a relationship can be denoted pair by pair (pairwisely).
 
-Note that the subnet of $S \times T$ can be an empty set, one or some of pairs in $S \times T$ and $S \times T$. See \cref{def:intro-set-equal} and its notes in \cpageref{def:intro-set-equal} for more info.
+Note that the subnet of $S \times T$ can be (1) an empty set, (2) one or some of pairs in $S \times T$, or (3) the entire $S \times T$. See \cref{def:intro-set-equal} and its notes in \cpageref{def:intro-set-equal} for more info.
 
 For example, given two sets $D = \{ 1,\, 2\}$ and $C = \{ A,\, B \}$, their possible unordered relations are the cartesian product $D \times C$, which is $(1,\, A),\, (1,\, B),\, (2,\, A),\, (2,\, B)$. If the relations are ordered, there will be $D \times C$ and $C \times D$. Unordered relations are more common. See \cref{rem:intro-tuple-ordered-pair} in \cpageref{rem:intro-tuple-ordered-pair} for more info.
 
@@ -644,7 +663,8 @@ Relations are common for transitions in graphs:
   \item If a graph is not a simple graph, there can be multiple edges between some two vertices, and can be multiple loops on some vertices. So, there may be multiple adjacency relation.
 \end{enumerate*}
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
+   % TODO: draw two self-loops
   \centering
   \begin{tikzpicture}[thick,
       main/.style = {draw, circle, minimum size=10mm},
@@ -672,7 +692,7 @@ Relations are common for transitions in graphs:
   \end{enumerate*}
 \end{recallable}
 
-An example for \cref{def:intro-equiv-relation} could be the graph isomorphism (denoted by $\triangleq$ or $\cong$ introduced in \cref{subsec:con-graph-isomorphism}), which means graphs are \textit{equal in some sense}. Note that graph isomorphism is related to graph instead of values (number of vertices and edges) or logics (truth table).
+An example for \cref{def:intro-equiv-relation} could be the graph isomorphism (denoted by $\triangleq$ or $\cong$ introduced in \cref{subsec:con-graph-isomorphism}), which means graphs are \textit{equal in some sense}. Note that graph isomorphism is related to graphs instead of values (number of vertices and edges) or logics (truth table).
 
 A real-life example for \cref{def:intro-equiv-relation} (but not exactly matched) could be as follows. Let $S$ be the set of all people in your family tree, and let $R$ denote all relations in law in the same family tree. You can see an equivalence relation as follows.
 \begin{enumerate*}
@@ -691,10 +711,10 @@ Formal statements: \cref{princ:intro-pigeonhole}
 
 \begin{principle}{Pigeonhole Principle}{intro-pigeonhole}
   (A.57. Lemma in text)
-  If a set consisting of more than $kn$ objects is partitioned into $n$ classes,then some class receives more than $k$ objects.
+  If a set consisting of more than $kn$ objects is partitioned into $n$ classes, then some class receives more than $k$ objects.
 \end{principle}
 
-\textbf{Proof} of \cref{princ:intro-pigeonhole}: The contrapositive states that if every class receives at most $k$ objects, then in total there are at more $kn$ objects.
+\textbf{Proof} of \cref{princ:intro-pigeonhole}: The contrapositive states that if every class receives at most $k$ objects, then there are at most $kn$ objects in total.
 
 \Cref{princ:intro-pigeonhole} need not be proven later, for it is a lemma.
 

@@ -96,7 +96,7 @@
 \newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}} %
 
 % format date macros (\today, \DTMnow)
-\usepackage[english]{datetime2}
+\usepackage{datetime2}
 
 % set page margins
 \usepackage[a4paper,
@@ -135,8 +135,8 @@
 \newcommand{\reusefigure}[2][htbp]{%
   {\addtocounter{figure}{-1}%
    \renewcommand{\theHfigure}{dupe-fig}% If you're using hyperref
-   \renewcommand{\thefigure}{\ref{#2}}% Figure counter is \ref
-   %\renewcommand{\thefigure}{\ref{#2} (repeated)}% Figure counter + "(repeated)"
+   %\renewcommand{\thefigure}{\ref{#2}}% Figure counter is \ref
+   \renewcommand{\thefigure}{\ref{#2} (repeated)}% Figure counter + "(repeated)"
    \renewcommand{\addcontentsline}[3]{}% Avoid placing figure in LoF
    \renewcommand{\label}[1]{}% Make \label inactive
    \begin{figure}[#1] \csname sf:#2\endcsname \end{figure}}
@@ -199,9 +199,9 @@
 \tcbset{%
 white_bg/.style  = {enhanced, sharp corners, colback=white,             parbox=false},
 red_bg/.style    = {enhanced, sharp corners, colback={red!25!white},    parbox=false},
-yellow_bg/.style = {enhanced, sharp corners, colback={yellow!50!white}, parbox=false},
-green_bg/.style  = {enhanced, sharp corners, colback={green!50!white},  parbox=false},
-blue_bg/.style   = {enhanced, sharp corners, colback={blue!50!white},   parbox=false},
+yellow_bg/.style = {enhanced, sharp corners, colback={yellow!25!white}, parbox=false},
+green_bg/.style  = {enhanced, sharp corners, colback={green!25!white},  parbox=false},
+blue_bg/.style   = {enhanced, sharp corners, colback={blue!25!white},   parbox=false},
 gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=false},
 }%
 % define a theorem with \newthm[init options]{name}{display name}{options}{label-prefix}{Crefname}
@@ -241,7 +241,7 @@ gray_bg/.style   = {enhanced, sharp corners, colback={black!25!white},  parbox=f
 \NewEnviron{recallable}[3]{%
   \newboxarray{#3}%
   \begin{#1}[reset box array=#3, store to box array=#3]{#2}{#3}%
-    \BODY%
+    \BODY% TODO FIXME: Append "(repeated)" to the theorem number
   \end{#1}%
   \recall{#3}%
 }%
