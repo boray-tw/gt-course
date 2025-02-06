@@ -3,7 +3,7 @@
 # this script in the Windwos Subsystem Linux (WSL) 2
 
 # configuration
-UBUNTU_IMAGE_TAG="jammy-20240212"
+UBUNTU_IMAGE_TAG="noble-20250127"
 
 CORRECT_DIR=env-image
 if ! [ "$(basename $(pwd))" = "$CORRECT_DIR" ]; then
