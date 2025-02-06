@@ -75,8 +75,8 @@ This section is the chapter 1 in the textbook "Introduction to Graph Theory". It
   (1.1.2. Definition in text, modified version)
   A \textbf{graph} $G$ contains:
   \begin{enumerate}
-    \item A \textbf{vertex set} $V(G)$
-    \item An \textbf{edge set} $E(G)$
+    \item A \textbf{vertex set} $V(G)$.
+    \item An \textbf{edge set} $E(G)$.
     \item A relation that associates with each two vertices (not necessarily distinct) called its \textbf{endpoints}.
   \end{enumerate}
 \end{definition}
@@ -175,7 +175,7 @@ We will cover the proofs of these principles in later sections. % TODO: link to 
   When $u$ and $v$ are the endpoints of an edge, they are \textbf{adjacent} and are \textbf{neighbors}, written $u \leftrightarrow v$.
 \end{definition}
 
-Continuing from \cref{def:con-loop}, if we have a node without a visible edge from an to it on graph, we wouldn't say that there is a self-loop.
+Continuing from \cref{def:con-loop}, if we have a node without a visible edge from it and to it on a graph, we wouldn't say that there is a self-loop.
 
 \begin{definition}{}{con-finite-null-graph}
   (1.1.6.* Remark and the paragraph above it in text\footnote{The asterisk symbol (*) in the textbook \textit{Introduction to Graph Theory} means optional material that is not used later and can be skipped.})
@@ -212,7 +212,7 @@ Notice that in most cases, unless specified, we treat a graph as a simple and fi
   \begin{subfigure}[t]{.3\textwidth}
     \centering
     % TODO: TikZ version
-    \includegraphics[width=\textwidth]{con-complement-before}
+    \includegraphics[width=\textwidth]{con-complement-after}
     \caption{The complement of graph $G$, denoted by $\bar G$.}
     \label{fig:con-complement-after}
   \end{subfigure}
@@ -226,7 +226,7 @@ For the clique in \cref{def:con-complement}, note that a clique refers to a subs
 
 When saying about a clique or an independent set, we usually need to find a maximal clique or a maximal independent set.
 
-Finding a maximal clique and finding a maximal independent set are dual of each other. That is, finding a maximal clique in a graph $G$ (vertices $u,\, x,\, y$ in \cref{fig:con-complement-before}) is equal to finding an independent set in $\bar G$ (vertices $u,\, x,\, y$ in \cref{fig:con-complement-after}). \supp{If we find a maximal clique $C$ in $G$, since all vertices in $C$ are adjacent, they are all nonadjacent in $\bar G$, and it means a maximal independent set in $\bar G$.}
+Finding a maximal clique and finding a maximal independent set are dual of each other. That is, finding a maximal clique in a graph $G$ (vertices $u,\, x,\, y$ in \cref{fig:con-complement-before}) is equal to finding a maximal independent set in $\bar G$ (vertices $u,\, x,\, y$ in \cref{fig:con-complement-after}). \supp{If we find a maximal clique $C$ in $G$, since all vertices in $C$ are adjacent, they are all nonadjacent in $\bar G$, and it means a maximal independent set in $\bar G$.}
 
 Finding a maximal clique, finding all cliques and finding a maximal independent set are all NP-complete problems.
 And finding a maximal independent set is also a strongly NP-hard problem.
@@ -240,7 +240,7 @@ For \cref{def:con-chromatic}, that is, if two vertices has an edge between, thes
 
 For any finite graph (\cref{def:con-finite-null-graph}), we can find its chromatic number given that the colors can be hard for humans to distinguish (like \#FF1234 and \#FF1235 pixel values).
 
-\supp{Chromatic numbers The complexity of finding a chromatic number is an open problem. It is likely NP-complete or NP-hard, but we couldn't find a way to reduce it to an NP-complete problem.}
+\supp{The complexity of finding a chromatic number is an open problem. It is likely NP-complete or NP-hard, but we couldn't find a way to reduce it to an NP-complete problem.}
 
 \subsubsection{Bipartite Graphs}
 
@@ -380,7 +380,7 @@ Note that a graph $G$ with "$n - 1$" edges doesn't mean $G$ is connected. For ex
 
 \begin{definition}{}{con-path-cycle}
   (1.1.15. Definition in text)
-  A \textbf{path} is a (ordered) \textbf{sequence} of \textit{distinct} vertices such that any two consecutive vertices are adjacent. We call $v_0$ and $v_k$ the endpoints of the path $\anglebrackets{v_0,\, v_1,\, \ldots,\, v_k}$.
+  A \textbf{path} is a (ordered) \textbf{sequence} of \textbf{distinct vertices} such that any two consecutive vertices are adjacent. We call $v_0$ and $v_k$ the endpoints of the path $\anglebrackets{v_0,\, v_1,\, \ldots,\, v_k}$.
 
   A \textbf{cycle} is a sequence of vertices, where all vertices except the last vertex are distinct, and the two endpoints are equal, such that any two consecutive vertices are adjacent. For example, $\anglebrackets{v_0,\, v_1,\, \ldots,\, v_k,\, v_0}$.
 \end{definition}
@@ -494,7 +494,7 @@ In \cref{def:con-adj}, in brief, the adjacency matrix records the number of edge
 
 (1.1.18 Remark) The adjacency matrix of a simple (undirected/directed) graph consists of 0 and/or 1. In a simple undirected graph, the adjacency matrix is always \textbf{symmetric} ($A(G) = A(G)^\trans$) with all zeros on the diagonal. See \cref{sec:con-directed-graphs} for the definition of adjacency and incidence matrices of directed graphs.
 
-In a finite graph, the incidence matrix consists of 0 and/or 1, and each vertex has a degree (at least 0).
+In a finite undirected graph, the incidence matrix consists of 0 and/or 1, and each vertex has a degree (at least 0).
 
 \begin{figure}[htbp]
   \centering
@@ -518,7 +518,7 @@ For \cref{def:con-isomorphism}, in other words, a graph $G$ is isomorphic to a g
 
 For two isomorphic graphs $G$ and $H$, they may look different by human eyes. And note that a prerequisite for isomorphism is the same number of vertices and the same number of degrees. With different numbers of vertices or a degree that is absent one graph, the two graphs cannot be isomorphic. But with the same number of vertices and the same number of degrees, we still need a bijection function to prove the isomorphism from one graph to the other one.
 
-See \cref{fig:con-isomorphism} for an example. In this example, we could see that vertices $w,\, z$ may correspond to $c,\, a$; and $x,\, y$ to $b,\, d$.
+See \cref{fig:con-isomorphism} for an example. In this example, we could see that vertices $w,\, z$ may correspond to $c,\, a$; $x,\, y$ to $b,\, d$.
 
 \begin{figure}[htbp]
   % TODO: TikZ and LaTeX version
@@ -702,7 +702,7 @@ Detailed answer to question 2 in \cref{ex:con-relation}:
   An $n$-vertex graph $H$ is self-complementary \textbf{iff.} $K_n$ has a decomposition consisting of two copies of $H$. (Not proved in text)
 \end{definition}
 
-Consider only the thick edges in \cref{fig:con-self-comp-pentagon} as a graph; such a graph is self-complementary. However, $K_5$ is not self-complementary, for the complement of $G_5$ has no edges.
+Consider only the thick edges in \cref{fig:con-self-comp-pentagon} as a graph; such a graph is self-complementary. However, $K_5$ is not self-complementary, for the complement of $G_5$ has no edge.
 
 In exams, you may be asked whether $K_4$ can be decomposed by some copies of $P_3$ like \cref{fig:con-self-comp-rectangle}, where the numbers 4 and 3 may change. Note that each edge in the decomposition must appear exactly once. As shown in \cref{fig:con-self-comp-heptagon}, you could decompose $K_7$ with 7 copies of $C_3$. As shown in \cref{fig:con-self-comp-pentagon-cdot}, you could decompose $K_6$ with 6 copies of $P_4$.
 
@@ -807,7 +807,7 @@ In \cref{fig:con-graph-menageries}, a claw is a biclique $K_{1,3}$, if we group 
 
 For a Petersen graph in \cref{def:con-petersen}, in other words, given a simple graph and any 5 elements (like 1--5 or a--e), if there are exactly two different elements (as an unordered set) chosen from the 5 elements on each vertex, and if the endpoints of each edge have distinct numbers, such a graph is a Petersen graph. For example, the leftmost graph in \cref{fig:con-petersen-examples}.
 
-As you can see in the leftmost graph in \cref{fig:con-petersen-examples}, the topmost vertex has elements $\{ 1,\, 2, \}$; its neighbors has $\{ 4,\, 5 \}$, $\{ 3,\, 5 \}$, $\{ 3,\, 4 \}$ respectively. If any two neighbors of the topmost vertex are neighbors (there is a triangle in the graph), you couldn't choose 6 distinct elements out of 5 distinct elements.
+As you can see in the leftmost graph in \cref{fig:con-petersen-examples}, the topmost vertex has elements $\{ 1,\, 2 \}$; its neighbors have $\{ 4,\, 5 \}$, $\{ 3,\, 5 \}$, $\{ 3,\, 4 \}$ respectively. If any two neighbors of the topmost vertex are neighbors (there is a triangle in the graph), you couldn't choose 6 distinct elements out of 5 distinct elements.
 
 For a graph with two cycles: a triangle $C_3$ and a rectangle $C_4$, the girth of that graph is 3, which is the length $C_3$. The minimal possible value of the girth of a graph is 1 in graphs with self-loops. Without a cycle in a graph, the length for a path to go back to the starting vertex without reusing an edge is infinity. That is, impossible.
 
@@ -860,7 +860,7 @@ In the proof above, it proves \cref{cor:con-petersen-girth} by proving the impos
   A graph $G$ is \textbf{vertex-transitive} if for every pair $u,\, v \in V(G)$, there is an automorphism that maps $u$ to $v$.
 \end{definition}
 
-Automorphism refers to an isomorphism for only one single graph. \supp{By humand eyes, we regard symmetric objects beautiful.} In graph theory, if we make swaps of vertices such that the graph is identical to the original one, we get a automorphism for these swapping.
+Automorphism refers to an isomorphism for only one single graph. {\supp{By humand eyes, we regard symmetric objects beautiful.}} In graph theory, if we make swaps of vertices such that the graph is identical to the original one, we get a automorphism for these swapping.
 
 \begin{wrapfigure}{r}{0.3\textwidth}
   % TODO: TikZ version
@@ -962,9 +962,9 @@ For example, recall the seven bridge problem in \cref{subsubsec:con-seven-bridge
 
   A \textbf{$\bm{u,v}$-path} is a path whose vertices of degree 1 are $u$ and $v$; the others are \textbf{internal vertices} (usually of degree 2). (A path only records vertices.)
 
-  The \textbf{length} of a walk, trail, path or cycle is the \textbf{number of edges}. (In the length of a path is the number of its vertices minus one.)
+  The \textbf{length} of a walk, trail, path or cycle is the \textbf{number of edges}. (The length of a path is the number of its vertices minus one.)
 
-  A wal or trail is \textbf{closed} if its endpoints are the same.
+  A walk or trail is \textbf{closed} if its endpoints are the same.
 \end{definition}
 
 In brief, a $u,v$-path refers to a way to traverse some vertices from $u$ to $v$ via some edges.
@@ -1020,7 +1020,7 @@ See \cref{def:con-path-cycle} for the definition of paths and cycles. See \cref{
     \label{fig:con-walk-path-proof}
   \end{subfigure}
 
-  \caption{Illustrations for walks and trails.}
+  \caption{Illustrations for paths, cycles and walks (trails).}
   \label{fig:con-walk-trail}
 \end{figure}
 
@@ -1063,7 +1063,7 @@ By induction for a $u,v$-walk $W$ whose length is $l$ as illustrated in \cref{fi
 
   If $G$ has a $u,v$-path, then $u$ is \textbf{connected} to $v$ in $G$.
 
-  The \textbf{connection relation} on $V(G)$ consists of the \textbf{ordered pairs} $(u,\, v)$ such that $u$ is connected to $v$. (In our primary textbook, $uv$ refers to an edge between $u$ and $v$ while $(u,\, v)$ may not imply an edge $uv$; $(u,\, v)$ means that there is an $u,v$-path. Also note that $(u,\, v)$ and $(v,\, u)$ ($u \neq v$) refer to two different paths.)
+  The \textbf{connection relation} on $V(G)$ consists of the \textbf{ordered pairs} $(u,\, v)$ such that $u$ is connected to $v$. (In our primary textbook, $uv$ refers to an edge between $u$ and $v$ while $(u,\, v)$ may not imply an edge $uv$; $(u,\, v)$ means that there is an $u,v$-path. Also note that $(u,\, v)$ and $(v,\, u)$ given $u \neq v$ refer to two different paths.)
 \end{definition}
 
 Note that the concept of a \textit{connected} graph is defined on vertices instead of edges. If a graph $G$ is connected, all ordered pairs of vertices in the cartesian product (\cref{rem:intro-tuple-ordered-pair}) $V(G) \times V(G)$ have paths.
@@ -1107,7 +1107,7 @@ Connection relation is also an equivalence relation (\cref{def:intro-equiv-relat
 
   \textbf{A maximal connected subgraph of $\bm{G}$ is a subgraph that is connected and is not contained in any other subgraph.}
 
-  A component is \textbf{trivial} if it has no edges; that is, it is a vertex.
+  A component is \textbf{trivial} if it has no edge; that is, it is a vertex.
 
   An \textbf{isolated vertex} is a vertex of degree 0.
 \end{definition}
@@ -1130,7 +1130,7 @@ Since we are proving \textbf{at least} some values, we could prove that it canno
 
 \textbf{Proof} of \cref{prop:con-component}:
 \begin{enumerate*}
-  \item An $n$-vertex graph with no edges has $n$ components, as shown in the left figure in \cref{fig:con-component-proposition}.
+  \item An $n$-vertex graph with no edge has $n$ components, as shown in the left figure in \cref{fig:con-component-proposition}.
   \item Adding each edge \textbf{decreases} the number of components by \textbf{at least} one ($\leq 1$). From the middle figure to the left figure, the number of component doesn't decrease.
   \item Adding $k$ edges results in the number of components $\geq n - k$. Decreasing at most $k$ components from $n$ components is equivalent to making the number of components $\geq n - k$.
   \item Note that without specifying "at most" or "at least", you may not get full marks in exams.
@@ -1144,7 +1144,7 @@ Since we are proving \textbf{at least} some values, we could prove that it canno
   \label{fig:con-component-proposition}
 \end{figure}
 
-\Cref{prop:con-component} yields that to have a connected graph with $n$ vertices (there is only a component; solve $k$ in $n - k = 1$), you need \textbf{at least} $n - 1$ edges. A \textbf{tree} is a commonly seen connected graph with $n$ vertices and $n - 1$ edges.
+\Cref{prop:con-component} yields that to have a connected graph with $n$ vertices (there is only a component; solve $n - k = 1$ for $k$), you need \textbf{at least} $n - 1$ edges. A \textbf{tree} is a commonly seen connected graph with $n$ vertices and $n - 1$ edges.
 
 \begin{definition}{}{con-cut-edge-vertex}
   A \textbf{cut-edge} or \textbf{cut-vertex} of a graph is an edge or vertex whose deletion increases the number of components.
@@ -1244,8 +1244,8 @@ For \cref{def:con-induced-subgraph}, note that:
 \begin{enumerate}
   \item Instead of using the direct method (proving both $P \implies Q$ and $Q \implies P$), we can use the contrapositive method to prove it.
   \item Let $e = xy$ be an edge, and let $H$ be the component containing $e$.
-  \item We want to prove $\neg P$: \underline{$H-e$ is connected} iff. $\neg Q$: \underline{$e$ belongs to a cycle}. $\neg P$ means the graph is still connected after we remove an edge $e$ from $H$, so $e$ is not an cut-edge.
-  \item To prove $\neg P \implies \neg Q$, suppose that $H-e$ is connected. Then, $H-e$ contains an $x,y$-path $P(x,\, y)$. $P(x,\, y) + e$ is a cycle of $G$.
+  \item We want to prove $\neg P$: \underline{$H - e$ is connected} iff. $\neg Q$: \underline{$e$ belongs to a cycle}. $\neg P$ means the graph is still connected after we remove an edge $e$ from $H$, so $e$ is not an cut-edge.
+  \item To prove $\neg P \implies \neg Q$, suppose that $H - e$ is connected. Then, $H - e$ contains an $x,y$-path $P(x,\, y)$, and $P(x,\, y) + e$ is a cycle of $G$.
   \item To prove $\neg Q \implies \neg P$, let $P$ be a $u,v$-path, given $e$ is on a cycle $C$.
     \begin{enumerate}
       \item If $P$ doesn't contain the edge $e$, removing the edge $e$ doesn't affect $P$, and the graph $H$ is still connected.
@@ -1268,13 +1268,13 @@ For \cref{def:con-induced-subgraph}, note that:
 \textbf{Proof} of \cref{lem:con-walk-cycle}: By induction on length $l$ of a closed walk $W$.
 \begin{enumerate*}
   \item Basis step: $l = 1$, which means a self-loop.
-  \item Suppose that a closed odd walk whose length $l$ satisfies $1 \leq l < W$. Note that the walk is both closed and odd in \cref{lem:con-walk-cycle}; you cannot apply mathematical induction on a wrong foundation.
+  \item Suppose that there is a closed odd walk whose length $l$ satisfies $1 \leq l < \abs{W}$. Note that the walk is both closed and odd in \cref{lem:con-walk-cycle}; you cannot apply mathematical induction on a wrong basis.
   \item Induction step: $l > 1$:
     \begin{enumerate}
       \item Case 1: $W$ has no repeated vertex other than the first and last vertices being the same. So, $W$ itself forms a desired cycle.
       \item Case 2: $W$ contains a repeated vertex $v$. Saying vertex $v$ in the walk in \cref{fig:con-walk-cycle}, for some repeated vertex $v$, such a vertex partitions the walk into two cycles, where one is odd length and the other is even length, so we have an odd cycle in an odd walk.
     \end{enumerate}
-  \item As shown in \cref{fig:con-walk-cycle}, for a $v-v$-cycle for vertices on the left of $v$, there is a 5-cycle. However, for the cycle on the right, closed even walks are not covered by \cref{lem:con-walk-cycle}. The base is important.
+  \item As shown in \cref{fig:con-walk-cycle}, for a $v,v$-cycle for vertices on the left of $v$, there is a 5-cycle. However, for the cycle on the right, closed even walks are not covered by \cref{lem:con-walk-cycle}. The basis is important.
 \end{enumerate*}
 
 \begin{figure}[htbp]
@@ -1313,8 +1313,8 @@ $\Leftarrow$: In this direction, we use the direct method to prove it.
 Case 1 for $\Leftarrow$:
 \begin{enumerate}
   \item Let $G$ be a graph with no cycle. Without a cycle in $G$, there is no odd cycle.
-  \item Case a: If $G$ has no edges, we can partition vertices into two sets and get a bipartite graph.
-  \item Case b: If $G$ has edges (has only vertices), by putting the endpoints of each edges into two different sets, we get two disjoint independent sets. For zero-degree vertices, they can be in one of the two disjoint sets with the graph remaining bipartite.
+  \item Case a: If $G$ has no edge (has only vertices), we can partition vertices into two sets and get a bipartite graph.
+  \item Case b: If $G$ has edges, by putting the endpoints of each edges into two different sets, we get two disjoint independent sets. For zero-degreed vertices, they can be in one of the two disjoint sets with the graph remaining bipartite.
 \end{enumerate}
 
 Case 2 for $\Leftarrow$:
@@ -1391,7 +1391,7 @@ Eulerian solved the seven-bridge problem (\cref{subsubsec:con-seven-bridges}), a
 \end{figure}
 
 \begin{theorem}{}{con-eulerian-component-degree}
-  A graph $G$ is Eulerian if and only if \ul{it has \textbf{at most} one nontrivial component} and \ul{all its vertices have \textbf{even degree}}.
+  A graph $G$ is Eulerian if and only if \ul{it has \textbf{at most} one nontrivial component} and \ul{all its vertices have \textbf{even} \textbf{degree}}. % use isolated bolded words to overcome nested style issues.
 \end{theorem}
 
 Recall \cref{def:con-component}. A trivial component is a component with only a vertex.
@@ -1529,7 +1529,7 @@ Recall \cref{def:con-self-comp}: A \textbf{decomposition} of a graph is a list o
   \item The lower bound is achieved by a path $P_n$ or a tree with $n$ nodes, which connects all $n$ vertices with $n - 1$ edges.
 \end{enumerate*}
 
-To prove that $\beta$ is the minimum (\cref{rem:con-maximum}) of $f(G)$ for graphs in a class $\bm{G}$, there are two prerequisites:
+Note: To prove that $\beta$ is the minimum (\cref{rem:con-maximum}) of $f(G)$ for graphs in a class $\bm{G}$, there are two prerequisites:
 \begin{enumerate*}
   \item $f(G) \geq \beta$ for all $G \in \bm{G}$.
   \item $f(G) = \beta$ for some $G \in \bm{G}$. (Minimum value exists.)
