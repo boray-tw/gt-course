@@ -135,8 +135,8 @@
 \newcommand{\reusefigure}[2][htbp]{%
   {\addtocounter{figure}{-1}%
    \renewcommand{\theHfigure}{dupe-fig}% If you're using hyperref
-   \renewcommand{\thefigure}{\ref{#2}}% Figure counter is \ref
-   %\renewcommand{\thefigure}{\ref{#2} (repeated)}% Figure counter + "(repeated)"
+   %\renewcommand{\thefigure}{\ref{#2}}% Figure counter is \ref
+   \renewcommand{\thefigure}{\ref{#2} (repeated)}% Figure counter + "(repeated)"
    \renewcommand{\addcontentsline}[3]{}% Avoid placing figure in LoF
    \renewcommand{\label}[1]{}% Make \label inactive
    \begin{figure}[#1] \csname sf:#2\endcsname \end{figure}}
